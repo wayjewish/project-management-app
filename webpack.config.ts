@@ -3,6 +3,7 @@ import TerserPlugin from 'terser-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyPlugin  from 'copy-webpack-plugin';
 
 import { Configuration as WebpackConfiguration } from "webpack";
 import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
@@ -46,15 +47,27 @@ const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
           test: /\.css$/,
           use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
         },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: 'asset/resource',
+        },
       ],
     },
     optimization: {
       minimize: true,
       minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
     },
-    plugins: [new MiniCssExtractPlugin(), new HtmlWebpackPlugin({
-      template: './src/index.html',
-    })],
+    plugins: [
+      new MiniCssExtractPlugin(), 
+      new HtmlWebpackPlugin({
+        template: './src/index.html',
+      }), 
+      new CopyPlugin({
+        patterns: [
+          { from: 'src/static', to: 'static' },
+        ],
+      }),
+    ],
     devServer: {
       static: {
         directory: path.join(__dirname, './src/assets'),
