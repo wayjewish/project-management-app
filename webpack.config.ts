@@ -45,7 +45,7 @@ const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
         },
         {
           test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
+          use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif)$/i,
