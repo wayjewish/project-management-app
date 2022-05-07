@@ -19,8 +19,8 @@ const Wrap = styled.div`
 `;
 
 const LogoRss = styled.img`
-  width: 5rem;
-  height: 2rem;
+  width: 10rem;
+  height: 4rem;
 `;
 
 function HeaderComponent() {
@@ -28,16 +28,20 @@ function HeaderComponent() {
     <Footer>
       <Wrap>
         <Box sx={{ m: 2 }}>
-          <Link href="https://github.com/wayjewish/project-management-app/" color="inherit">
-            <GitHubIcon />
-          </Link>
-          <Link href="https://rs.school/" color="inherit">
-            <LogoRss src={Rss}></LogoRss>
-          </Link>
+          <Typography style={{ color: '#FFFFFF' }}>Project management app | REACT2022Q1</Typography>
         </Box>
         <Divider variant="middle" style={{ width: 500, borderColor: '#FFFFFF' }} />
-        <Box sx={{ m: 2 }}>
-          <Typography style={{ color: '#FFFFFF' }}>TrackerRss, 2022 - made in Minsk, BY</Typography>
+        <Box sx={{ m: 2, display: 'flex', alignContent:'center'}}>
+          <Box>
+          <Link href="https://github.com/wayjewish" style={{ textDecoration: 'none',color: '#FFFFFF' }}><Typography>Dmitry Uvarov | @wayjewish</Typography></Link>
+          <Link href="https://github.com/gomunkool" style={{ textDecoration: 'none',color: '#FFFFFF' }}><Typography>Vadzim Maroz | @gomunkool</Typography></Link>
+          <Link href="https://github.com/KaterinaKachann" style={{ textDecoration: 'none',color: '#FFFFFF' }}><Typography>Ekaterina Kachan | @KaterinaKachann</Typography></Link>
+          </Box>
+          <Box>
+            <Link href="https://rs.school/" color="inherit">
+              <LogoRss src={Rss}></LogoRss>
+            </Link>
+          </Box>
         </Box>
       </Wrap>
     </Footer>
