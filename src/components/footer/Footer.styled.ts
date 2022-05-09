@@ -3,21 +3,21 @@ import { styled } from '@mui/material/styles';
 import * as palette from '../../Variables';
 
 export const Footer = styled('footer')(({ theme }) => ({
-    width: '100%',
+  width: '100%',
   height: '100%',
   background: `${palette.COLOR_BACKGROUND}`,
-//   [theme.breakpoints.down('xs')]: {
-//     width: '320px',
-//   },
-//   [theme.breakpoints.up('sm')]: {
-//     width: '768px',
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     width: '1440px',
-//   },
-//   [theme.breakpoints.up('xl')]: {
-//     width: '1920px',
-//   },
+  //   [theme.breakpoints.down('xs')]: {
+  //     width: '320px',
+  //   },
+  //   [theme.breakpoints.up('sm')]: {
+  //     width: '768px',
+  //   },
+  //   [theme.breakpoints.up('md')]: {
+  //     width: '1440px',
+  //   },
+  //   [theme.breakpoints.up('xl')]: {
+  //     width: '1920px',
+  //   },
 }));
 
 export const Wrap = styled('div')(({ theme }) => ({
@@ -44,24 +44,6 @@ export const LogoRss = style.img`
   height: 100%;
   width: 100%;
 `;
-
-export const Links = styled('p')(({ theme }) => ({
-  textDecoration: 'none',
-  fontFamily: 'Roboto',
-  fontWeight: 400,
-  lineHeight: '166%',
-  letterSpacing: '0.4px',
-  color: '#FFFFFF',
-  [theme.breakpoints.down('md')]: {
-    fontSize: `${palette.FONT_SIZE_1}`,
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: `${palette.FONT_SIZE_2}`,
-  },
-  [theme.breakpoints.up('lg')]: {
-    fontSize: `${palette.FONT_SIZE_2}`,
-  },
-}));
 
 export const Container = styled('div')(({ theme }) => ({
   width: '410px',
@@ -96,5 +78,4 @@ export const Divider = styled('hr')(({ theme }) => ({
   [theme.breakpoints.up('xl')]: {
     width: '1400px',
   },
-
 }));

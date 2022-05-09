@@ -1,9 +1,9 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
-
-import { Footer, Wrap, LogoRss, Links, Container, Divider } from './Footer.styled';
 import { Box, Link } from '@mui/material';
+import { Footer, Wrap, LogoRss, Container, Divider } from './Footer.styled';
 import Rss from '../../assets/icons/rs_school.svg';
+import * as palette from '../../Variables';
 
 export default function FooterComponent() {
   return (
@@ -18,13 +18,37 @@ export default function FooterComponent() {
         <Container>
           <Box>
             <Link href="https://github.com/wayjewish">
-              <Links>Dmitry Uvarov | @wayjewish</Links>
+              <Typography
+                variant="subtitle1"
+                component="div"
+                color={`${palette.COLOR_FONT}`}
+                lineHeight={'166%'}
+                letterSpacing={'0.4px'}
+              >
+                Dmitry Uvarov | @wayjewish
+              </Typography>
             </Link>
             <Link href="https://github.com/gomunkool">
-              <Links>Vadzim Maroz | @gomunkool</Links>
+              <Typography
+                variant="subtitle1"
+                component="div"
+                color={`${palette.COLOR_FONT}`}
+                lineHeight={'166%'}
+                letterSpacing={'0.4px'}
+              >
+                Vadzim Maroz | @gomunkool
+              </Typography>
             </Link>
             <Link href="https://github.com/KaterinaKachann">
-              <Links>Ekaterina Kachan | @KaterinaKachann</Links>
+              <Typography
+                variant="subtitle1"
+                component="div"
+                color={`${palette.COLOR_FONT}`}
+                lineHeight={'166%'}
+                letterSpacing={'0.4px'}
+              >
+                Ekaterina Kachan | @KaterinaKachann
+              </Typography>
             </Link>
           </Box>
           <Box>
