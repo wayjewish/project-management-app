@@ -19,7 +19,7 @@ export default function FooterComponent() {
           <Box>
             <Link href="https://github.com/wayjewish">
               <Typography
-                variant="subtitle1"
+                sx={{ typography: { sm: 'body1', xs: 'body2' } }}
                 component="div"
                 color={`${palette.COLOR_FONT}`}
                 lineHeight={'166%'}
@@ -30,7 +30,7 @@ export default function FooterComponent() {
             </Link>
             <Link href="https://github.com/gomunkool">
               <Typography
-                variant="subtitle1"
+                sx={{ typography: { sm: 'body1', xs: 'body2' } }}
                 component="div"
                 color={`${palette.COLOR_FONT}`}
                 lineHeight={'166%'}
@@ -41,7 +41,7 @@ export default function FooterComponent() {
             </Link>
             <Link href="https://github.com/KaterinaKachann">
               <Typography
-                variant="subtitle1"
+                sx={{ typography: { sm: 'body1', xs: 'body2' } }}
                 component="div"
                 color={`${palette.COLOR_FONT}`}
                 lineHeight={'166%'}
