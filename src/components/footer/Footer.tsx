@@ -10,47 +10,59 @@ export default function FooterComponent() {
     <Footer>
       <Wrap>
         <Box>
-          <Typography sx={{ typography: { sm: 'subtitle1', xs: 'caption' } }} color={`${palette.COLOR_FONT}`} lineHeight={'175%'} letterSpacing={'0.15px'}>
+          <Typography
+            sx={{ typography: { sm: 'subtitle1', xs: 'caption' } }}
+            color={`${palette.COLOR_FONT}`}
+          >
             Project management app | REACT2022Q1
           </Typography>
         </Box>
         <Divider />
         <Container>
-          <Box>
-            <Link href="https://github.com/wayjewish">
-              <Typography
-                sx={{ typography: { sm: 'caption', xs: 'caption' } }}
-                component="div"
-                color={`${palette.COLOR_FONT}`}
-                lineHeight={'166%'}
-                letterSpacing={'0.4px'}
-              >
-                Dmitry Uvarov | @wayjewish
-              </Typography>
-            </Link>
-            <Link href="https://github.com/gomunkool">
-              <Typography
-                sx={{ typography: { sm: 'caption', xs: 'caption' } }}
-                component="div"
-                color={`${palette.COLOR_FONT}`}
-                lineHeight={'166%'}
-                letterSpacing={'0.4px'}
-              >
-                Vadzim Maroz | @gomunkool
-              </Typography>
-            </Link>
-            <Link href="https://github.com/KaterinaKachann">
-              <Typography
-                sx={{ typography: { sm: 'caption', xs: 'caption' } }}
-                component="div"
-                color={`${palette.COLOR_FONT}`}
-                lineHeight={'166%'}
-                letterSpacing={'0.4px'}
-              >
-                Ekaterina Kachan | @KaterinaKachann
-              </Typography>
-            </Link>
-          </Box>
+          <nav>
+            <ul>
+              <li>
+                <Link href="https://github.com/wayjewish">
+                  <Typography
+                    sx={{ typography: { sm: 'caption', xs: 'caption' } }}
+                    component="p"
+                    color={`${palette.COLOR_FONT}`}
+                    lineHeight={'166%'}
+                    letterSpacing={'0.4px'}
+                  >
+                    Dmitry Uvarov | @wayjewish
+                  </Typography>
+                </Link>
+              </li>
+              <li>
+                <Link href="https://github.com/gomunkool">
+                  <Typography
+                    sx={{ typography: { sm: 'caption', xs: 'caption' } }}
+                    component="p"
+                    color={`${palette.COLOR_FONT}`}
+                    lineHeight={'166%'}
+                    letterSpacing={'0.4px'}
+                  >
+                    Vadzim Maroz | @gomunkool
+                  </Typography>
+                </Link>
+              </li>
+
+              <li>
+                <Link href="https://github.com/KaterinaKachann">
+                  <Typography
+                    sx={{ typography: { sm: 'caption', xs: 'caption' } }}
+                    component="p"
+                    color={`${palette.COLOR_FONT}`}
+                    lineHeight={'166%'}
+                    letterSpacing={'0.4px'}
+                  >
+                    Ekaterina Kachan | @KaterinaKachann
+                  </Typography>
+                </Link>
+              </li>
+            </ul>
+          </nav>
           <Box>
             <Link href="https://rs.school/" color="inherit">
               <LogoRss src={Rss}></LogoRss>

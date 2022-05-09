@@ -2,11 +2,11 @@ import style from '@emotion/styled';
 import { styled } from '@mui/material/styles';
 import * as palette from '../../Variables';
 
-export const Footer = styled('footer')(({ theme }) => ({
+export const Footer = style.footer`
   width: '100%',
   height: '100%',
-  background: `${palette.COLOR_BACKGROUND}`,
-}));
+  background: ${palette.COLOR_BACKGROUND},
+`;
 
 export const Wrap = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -29,24 +29,17 @@ export const Wrap = styled('div')(({ theme }) => ({
 }));
 
 export const LogoRss = style.img`
-  height: 100%;
-  width: 100%;
+  height: 36px;
+  width: 100px;
 `;
 
 export const Container = styled('div')(({ theme }) => ({
-  width: '410px',
   display: 'flex',
   justifyContent: 'space-between',
   flexWrap: 'wrap',
-
+  gap: '92px',
   [theme.breakpoints.down('sm')]: {
-    width: '280px',
-  },
-  [theme.breakpoints.up('md')]: {
-    width: '410px',
-  },
-  [theme.breakpoints.up('lg')]: {
-    width: '410px',
+    gap: '0px',
   },
 }));
 
@@ -54,16 +47,5 @@ export const Divider = styled('hr')(({ theme }) => ({
   border: '1px solid rgba(255, 255, 255, 0.12)',
   marginTop: '10px',
   marginBottom: '10px',
-  [theme.breakpoints.up('xs')]: {
-    width: '280px',
-  },
-  [theme.breakpoints.up('sm')]: {
-    width: '335px',
-  },
-  [theme.breakpoints.up('md')]: {
-    width: '768px',
-  },
-  [theme.breakpoints.up('xl')]: {
-    width: '1400px',
-  },
+  width: '100%',
 }));
