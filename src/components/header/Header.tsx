@@ -5,7 +5,7 @@ import styled from '@emotion/styled'
 
 const Header = styled.header`
   width: 100%;
-
+  height: 80px;
   border-bottom: 1px solid var(--color-black);
   background: #cccccc;
 `;
