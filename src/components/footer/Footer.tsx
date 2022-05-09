@@ -26,7 +26,7 @@ export default function FooterComponent() {
                   <Typography
                     sx={{ typography: { sm: 'caption', xs: 'caption' } }}
                     component="p"
-                    color={`${palette.COLOR_FONT}`}
+                    color={'white'}
                     lineHeight={'166%'}
                     letterSpacing={'0.4px'}
                   >
@@ -39,7 +39,7 @@ export default function FooterComponent() {
                   <Typography
                     sx={{ typography: { sm: 'caption', xs: 'caption' } }}
                     component="p"
-                    color={`${palette.COLOR_FONT}`}
+                    color={'white'}
                     lineHeight={'166%'}
                     letterSpacing={'0.4px'}
                   >
@@ -53,7 +53,7 @@ export default function FooterComponent() {
                   <Typography
                     sx={{ typography: { sm: 'caption', xs: 'caption' } }}
                     component="p"
-                    color={`${palette.COLOR_FONT}`}
+                    color={'white'}
                     lineHeight={'166%'}
                     letterSpacing={'0.4px'}
                   >

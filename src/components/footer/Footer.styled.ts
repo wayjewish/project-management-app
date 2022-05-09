@@ -1,11 +1,14 @@
 import style from '@emotion/styled';
 import { styled } from '@mui/material/styles';
 import * as palette from '../../Variables';
+import { indigo } from '@mui/material/colors';
+
+
 
 export const Footer = style.footer`
-  width: '100%',
-  height: '100%',
-  background: ${palette.COLOR_BACKGROUND},
+  width: 100%;
+  height: 100%;
+  background: ${indigo['A200']};
 `;
 
 export const Wrap = styled('div')(({ theme }) => ({
@@ -37,15 +40,16 @@ export const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   flexWrap: 'wrap',
+  alignItems: 'center',
   gap: '92px',
   [theme.breakpoints.down('sm')]: {
     gap: '0px',
   },
 }));
 
-export const Divider = styled('hr')(({ theme }) => ({
-  border: '1px solid rgba(255, 255, 255, 0.12)',
-  marginTop: '10px',
-  marginBottom: '10px',
-  width: '100%',
-}));
+export const Divider = style.hr`
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%
+`;
