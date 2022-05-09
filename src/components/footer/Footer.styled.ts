@@ -6,18 +6,6 @@ export const Footer = styled('footer')(({ theme }) => ({
   width: '100%',
   height: '100%',
   background: `${palette.COLOR_BACKGROUND}`,
-  //   [theme.breakpoints.down('xs')]: {
-  //     width: '320px',
-  //   },
-  //   [theme.breakpoints.up('sm')]: {
-  //     width: '768px',
-  //   },
-  //   [theme.breakpoints.up('md')]: {
-  //     width: '1440px',
-  //   },
-  //   [theme.breakpoints.up('xl')]: {
-  //     width: '1920px',
-  //   },
 }));
 
 export const Wrap = styled('div')(({ theme }) => ({
