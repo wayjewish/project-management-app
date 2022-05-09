@@ -9,8 +9,7 @@ function HeaderComponent() {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <AppBar
-        sx={{ bgcolor: '#F2F2FD', boxShadow: 'none', position: 'fixied', overflowY: 'scroll' }}
-      >
+        sx={{ bgcolor: '#F2F2FD', boxShadow: 'none', position: 'fixied', overflowY: 'scroll' }}>
         <Toolbar variant="regular" style={{ minHeight: '64px', paddingLeft: '24px' }}>
           <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 }}>
             <span style={{ color: '#000000' }}>
@@ -19,22 +18,19 @@ function HeaderComponent() {
             </span>
             <Circle></Circle>
           </Typography>
-
           <LangBtn />
           <Button
             variant="contained"
             color="inherit"
             size="small"
-            sx={{ bgcolor: '#F2F2FD', color: '#000000', mr: 2 }}
-          >
+            sx={{ bgcolor: '#F2F2FD', color: '#000000', mr: 2 }}>
             Log in
           </Button>
           <Button
             variant="contained"
             color="inherit"
             size="small"
-            sx={{ bgcolor: '#F2F2FD', color: '#000000' }}
-          >
+            sx={{ bgcolor: '#F2F2FD', color: '#000000' }}>
             Sign up
           </Button>
         </Toolbar>

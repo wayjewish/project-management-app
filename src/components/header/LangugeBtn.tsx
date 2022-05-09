@@ -21,8 +21,7 @@ export default function BasicSelect() {
           id="demo-simple-select"
           value={lang}
           label="Language"
-          onChange={handleChange}
-        >
+          onChange={handleChange}>
           <MenuItem value={'Ru'}>Ru</MenuItem>
           <MenuItem value={'En'}>En</MenuItem>
         </Select>
