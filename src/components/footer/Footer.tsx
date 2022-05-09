@@ -10,7 +10,7 @@ export default function FooterComponent() {
     <Footer>
       <Wrap>
         <Box>
-          <Typography style={{ color: '#FFFFFF', fontSize: '100%' }}>
+          <Typography sx={{ typography: { sm: 'subtitle1', xs: 'caption' } }} color={`${palette.COLOR_FONT}`} lineHeight={'175%'} letterSpacing={'0.15px'}>
             Project management app | REACT2022Q1
           </Typography>
         </Box>
@@ -19,7 +19,7 @@ export default function FooterComponent() {
           <Box>
             <Link href="https://github.com/wayjewish">
               <Typography
-                sx={{ typography: { sm: 'body1', xs: 'body2' } }}
+                sx={{ typography: { sm: 'body1', xs: 'caption' } }}
                 component="div"
                 color={`${palette.COLOR_FONT}`}
                 lineHeight={'166%'}
@@ -30,7 +30,7 @@ export default function FooterComponent() {
             </Link>
             <Link href="https://github.com/gomunkool">
               <Typography
-                sx={{ typography: { sm: 'body1', xs: 'body2' } }}
+                sx={{ typography: { sm: 'body1', xs: 'caption' } }}
                 component="div"
                 color={`${palette.COLOR_FONT}`}
                 lineHeight={'166%'}
@@ -41,7 +41,7 @@ export default function FooterComponent() {
             </Link>
             <Link href="https://github.com/KaterinaKachann">
               <Typography
-                sx={{ typography: { sm: 'body1', xs: 'body2' } }}
+                sx={{ typography: { sm: 'body1', xs: 'caption' } }}
                 component="div"
                 color={`${palette.COLOR_FONT}`}
                 lineHeight={'166%'}
