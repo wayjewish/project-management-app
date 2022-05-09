@@ -38,8 +38,8 @@ export default function FooterComponent() {
             </li>
           </ul>
           <Box>
-            <Link href="https://rs.school/" color="inherit">
-              <LogoRss src={Rss}></LogoRss>
+            <Link href="https://rs.school/">
+              <LogoRss src={Rss} />
             </Link>
           </Box>
         </Bot>
