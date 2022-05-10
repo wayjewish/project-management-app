@@ -27,7 +27,7 @@ export const Wrap = styled('div')(({ theme }) => ({
   },
 }));
 
-export const Content = styled('div')(({ theme }) => ({
+export const Content = styled('div')({
   display: 'flex',
   flexWrap: 'wrap',
   flexDirection: 'row',
@@ -35,7 +35,7 @@ export const Content = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
   width: '100%',
   marginBottom: '30px',
-}));
+});
 export const Image = styled('img')(({ theme }) => ({
   [theme.breakpoints.up('xs')]: {
     width: '0px',
@@ -55,7 +55,7 @@ export const BoxCards = styled('div')(({ theme }) => ({
   flexGrow: 1,
   marginBottom: '30px',
   [theme.breakpoints.down('md')]: {
-    display:'none',
+    display: 'none',
   },
 }));
 export const Item = styled('div')({
@@ -67,9 +67,8 @@ export const Item = styled('div')({
   padding: '16px',
 });
 export const BoxVideo = styled('div')({
-    border: '1px solid #000000',
-    borderRadius: '10px',
-    width: '100%',
-    height: '335px',
-})
-
+  border: '1px solid #000000',
+  borderRadius: '10px',
+  width: '100%',
+  height: '335px',
+});

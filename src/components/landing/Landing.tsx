@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Grid, Link, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { Main, Wrap, Content, Item, Image, BoxVideo, BoxCards } from './Landing.styled';
 import MainImg from '../../assets/img/main.svg';
 function Landing() {
@@ -14,13 +14,15 @@ function Landing() {
               <br />
               Контролируйте задачи с помощью одного инструмента.
             </Typography>
-            <Button variant="contained" size='large'>попробовать</Button>
+            <Button variant="contained" size="large">
+              попробовать
+            </Button>
           </Box>
           <Box>
             <Image src={MainImg} />
           </Box>
         </Content>
-        <BoxCards >
+        <BoxCards>
           <Grid container spacing={3} style={{ justifyContent: 'center' }}>
             <Grid item xs={6}>
               <Item>
