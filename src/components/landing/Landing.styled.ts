@@ -1,4 +1,3 @@
-import { Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const Main = styled('main')({
@@ -11,8 +10,8 @@ export const Wrap = styled('div')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
   flexDirection: 'column',
-  alignItems: 'center',
-  margin: '30px 0px',
+  alignItems: 'flex-start',
+  margin: '36px 0px',
 
   [theme.breakpoints.up('xs')]: {
     padding: '0px 14px',
@@ -35,23 +34,31 @@ export const Content = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   width: '100%',
-  marginBottom: '20px',
+  marginBottom: '30px',
 }));
 export const Image = styled('img')(({ theme }) => ({
-    [theme.breakpoints.up('xs')]: {
-        width: '0px',
-        height: '0px',
-      },
-    [theme.breakpoints.up('md')]: {
-        width: '290px',
-        height: '154px',
-      },
+  [theme.breakpoints.up('xs')]: {
+    width: '0px',
+    height: '0px',
+  },
+  [theme.breakpoints.up('md')]: {
+    width: '290px',
+    height: '154px',
+  },
   [theme.breakpoints.up('lg')]: {
-    width: '472px',
-    height: '242px',
+    width: '570px',
+    height: '245px',
   },
 }));
-export const Item = styled(Paper)({
+
+export const BoxCards = styled('div')(({ theme }) => ({
+  flexGrow: 1,
+  marginBottom: '30px',
+  [theme.breakpoints.down('md')]: {
+    display:'none',
+  },
+}));
+export const Item = styled('div')({
   textAlign: 'left',
   background: 'white',
   boxShadow:
@@ -59,3 +66,10 @@ export const Item = styled(Paper)({
   borderRadius: '4px',
   padding: '16px',
 });
+export const BoxVideo = styled('div')({
+    border: '1px solid #000000',
+    borderRadius: '10px',
+    width: '100%',
+    height: '335px',
+})
+

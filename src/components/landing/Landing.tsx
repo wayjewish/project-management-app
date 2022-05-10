@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, Grid, Link, Typography } from '@mui/material';
-import { Main, Wrap, Content, Item, Image } from './Landing.styled';
+import { Main, Wrap, Content, Item, Image, BoxVideo, BoxCards } from './Landing.styled';
 import MainImg from '../../assets/img/main.svg';
 function Landing() {
   return (
@@ -9,19 +9,19 @@ function Landing() {
         <Content>
           <Box>
             <Typography variant="h2">RSS Tracker</Typography>
-            <Typography variant="body1" mt={1} mb={1}>
+            <Typography variant="body1" mt={1} mb={1.6}>
               Сервис для совместной работы и организации процессов.
               <br />
               Контролируйте задачи с помощью одного инструмента.
             </Typography>
-            <Button variant="contained">попробовать</Button>
+            <Button variant="contained" size='large'>попробовать</Button>
           </Box>
           <Box>
-            <Image src={MainImg}/>
+            <Image src={MainImg} />
           </Box>
         </Content>
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid container spacing={2} style={{ justifyContent: 'center' }}>
+        <BoxCards >
+          <Grid container spacing={3} style={{ justifyContent: 'center' }}>
             <Grid item xs={6}>
               <Item>
                 <Typography variant="body1" mb={1}>
@@ -78,12 +78,12 @@ function Landing() {
               </Item>
             </Grid>
           </Grid>
-        </Box>
-        <Box>
+        </BoxCards>
+        <Box width={'100%'}>
           <Typography variant="h5" mb={1} textAlign={'left'}>
             Что такое Tracker
           </Typography>
-          <Box></Box>
+          <BoxVideo></BoxVideo>
         </Box>
       </Wrap>
     </Main>
