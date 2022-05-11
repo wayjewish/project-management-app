@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, Card, CardContent, Container, Grid, Typography } from '@mui/material';
-import { HomePage, HomeImage, BoxVideo, BoxCards } from './Landing.styled';
+import { HomePage, HomeImage, BoxVideo } from './Landing.styled';
 import MainImg from '../../assets/img/home.png';
 function Landing() {
   return (
@@ -14,10 +14,12 @@ function Landing() {
           mb={3}
         >
           <Box>
-            <Typography component="h1" variant="h2">RSS Tracker</Typography>
+            <Typography component="h1" variant="h2">
+              RSS Tracker
+            </Typography>
             <Typography variant="body1" mt={1} mb={1.6}>
-              Сервис для совместной работы и организации процессов.
-              Контролируйте задачи с помощью одного инструмента.
+              Сервис для совместной работы и организации процессов. Контролируйте задачи с помощью
+              одного инструмента.
             </Typography>
             <Button variant="contained" size="large">
               попробовать
@@ -55,7 +57,7 @@ function Landing() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={4}container>
+            <Grid item xs={12} sm={4} container>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -68,7 +70,7 @@ function Landing() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} sm={4}container>
+            <Grid item xs={12} sm={4} container>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -106,7 +108,7 @@ function Landing() {
           <Typography variant="h5" mb={1} textAlign={'left'}>
             Tracker подойдёт разным командам
           </Typography>
-          <Grid container spacing={3} style={{ justifyContent: 'center' }} gridAutoRows={200}>
+          <Grid sx={{ flexGrow: 1 }} container spacing={3} gridAutoRows={200}>
             <Grid item sm={4} xs={12}>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
