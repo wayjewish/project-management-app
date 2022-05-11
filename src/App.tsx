@@ -5,13 +5,16 @@ import Home from './pages/Home/Home';
 import { GlobalStyles } from './Global.styled';
 import { Global } from '@emotion/react';
 import { Box } from '@mui/material';
+import { Main } from './App.styled';
 
 function App() {
   return (
     <Box>
       <Global styles={GlobalStyles} />
       <Header />
-      <Home />
+      <Main>
+        <Home />
+      </Main>
       <Footer />
     </Box>
   );
