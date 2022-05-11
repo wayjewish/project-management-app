@@ -1,12 +1,6 @@
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const HomePage = styled('main')({
-  width: '100%',
-  height: '100%',
-  background: 'white',
-});
-
 export const HomeImage = styled('img')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     width: '0px',
