@@ -15,9 +15,8 @@ function Landing() {
         >
           <Box>
             <Typography component="h1" variant="h2">RSS Tracker</Typography>
-            <Typography variant="body1" mt={1} mb={1.6}>
+            <Typography variant="body1" mt={1} mb={1.6} >
               Сервис для совместной работы и организации процессов.
-              <br />
               Контролируйте задачи с помощью одного инструмента.
             </Typography>
             <Button variant="contained" size="large">
