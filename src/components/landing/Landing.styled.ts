@@ -13,14 +13,6 @@ export const HomeImage = styled('img')(({ theme }) => ({
   },
 }));
 
-export const BoxCards = styled(Box)(({ theme }) => ({
-  flexGrow: 1,
-  marginBottom: '30px',
-  [theme.breakpoints.down('md')]: {
-    display: 'none',
-  },
-}));
-
 export const BoxVideo = styled(Box)({
   border: '1px solid #000000',
   borderRadius: '10px',

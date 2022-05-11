@@ -15,7 +15,7 @@ function Landing() {
         >
           <Box>
             <Typography component="h1" variant="h2">RSS Tracker</Typography>
-            <Typography variant="body1" mt={1} mb={1.6} >
+            <Typography variant="body1" mt={1} mb={1.6}>
               Сервис для совместной работы и организации процессов.
               Контролируйте задачи с помощью одного инструмента.
             </Typography>
@@ -27,9 +27,9 @@ function Landing() {
             <HomeImage src={MainImg} />
           </Box>
         </Box>
-        <BoxCards>
+        <Box flexGrow={1} mb={3}>
           <Grid sx={{ flexGrow: 1 }} container spacing={3} gridAutoRows={200}>
-            <Grid item xs={6} container>
+            <Grid item xs={12} sm={6} container>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -42,7 +42,7 @@ function Landing() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={6} container>
+            <Grid item xs={12} sm={6} container>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -55,7 +55,7 @@ function Landing() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={4} container>
+            <Grid item xs={12} sm={4}container>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -68,7 +68,7 @@ function Landing() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={4} container>
+            <Grid item xs={12} sm={4}container>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -81,7 +81,7 @@ function Landing() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={4} container>
+            <Grid item xs={12} sm={4} container>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -95,19 +95,19 @@ function Landing() {
               </Card>
             </Grid>
           </Grid>
-        </BoxCards>
+        </Box>
         <Box width={'100%'} mb={3}>
           <Typography variant="h5" mb={1} textAlign={'left'}>
             Что такое Tracker
           </Typography>
           <BoxVideo />
         </Box>
-        <BoxCards>
+        <Box flexGrow={1} mb={3}>
           <Typography variant="h5" mb={1} textAlign={'left'}>
             Tracker подойдёт разным командам
           </Typography>
           <Grid container spacing={3} style={{ justifyContent: 'center' }} gridAutoRows={200}>
-            <Grid item xs={4}>
+            <Grid item sm={4} xs={12}>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -121,7 +121,7 @@ function Landing() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item sm={4} xs={12}>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -135,7 +135,7 @@ function Landing() {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item sm={4} xs={12}>
               <Card variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
@@ -150,7 +150,7 @@ function Landing() {
               </Card>
             </Grid>
           </Grid>
-        </BoxCards>
+        </Box>
       </Container>
     </HomePage>
   );
