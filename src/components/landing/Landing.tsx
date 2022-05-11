@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Card, CardContent, Container, Grid, Typography } from '@mui/material';
 import { HomePage, HomeImage, BoxVideo, BoxCards } from './Landing.styled';
-import MainImg from '../../assets/img/main.svg';
+import MainImg from '../../assets/img/home.png';
 function Landing() {
   return (
     <HomePage>
