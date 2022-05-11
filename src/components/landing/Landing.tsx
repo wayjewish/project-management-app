@@ -6,13 +6,7 @@ import MainImg from '../../assets/img/home.png';
 function Landing() {
   return (
     <Container>
-      <Box
-        display={'flex'}
-        flexDirection={'row'}
-        alignItems={'center'}
-        justifyContent={'space-between'}
-        mb={3}
-      >
+      <Box display={'flex'} alignItems={'center'} mb={3}>
         <Box>
           <Typography component="h1" variant="h2">
             RSS Tracker
