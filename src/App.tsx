@@ -1,18 +1,22 @@
 import React from 'react';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
-import Landing from './components/landing/Landing';
+import Home from './pages/Home/Home';
 import { GlobalStyles } from './Global.styled';
 import { Global } from '@emotion/react';
+import { Box } from '@mui/material';
+import { Main } from './App.styled';
 
 function App() {
   return (
-    <div>
+    <Box>
       <Global styles={GlobalStyles} />
       <Header />
-      <Landing />
+      <Main>
+        <Home />
+      </Main>
       <Footer />
-    </div>
+    </Box>
   );
 }
 export default App;
