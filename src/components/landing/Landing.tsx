@@ -81,12 +81,55 @@ function Landing() {
             </Grid>
           </Grid>
         </BoxCards>
-        <Box width={'100%'}>
+        <Box width={'100%'} mb={3}>
           <Typography variant="h5" mb={1} textAlign={'left'}>
             Что такое Tracker
           </Typography>
-          <BoxVideo></BoxVideo>
+          <BoxVideo />
         </Box>
+        <BoxCards width={'100%'}>
+          <Typography variant="h5" mb={1} textAlign={'left'}>
+            Tracker подойдёт разным командам
+          </Typography>
+          <Grid container spacing={3} style={{ justifyContent: 'center' }}>
+            <Grid item xs={4}>
+              <Item>
+                <Typography variant="body1" mb={1}>
+                  Разработка
+                </Typography>
+                <Typography variant="caption">
+                  Организуйте работу команды разработчиков в Tracker:
+                  оценивайте трудозатраты, планируйте спринты, контролируйте работу над задачами на
+                  виртуальной доске и следите за их выполнением на дашбордах.
+                </Typography>
+              </Item>
+            </Grid>
+            <Grid item xs={4}>
+              <Item>
+                <Typography variant="body1" mb={1}>
+                  Дизайн
+                </Typography>
+                <Typography variant="caption">
+                  Используйте Tracker для итеративной работы. Обсуждайте макеты с коллегами прямо на
+                  странице задачи. А для типовых задач создавайте шаблоны ТЗ и автоматизируйте
+                  процесс согласования.
+                </Typography>
+              </Item>
+            </Grid>
+            <Grid item xs={4}>
+              <Item>
+                <Typography variant="body1" mb={1}>
+                  Инфраструктура
+                </Typography>
+                <Typography variant="caption">
+                  Решайте в Tracker инфраструктурные задачи, такие как закупка оборудования,
+                  инвентаризация, учёт расходов и другие.<br/> Чтобы контролировать процесс их
+                  реализации.
+                </Typography>
+              </Item>
+            </Grid>
+          </Grid>
+        </BoxCards>
       </Wrap>
     </Main>
   );

@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const Main = styled('main')({
@@ -6,8 +7,7 @@ export const Main = styled('main')({
   background: 'white',
 });
 
-export const Wrap = styled('div')(({ theme }) => ({
-  display: 'flex',
+export const Wrap = styled(Box)(({ theme }) => ({
   flexWrap: 'wrap',
   flexDirection: 'column',
   alignItems: 'flex-start',
@@ -27,7 +27,7 @@ export const Wrap = styled('div')(({ theme }) => ({
   },
 }));
 
-export const Content = styled('div')({
+export const Content = styled(Box)({
   display: 'flex',
   flexWrap: 'wrap',
   flexDirection: 'row',
@@ -58,7 +58,7 @@ export const BoxCards = styled('div')(({ theme }) => ({
     display: 'none',
   },
 }));
-export const Item = styled('div')({
+export const Item = styled(Box)({
   textAlign: 'left',
   background: 'white',
   boxShadow:
@@ -66,7 +66,7 @@ export const Item = styled('div')({
   borderRadius: '4px',
   padding: '16px',
 });
-export const BoxVideo = styled('div')({
+export const BoxVideo = styled(Box)({
   border: '1px solid #000000',
   borderRadius: '10px',
   width: '100%',
