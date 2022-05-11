@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box, Button, Card, CardContent, Container, Grid, Typography } from '@mui/material';
-import { HomeImage, BoxVideo } from './Landing.styled';
+import { HomeImage, BoxVideo } from './Main.styled';
 import MainImg from '../../assets/img/home.png';
 
-function Landing() {
+function Main() {
   return (
     <Container>
       <Box display={'flex'} alignItems={'center'} mb={3}>
@@ -151,4 +151,4 @@ function Landing() {
   );
 }
 
-export default Landing;
+export default Main;

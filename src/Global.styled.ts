@@ -14,6 +14,7 @@ export const GlobalStyles = css`
     width: 100%;
     height: inherit;
     margin: 0 auto;
+    background-color: 'white';
   }
   li {
     list-style: none;
