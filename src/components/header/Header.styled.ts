@@ -5,26 +5,26 @@ import { AppBar, Box, FormControl } from '@mui/material';
 export const Header = styled(AppBar)({
   background: `${indigo['A200']}`,
   boxShadow: '0',
-  '.MuiAppBar-positionSticky ':{
+  '.MuiAppBar-positionSticky ': {
     top: '0',
     left: '0',
     zIndex: '2',
     height: '200px',
     position: 'sticky',
     backgroundColor: '#fafafa',
-}
+  },
 });
 
 export const Wrap = styled(Box)({
-    display: 'flex',
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'space-between',
-    padding: '20px'
-})
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '20px',
+});
 
 export const FormSelect = styled(FormControl)({
-    minWidth: '120px',
+  minWidth: '120px',
   '&:hover .MuiFormControl-root': {
     borderColor: 'white',
   },
@@ -44,7 +44,6 @@ export const FormSelect = styled(FormControl)({
 });
 
 export const BurgerBox = styled(Box)({
-    flexGrow: '1',
-    justifyContent: 'flex-end' ,
-   
-})
+  flexGrow: '1',
+  justifyContent: 'flex-end',
+});

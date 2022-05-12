@@ -1,7 +1,4 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { BurgerBox, FormSelect, Header } from './Header.styled';
 import { indigo } from '@mui/material/colors';
 import {
   Box,
@@ -14,8 +11,11 @@ import {
   SelectChangeEvent,
   Toolbar,
   useScrollTrigger,
+  Typography,
+  Button,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { BurgerBox, FormSelect, Header } from './Header.styled';
 
 function HeaderComponent() {
   const [lang, setLang] = React.useState('');
@@ -82,6 +82,7 @@ function HeaderComponent() {
                   sx={{
                     borderColor: { xs: `${indigo['A200']}`, md: 'white' },
                     color: { xs: `${indigo['A200']}`, md: 'white' },
+                    width: '100%',
                   }}
                   onClick={handleCloseNavMenu}
                 >
