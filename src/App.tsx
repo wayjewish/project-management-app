@@ -7,7 +7,7 @@ import { Global } from '@emotion/react';
 
 function App() {
   return (
-    <div>
+    <div data-testid="app">
       <Global styles={GlobalStyles} />
       <Header />
       <Landing />
