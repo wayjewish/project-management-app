@@ -1,12 +1,12 @@
 import { styled } from '@mui/material/styles';
 import { indigo } from '@mui/material/colors';
-import { Box, FormControl } from '@mui/material';
+import { AppBar, Box, FormControl } from '@mui/material';
 
-export const Header = styled('header')({
-  width: '100%',
-  height: '100%',
+export const Header = styled(AppBar)({
   background: `${indigo['A200']}`,
+  position: 'sticky',
 });
+
 export const Wrap = styled(Box)({
     display: 'flex',
     flexDirection:'row',
@@ -38,4 +38,10 @@ export const FormSelect = styled(FormControl)({
 export const BurgerBox = styled(Box)({
     flexGrow: '1',
     justifyContent: 'flex-end' ,
+   
+})
+
+export const ItemBurger = styled(Box)({
+    display: 'flex',
+    width: '100%',
 })

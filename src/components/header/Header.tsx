@@ -1,10 +1,9 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { BurgerBox, FormSelect, Wrap } from './Header.styled';
+import { BurgerBox, FormSelect, Header, ItemBurger } from './Header.styled';
 import { indigo } from '@mui/material/colors';
 import {
-  AppBar,
   Box,
   Container,
   IconButton,
@@ -16,8 +15,6 @@ import {
   Toolbar,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-
-const pages = ['Products', 'Pricing', 'Blog'];
 
 function HeaderComponent() {
   const [lang, setLang] = React.useState('');
@@ -33,7 +30,7 @@ function HeaderComponent() {
     setAnchorElNav(null);
   };
   return (
-    <AppBar position="sticky">
+    <Header position="sticky" sx={{ bgcolor: `${indigo['A200']}` }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography component="h1" variant="h5" color={'white'}>
@@ -67,41 +64,45 @@ function HeaderComponent() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <Button
-                size="medium"
-                color="inherit"
-                variant="outlined"
-                sx={{
-                  borderColor: { xs: `${indigo['A200']}`, md: 'white' },
-                  color: { xs: `${indigo['A200']}`, md: 'white' },
-                }}
-                onClick={handleCloseNavMenu}
-              >
-                Login
-              </Button>
-              <FormSelect size="small">
-                <InputLabel
-                  id="demo-simple-select-label"
-                  sx={{ color: { xs: `${indigo['A200']}`, md: 'white' } }}
+              <MenuItem>
+                <Button
+                  size="medium"
+                  color="inherit"
+                  variant="outlined"
+                  sx={{
+                    borderColor: { xs: `${indigo['A200']}`, md: 'white' },
+                    color: { xs: `${indigo['A200']}`, md: 'white' },
+                  }}
+                  onClick={handleCloseNavMenu}
                 >
-                  Language
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={lang}
-                  label="Language"
-                  onChange={handleChange}
-                  sx={{ color: { xs: `${indigo['A200']}`, md: 'white' } }}
-                >
-                  <MenuItem value={10} onClick={handleCloseNavMenu}>
-                    RU
-                  </MenuItem>
-                  <MenuItem value={20} onClick={handleCloseNavMenu}>
-                    EN
-                  </MenuItem>
-                </Select>
-              </FormSelect>
+                  Login
+                </Button>
+              </MenuItem>
+              <MenuItem>
+                <FormSelect size="small">
+                  <InputLabel
+                    id="demo-simple-select-label"
+                    sx={{ color: { xs: `${indigo['A200']}`, md: 'white' } }}
+                  >
+                    Language
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={lang}
+                    label="Language"
+                    onChange={handleChange}
+                    sx={{ color: { xs: `${indigo['A200']}`, md: 'white' } }}
+                  >
+                    <MenuItem value={10} onClick={handleCloseNavMenu}>
+                      RU
+                    </MenuItem>
+                    <MenuItem value={20} onClick={handleCloseNavMenu}>
+                      EN
+                    </MenuItem>
+                  </Select>
+                </FormSelect>
+              </MenuItem>
             </Menu>
           </BurgerBox>
           <Box
@@ -136,7 +137,7 @@ function HeaderComponent() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </Header>
   );
 }
 
