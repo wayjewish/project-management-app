@@ -34,3 +34,8 @@ export const FormSelect = styled(FormControl)({
     borderColor: 'white',
   },
 });
+
+export const BurgerBox = styled(Box)({
+    flexGrow: '1',
+    justifyContent: 'flex-end' ,
+})
