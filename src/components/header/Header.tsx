@@ -32,7 +32,14 @@ function HeaderComponent() {
   };
   const trigger = useScrollTrigger();
   return (
-    <Header position="sticky" elevation={trigger ? 24 : 0}>
+    <Header
+      position="sticky"
+      elevation={trigger ? 24 : 0}
+      sx={{
+        backgroundColor: trigger ? `${indigo['A400']}` : `${indigo['A200']}`,
+        height: trigger ? '100%' : '10%',
+      }}
+    >
       <Container>
         <Toolbar disableGutters>
           <Typography component="h1" variant="h5" color={'white'}>

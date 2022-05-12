@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { Container, Divider } from '@mui/material';
+import { Divider } from '@mui/material';
 import { indigo } from '@mui/material/colors';
 
 export const Footer = styled('footer')({

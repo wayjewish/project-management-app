@@ -2,7 +2,8 @@ import { styled } from '@mui/material/styles';
 import { indigo, grey} from '@mui/material/colors';
 import { AppBar, Box, FormControl, useScrollTrigger } from '@mui/material';
 
-const trigger = useScrollTrigger();
+// const trigger = useScrollTrigger();
+
 export const Header = styled(AppBar)({
   background: `${indigo['A200']}`,
   boxShadow: '0',
@@ -14,8 +15,6 @@ export const Header = styled(AppBar)({
     position: 'sticky',
     backgroundColor: `${grey[50]}`,
   },
-  backgroundColor: trigger ? `${indigo['A400']}` : `${indigo['A200']}`,
-  height: trigger ? '100%' : '10%',
 });
 
 export const Wrap = styled(Box)({
