@@ -3,6 +3,7 @@ import { Card,CardContent,Typography,Button } from '@mui/material';
 
 export const CardItem = styled(Card)(() => ({
   height: 200,
+  cursor: 'pointer'
 }));
 
 export const CardContentItem = styled(CardContent)(() => ({

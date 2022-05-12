@@ -1,12 +1,24 @@
 import React from 'react';
 import { TypographyBoardTitle } from './Board.styled';
-import { Container, Grid, Box } from '@mui/material';
+import { Container, Grid } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
 import BoardItem from './BoardItem/BoardItem';
 import BoardAdd from './BoardAdd/BoardAdd';
 
 const boardItemAmount = [1, 2, 3, 4, 5];
+interface IBoard {
+  id: string;
+  title: string;
+}
+interface IBoardsState {
+  boards: { boards: IBoard[] };
+}
 
 function Board() {
+  const dispatch = useDispatch();
+  const title = useSelector((state: IBoardsState) => {
+    console.log(state.boards.boards);
+  });
   return (
     <Container>
       <TypographyBoardTitle variant="h3">Boards</TypographyBoardTitle>
