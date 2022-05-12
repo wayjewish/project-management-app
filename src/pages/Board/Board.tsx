@@ -1,6 +1,6 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { TypographyBoardTitle } from './Board.styled';
+import { Container, Grid, Box } from '@mui/material';
 import BoardItem from './BoardItem/BoardItem';
 import BoardAdd from './BoardAdd/BoardAdd';
 
@@ -8,17 +8,15 @@ const boardItemAmount = [1, 2, 3, 4, 5];
 
 function Board() {
   return (
-    <Box maxWidth={'953px'} flex={'1 1 auto'} padding={'0 30px'}>
-      <Typography variant="h3" padding={'30px 0'}>
-        Boards
-      </Typography>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+    <Container>
+      <TypographyBoardTitle variant="h3">Boards</TypographyBoardTitle>
+      <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 1, sm: 2, md: 3 }}>
         {boardItemAmount.map((el) => {
           return <BoardItem key={el + Math.random()} />;
         })}
         <BoardAdd />
-      </Box>
-    </Box>
+      </Grid>
+    </Container>
   );
 }
 
