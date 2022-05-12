@@ -4,7 +4,15 @@ import { AppBar, Box, FormControl } from '@mui/material';
 
 export const Header = styled(AppBar)({
   background: `${indigo['A200']}`,
-  position: 'sticky',
+  boxShadow: '0',
+  '.MuiAppBar-positionSticky ':{
+    top: '0',
+    left: '0',
+    zIndex: '2',
+    height: '200px',
+    position: 'sticky',
+    backgroundColor: '#fafafa',
+}
 });
 
 export const Wrap = styled(Box)({
@@ -39,9 +47,4 @@ export const BurgerBox = styled(Box)({
     flexGrow: '1',
     justifyContent: 'flex-end' ,
    
-})
-
-export const ItemBurger = styled(Box)({
-    display: 'flex',
-    width: '100%',
 })

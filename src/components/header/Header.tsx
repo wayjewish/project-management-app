@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { BurgerBox, FormSelect, Header, ItemBurger } from './Header.styled';
+import { BurgerBox, FormSelect, Header } from './Header.styled';
 import { indigo } from '@mui/material/colors';
 import {
   Box,
@@ -13,6 +13,7 @@ import {
   Select,
   SelectChangeEvent,
   Toolbar,
+  useScrollTrigger,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -29,8 +30,17 @@ function HeaderComponent() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  const trigger = useScrollTrigger();
   return (
-    <Header position="sticky" sx={{ bgcolor: `${indigo['A200']}` }}>
+    <Header
+      position="sticky"
+      sx={{ bgcolor: `${indigo['A200']}` }}
+      elevation={trigger ? 24 : 0}
+      style={{
+        backgroundColor: trigger ? `${indigo['A400']}` : `${indigo['A200']}`,
+        height: trigger ? '100%' : '10%',
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography component="h1" variant="h5" color={'white'}>
