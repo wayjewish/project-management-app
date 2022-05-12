@@ -1,7 +1,8 @@
 import { styled } from '@mui/material/styles';
-import { indigo } from '@mui/material/colors';
-import { AppBar, Box, FormControl } from '@mui/material';
+import { indigo, grey} from '@mui/material/colors';
+import { AppBar, Box, FormControl, useScrollTrigger } from '@mui/material';
 
+const trigger = useScrollTrigger();
 export const Header = styled(AppBar)({
   background: `${indigo['A200']}`,
   boxShadow: '0',
@@ -11,8 +12,10 @@ export const Header = styled(AppBar)({
     zIndex: '2',
     height: '200px',
     position: 'sticky',
-    backgroundColor: '#fafafa',
+    backgroundColor: `${grey[50]}`,
   },
+  backgroundColor: trigger ? `${indigo['A400']}` : `${indigo['A200']}`,
+  height: trigger ? '100%' : '10%',
 });
 
 export const Wrap = styled(Box)({
@@ -36,7 +39,7 @@ export const FormSelect = styled(FormControl)({
     borderColor: 'white',
   },
   '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-    border: '1px solid white',
+    borderColor: 'white',
   },
   '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
     borderColor: 'white',
@@ -47,3 +50,4 @@ export const BurgerBox = styled(Box)({
   flexGrow: '1',
   justifyContent: 'flex-end',
 });
+

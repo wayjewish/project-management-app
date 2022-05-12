@@ -1,14 +1,20 @@
 import React from 'react';
-import { Box, Link, Typography } from '@mui/material';
-import { Footer, Wrap, LogoRss, Bot, FooterDivider } from './Footer.styled';
+import { Box, Container, Link, Typography } from '@mui/material';
+import { Footer, LogoRss, Bot, FooterDivider } from './Footer.styled';
 import Rss from '../../assets/icons/rs_school.svg';
 
 export default function FooterComponent() {
   return (
     <Footer>
-      <Wrap>
+      <Container>
         <Box>
-          <Typography sx={{ typography: { sm: 'subtitle1', xs: 'caption' } }} color={'white'}>
+          <Typography
+            sx={{
+              typography: { sm: 'subtitle1', xs: 'caption' },
+              textAlign: { sm: 'center', xs: 'left' },
+            }}
+            color={'white'}
+          >
             Project management app | REACT2022Q1
           </Typography>
         </Box>
@@ -43,7 +49,7 @@ export default function FooterComponent() {
             </Link>
           </Box>
         </Bot>
-      </Wrap>
+      </Container>
     </Footer>
   );
 }

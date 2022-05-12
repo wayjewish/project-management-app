@@ -1,26 +1,13 @@
 import { styled } from '@mui/material/styles';
-import { Divider } from '@mui/material';
+import { Container, Divider } from '@mui/material';
 import { indigo } from '@mui/material/colors';
 
 export const Footer = styled('footer')({
   width: '100%',
   height: '100%',
   background: `${indigo['A200']}`,
-});
-
-export const Wrap = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-
   padding: '10px 20px',
-
-  [theme.breakpoints.down('sm')]: {
-    alignItems: 'flex-start',
-  },
-}));
+});
 
 export const LogoRss = styled('img')({
   width: '100px',
@@ -32,7 +19,7 @@ export const Bot = styled('div')(({ theme }) => ({
   flexWrap: 'wrap',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   gap: '50px',
 
   [theme.breakpoints.down('sm')]: {
