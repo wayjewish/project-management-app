@@ -1,15 +1,8 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Header } from './Header.styled';
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from '@mui/material';
+import { Header, FormSelect, Wrap } from './Header.styled';
+import { Box, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 function HeaderComponent() {
   const [lang, setLang] = React.useState('');
@@ -17,15 +10,10 @@ function HeaderComponent() {
   const handleChange = (event: SelectChangeEvent) => {
     setLang(event.target.value as string);
   };
+
   return (
     <Header>
-      <Box
-        display={'flex'}
-        flexDirection={'row'}
-        alignItems={'center'}
-        justifyContent={'space-between'}
-        p={2}
-      >
+      <Wrap>
         <Box>
           <Typography component="h1" variant="h5" color={'white'}>
             RssTracker
@@ -40,11 +28,8 @@ function HeaderComponent() {
           >
             Login
           </Button>
-          <FormControl
-            size="small"
-            sx={{ minWidth: 100 }}
-          >
-            <InputLabel id="demo-simple-select-label" sx={{color: 'white'}}>
+          <FormSelect size="small">
+            <InputLabel id="demo-simple-select-label" sx={{ color: 'white' }}>
               Language
             </InputLabel>
             <Select
@@ -53,14 +38,14 @@ function HeaderComponent() {
               value={lang}
               label="Language"
               onChange={handleChange}
-              color={'primary'}
+              sx={{ color: 'white' }}
             >
               <MenuItem value={10}>RU</MenuItem>
               <MenuItem value={20}>EN</MenuItem>
             </Select>
-          </FormControl>
+          </FormSelect>
         </Box>
-      </Box>
+      </Wrap>
     </Header>
   );
 }
