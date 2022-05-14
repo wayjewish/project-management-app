@@ -1,6 +1,6 @@
-import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import React from 'react';
-import { Label } from './SelectBox.styled';
+import { Label, FormSelect } from './SelectBox.styled';
 
 function SelectBox() {
   const [lang, setLang] = React.useState('');
@@ -9,13 +9,13 @@ function SelectBox() {
     setLang(event.target.value as string);
   };
   return (
-    <FormControl size="small">
+    <FormSelect style={{minWidth: 120}} color='info'>
       <Label>Language</Label>
-      <Select value={lang} label="Language" onChange={handleChange}>
+      <Select value={lang} label="Language" onChange={handleChange} >
         <MenuItem value={'RU'}>RU</MenuItem>
         <MenuItem value={'EN'}>EN</MenuItem>
       </Select>
-    </FormControl>
+    </FormSelect>
   );
 }
 

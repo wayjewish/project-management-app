@@ -1,7 +1,7 @@
 import React from 'react';
-import { IconButton, MenuItem } from '@mui/material';
+import { IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { BurgerBox, MenuBar } from './BurgerMenu.styled';
+import { BurgerBox, MenuBar, Item } from './BurgerMenu.styled';
 import Login from '../Login/LoginBtn';
 import SelectBox from '../selectLang/SelectBox';
 
@@ -38,12 +38,12 @@ function BurgerMenu() {
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
       >
-        <MenuItem>
+        <Item style={{padding: '5px 5px'}}>
           <Login />
-        </MenuItem>
-        <MenuItem>
+        </Item>
+        <Item style={{padding: '5px 5px'}}>
           <SelectBox />
-        </MenuItem>
+        </Item>
       </MenuBar>
     </BurgerBox>
   );

@@ -3,7 +3,7 @@ import React from 'react';
 
 function LoginBtn() {
   return (
-    <Button size="medium" color="inherit" variant="outlined">
+    <Button color="inherit" variant="outlined" style={{width: '100%'}}>
       Login
     </Button>
   );
