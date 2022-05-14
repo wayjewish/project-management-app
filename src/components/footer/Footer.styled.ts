@@ -6,7 +6,7 @@ export const Footer = styled('footer')({
   width: '100%',
   height: '100%',
   background: `${indigo['A200']}`,
-  padding: '10px 20px',
+  padding: '10px 0px',
 });
 
 export const LogoRss = styled('img')({

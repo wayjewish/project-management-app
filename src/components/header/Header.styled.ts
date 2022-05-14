@@ -1,23 +1,13 @@
 import { styled } from '@mui/material/styles';
-import { indigo, grey} from '@mui/material/colors';
-import { AppBar, Box, FormControl, useScrollTrigger } from '@mui/material';
-
-// const trigger = useScrollTrigger();
+import { indigo } from '@mui/material/colors';
+import { AppBar, Box, Container, FormControl } from '@mui/material';
 
 export const Header = styled(AppBar)({
   background: `${indigo['A200']}`,
   boxShadow: '0',
-  '.MuiAppBar-positionSticky ': {
-    top: '0',
-    left: '0',
-    zIndex: '2',
-    height: '200px',
-    position: 'sticky',
-    backgroundColor: `${grey[50]}`,
-  },
 });
 
-export const Wrap = styled(Box)({
+export const Wrap = styled(Container)({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -25,28 +15,14 @@ export const Wrap = styled(Box)({
   padding: '20px',
 });
 
-export const FormSelect = styled(FormControl)({
-  minWidth: '120px',
-  '&:hover .MuiFormControl-root': {
-    borderColor: 'white',
-  },
-  '.MuiInputLabel-root.Mui-focused': {
-    borderColor: 'white',
-    color: 'white',
-  },
-  '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'white',
-  },
-  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'white',
-  },
-  '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'white',
-  },
-});
-
-export const BurgerBox = styled(Box)({
-  flexGrow: '1',
+export const BoxBtn = styled(Box)(({ theme }) => ({
+  flexGrow: 1,
   justifyContent: 'flex-end',
-});
 
+  [theme.breakpoints.up('xs')]: {
+    display: 'none',
+  },
+  [theme.breakpoints.up('md')]: {
+    display: 'flex',
+  },
+}));
