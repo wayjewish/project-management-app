@@ -1,28 +1,46 @@
 import { styled } from '@mui/material/styles';
 import { indigo } from '@mui/material/colors';
-import { AppBar, Box, Container, FormControl } from '@mui/material';
+import { AppBar, AppBarProps, Box, BoxProps } from '@mui/material';
 
-export const Header = styled(AppBar)({
-  background: `${indigo['A200']}`,
-  boxShadow: '0',
-});
+interface StyledAppBarProps extends AppBarProps {
+  scrollTrigger?: boolean;
+}
 
-export const Wrap = styled(Container)({
+interface StyledBoxProps extends BoxProps {
+  scrollTrigger?: boolean;
+}
+
+export const Header = styled(AppBar, {
+  shouldForwardProp: (prop) => prop !== 'scrollTrigger',
+})<StyledAppBarProps>(({ scrollTrigger, theme }) => ({
+  backgroundColor: `${indigo['A200']}`,
+  transition: theme.transitions.create(['background-color']),
+
+  ...(scrollTrigger && {
+    backgroundColor: `${indigo['A400']}`,
+  }),
+}));
+
+export const HeaderWrap = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'scrollTrigger',
+})<StyledBoxProps>(({ scrollTrigger, theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '20px',
-});
+  padding: `${theme.spacing(2.5)} 0px`,
+  transition: theme.transitions.create(['padding']),
 
-export const BoxBtn = styled(Box)(({ theme }) => ({
-  flexGrow: 1,
-  justifyContent: 'flex-end',
+  ...(scrollTrigger && {
+    padding: `${theme.spacing(1)} 0px`,
+  }),
+}));
 
-  [theme.breakpoints.up('xs')]: {
+export const BoxBtns = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  gap: theme.spacing(2),
+
+  [theme.breakpoints.down('sm')]: {
     display: 'none',
-  },
-  [theme.breakpoints.up('md')]: {
-    display: 'flex',
   },
 }));

@@ -1,37 +1,29 @@
 import React from 'react';
-import { indigo } from '@mui/material/colors';
-import { Box, useScrollTrigger, Typography } from '@mui/material';
+import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/material';
 
-import { Header, Wrap, BoxBtn } from './Header.styled';
-import Login from '../Login/LoginBtn';
-import SelectBox from '../selectLang/SelectBox';
-import BurgerMenu from './BurgerMenu';
+import { Header, HeaderWrap, BoxBtns } from './Header.styled';
+import SelectBox from './selectLang/SelectBox';
+import BurgerMenu from './mobileMenu/mobileMenu';
 
 function HeaderComponent() {
-  const trigger = useScrollTrigger();
+  const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
+
   return (
-    <Header
-      position="sticky"
-      elevation={trigger ? 24 : 0}
-      sx={{
-        backgroundColor: trigger ? `${indigo['A400']}` : `${indigo['A200']}`,
-        height: trigger ? '100%' : '10%',
-      }}
-    >
-      <Wrap>
-        <Box>
-          <Typography component="h1" variant="h5" color={'white'}>
-            RssTracker
-          </Typography>
-        </Box>
-        <BurgerMenu />
-        <BoxBtn>
-          <Box display={'flex'} gap={3}>
-            <Login />
-            <SelectBox />
+    <Header position="sticky" scrollTrigger={scrollTrigger} elevation={scrollTrigger ? 8 : 0}>
+      <Container>
+        <HeaderWrap scrollTrigger={scrollTrigger}>
+          <Box>
+            <Typography component="div" variant="h5" color="white">
+              RSS Tracker
+            </Typography>
           </Box>
-        </BoxBtn>
-      </Wrap>
+          <BoxBtns>
+            <Button color="inherit">Login</Button>
+            <SelectBox media="desctop" />
+          </BoxBtns>
+          <BurgerMenu />
+        </HeaderWrap>
+      </Container>
     </Header>
   );
 }
