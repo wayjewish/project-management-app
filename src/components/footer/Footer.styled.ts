@@ -3,6 +3,7 @@ import { Box, Divider } from '@mui/material';
 import { indigo } from '@mui/material/colors';
 
 export const Footer = styled('footer')({
+  width: '100%',
   background: `${indigo['A200']}`,
 });
 

@@ -13,6 +13,7 @@ interface StyledBoxProps extends BoxProps {
 export const Header = styled(AppBar, {
   shouldForwardProp: (prop) => prop !== 'scrollTrigger',
 })<StyledAppBarProps>(({ scrollTrigger, theme }) => ({
+  width: '100%',
   backgroundColor: `${indigo['A200']}`,
   transition: theme.transitions.create(['background-color']),
 

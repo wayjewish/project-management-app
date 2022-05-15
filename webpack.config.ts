@@ -74,6 +74,7 @@ const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
       port: 3000,
       compress: true,
       open: true,
+      historyApiFallback: true,
     },
   };
 };
