@@ -64,7 +64,7 @@ const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
         template: './src/index.html',
       }),
       new CopyPlugin({
-        patterns: [{ from: 'src/static', to: 'static' }],
+        patterns: [{ from: 'src/static', to: '' }],
       }),
     ],
     devServer: {
@@ -74,6 +74,7 @@ const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
       port: 3000,
       compress: true,
       open: true,
+      historyApiFallback: true,
     },
   };
 };
