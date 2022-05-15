@@ -1,30 +1,29 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import styled from '@emotion/styled';
+import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/material';
 
-const Header = styled.header`
-  width: 100%;
-  height: 80px;
-  border-bottom: 1px solid var(--color-black);
-  background: #cccccc;
-`;
-
-const Wrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 30px;
-`;
+import { Header, HeaderWrap, BoxBtns } from './Header.styled';
+import SelectBox from './selectLang/SelectBox';
+import BurgerMenu from './mobileMenu/mobileMenu';
 
 function HeaderComponent() {
+  const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
+
   return (
-    <Header>
-      <Wrap>
-        <Typography variant="h3">Header</Typography>
-        <Button>Login</Button>
-      </Wrap>
+    <Header position="sticky" scrollTrigger={scrollTrigger} elevation={scrollTrigger ? 8 : 0}>
+      <Container>
+        <HeaderWrap scrollTrigger={scrollTrigger}>
+          <Box>
+            <Typography component="div" variant="h5" color="white">
+              RSS Tracker
+            </Typography>
+          </Box>
+          <BoxBtns>
+            <Button color="inherit">Login</Button>
+            <SelectBox media="desctop" />
+          </BoxBtns>
+          <BurgerMenu />
+        </HeaderWrap>
+      </Container>
     </Header>
   );
 }
