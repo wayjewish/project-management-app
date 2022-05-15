@@ -1,8 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Global } from '@emotion/react';
-import { Button, Container, Typography } from '@mui/material';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Container, Typography } from '@mui/material';
 
 import { GlobalStyles } from '../../Global.styled';
 import { AppBox, Main } from '../../App.styled';
