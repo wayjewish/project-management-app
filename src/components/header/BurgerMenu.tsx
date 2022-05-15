@@ -38,10 +38,10 @@ function BurgerMenu() {
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
       >
-        <Item style={{padding: '5px 5px'}}>
+        <Item>
           <Login />
         </Item>
-        <Item style={{padding: '5px 5px'}}>
+        <Item>
           <SelectBox />
         </Item>
       </MenuBar>
