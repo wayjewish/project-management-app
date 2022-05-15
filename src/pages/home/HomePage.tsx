@@ -10,7 +10,7 @@ import {
   FirstLeftBox,
   FirstRightBox,
   AdvanCard,
-} from './Home.styled';
+} from './HomePage.styled';
 import MainImg from '../../assets/img/home.png';
 
 function HomePage() {

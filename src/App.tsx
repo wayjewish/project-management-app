@@ -3,13 +3,13 @@ import { Routes, Route } from 'react-router-dom';
 import { Global } from '@emotion/react';
 
 import { GlobalStyles } from './Global.styled';
-import Header from './components/header/Header';
 import { AppBox, Main } from './App.styled';
+import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 
-import HomePage from './pages/home/Home';
-import BoardsPage from './pages/boards/Boards';
-import NotFoundPage from './pages/notFound/NotFound';
+import HomePage from './pages/home/HomePage';
+import BoardsPage from './pages/boards/BoardsPage';
+import NotFoundPage from './pages/notFound/NotFoundPage';
 import PrivateRoute from './components/privateRoute/PrivateRouter';
 
 function App() {

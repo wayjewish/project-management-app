@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/material';
 
 import { Header, HeaderWrap, BoxBtns } from './Header.styled';
@@ -7,7 +8,6 @@ import BurgerMenu from './mobileMenu/mobileMenu';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { change } from '../../store/features/auth/authSlice';
-import { Link } from 'react-router-dom';
 
 function HeaderComponent() {
   const { isAuth } = useAppSelector((state) => state.isAuth);

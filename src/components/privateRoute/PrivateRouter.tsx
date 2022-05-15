@@ -11,8 +11,6 @@ function PrivateRoute(props: IProps) {
   const { children } = props;
   const { isAuth } = useAppSelector((state) => state.isAuth);
 
-  console.log(`PrivateRoute isAuth=${isAuth}`);
-
   return isAuth ? children : <Navigate to="/" />;
 }
 
