@@ -3,7 +3,7 @@ import { Button, Container, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link } from 'react-router-dom';
 
-function NotFound() {
+function NotFoundPage() {
   return (
     <Container>
       <Typography component="h1" variant="h2" mb={1}>
@@ -19,4 +19,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default NotFoundPage;

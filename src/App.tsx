@@ -6,8 +6,11 @@ import { GlobalStyles } from './Global.styled';
 import Header from './components/header/Header';
 import { AppBox, Main } from './App.styled';
 import Footer from './components/footer/Footer';
-import Home from './pages/home/Home';
-import NotFound from './pages/notFound/NotFound';
+
+import HomePage from './pages/home/Home';
+import BoardsPage from './pages/boards/Boards';
+import NotFoundPage from './pages/notFound/NotFound';
+import PrivateRoute from './components/privateRoute/PrivateRouter';
 
 function App() {
   return (
@@ -16,8 +19,16 @@ function App() {
       <Header />
       <Main>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/boards"
+            element={
+              <PrivateRoute>
+                <BoardsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Main>
       <Footer />
