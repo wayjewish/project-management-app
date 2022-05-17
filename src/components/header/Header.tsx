@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/material';
 
@@ -8,6 +8,8 @@ import BurgerMenu from './mobileMenu/mobileMenu';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { change } from '../../store/features/auth/authSlice';
+// import ModalLogin from '../Modal/ModalLogin';
+import ModalSingup from '../Modal/ModalSingup';
 
 function HeaderComponent() {
   const { isAuth } = useAppSelector((state) => state.isAuth);
@@ -36,6 +38,7 @@ function HeaderComponent() {
             <Button color="inherit" onClick={handleClickLogin}>
               Login
             </Button>
+            <ModalSingup />
             <SelectBox media="desctop" />
           </BoxBtns>
           <BurgerMenu />
