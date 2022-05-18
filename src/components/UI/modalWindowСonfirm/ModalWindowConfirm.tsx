@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@mui/material';
 
 interface IModalWindowConfirm {
-  isOpen: boolean;
   textMassage: string;
   reuseDelete: () => void;
   deleteElement: () => void;
 }
 
 export default function ModalWindowConfirm({
-  isOpen,
   textMassage,
   reuseDelete,
   deleteElement,
 }: IModalWindowConfirm) {
-  const [open, setOpen] = useState(isOpen);
-
+  const [open, setOpen] = useState(true);
   const handleClose = (userResponse: boolean) => {
     reuseDelete();
     setOpen(false);
@@ -33,13 +32,13 @@ export default function ModalWindowConfirm({
     <div>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={() => handleClose(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{textMassage}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">{textMassage}</DialogContentText>
+          <DialogContentText id="alert-dialog-description">{}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => handleClose(false)}>Нет</Button>

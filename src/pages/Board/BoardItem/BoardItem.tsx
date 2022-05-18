@@ -11,7 +11,7 @@ interface IBoard {
   id: string;
   title: string;
   description: string;
-  initModalWindow: (id: string) => void;
+  initModalWindow: (id: string, title: string) => void;
 }
 
 function BoardItem({ title, id, description, initModalWindow }: IBoard) {
@@ -25,7 +25,7 @@ function BoardItem({ title, id, description, initModalWindow }: IBoard) {
             variant="text"
             color="error"
             onClick={() => {
-              initModalWindow(id);
+              initModalWindow(id, title);
             }}
           >
             REMOVE
