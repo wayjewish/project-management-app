@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TypographyBoardTitle } from './Board.styled';
-import { Button, Container, Grid } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
+import { Container, Grid } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { deleteBoard, getBoards } from '../../features/BoardSlice/BoardSlice';
 import { useAppDispatch } from '../../store/hooks';
 import BoardItem from './BoardItem/BoardItem';
@@ -49,8 +49,11 @@ function Board() {
     setOpenModalAddNewBoard(true);
   };
 
-  const createTestBoard = () => {
+  useEffect(() => {
     dispatch(getBoards());
+  }, []);
+
+  const createTestBoard = () => {
     // await fetch(`https://morning-lowlands-47809.herokuapp.com/boards`, {
     //   headers: {
     //     Authorization:
@@ -77,12 +80,11 @@ function Board() {
   return (
     <Container>
       <TypographyBoardTitle variant="h3">Boards</TypographyBoardTitle>
-      <Button onClick={createTestBoard}>ffffffff</Button>
       <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 1, sm: 2, md: 3 }}>
         {boards.map((board) => {
           return (
             <BoardItem
-              key={Math.random()}
+              key={board.id}
               title={board.title}
               description={board.description}
               id={board.id}

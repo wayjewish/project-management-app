@@ -24,11 +24,27 @@ const initialState: {
   boards: [],
   isOpenModalConfirm: false,
 };
+
 export const getBoards: AsyncThunk<void, void, {}> = createAsyncThunk(
   'board/getBoards',
   async (_, { rejectWithValue, dispatch }) => {
     const res = await axios.get<IBoard[]>('https://morning-lowlands-47809.herokuapp.com/boards', {
-      headers: headers,
+      headers,
+    });
+    dispatch(setBoards(res.data));
+  }
+);
+
+export const addBoard: AsyncThunk<void, void, {}> = createAsyncThunk(
+  'board/addBoard',
+  async (_, { rejectWithValue, dispatch }) => {
+    await fetch(`https://morning-lowlands-47809.herokuapp.com/boards`, {
+      headers,
+      method: 'POST',
+      body: JSON.stringify({ title: '222', description: 'sfdsdfsdfds' }),
+    }).then((response) => response.json());
+    const res = await axios.get<IBoard[]>('https://morning-lowlands-47809.herokuapp.com/boards', {
+      headers,
     });
     dispatch(setBoards(res.data));
   }

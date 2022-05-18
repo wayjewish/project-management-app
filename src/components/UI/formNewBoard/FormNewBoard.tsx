@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { BoxFormNewBoard, FormInput, ButtonInput, BoxTitle } from './FormNewBoard.styled';
 import { Container, Dialog, DialogTitle, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useAppDispatch } from '../../../store/hooks';
+import { addBoard } from '../../../features/BoardSlice/BoardSlice';
 
 interface IFormNewBoard {
   reuseDelete: () => void;
 }
 
 export default function FormNewBoard({ reuseDelete }: IFormNewBoard) {
+  const dispatch = useAppDispatch();
+
   const [open, setOpen] = useState(true);
   const [valueTitle, setValueTitle] = useState('');
   const [valueDescription, setValueDescription] = useState('');
@@ -28,6 +32,8 @@ export default function FormNewBoard({ reuseDelete }: IFormNewBoard) {
     event.preventDefault();
     console.log(valueTitle);
     console.log(valueDescription);
+    dispatch(addBoard());
+
     handleClose();
   };
 
