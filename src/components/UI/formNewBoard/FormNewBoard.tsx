@@ -9,6 +9,10 @@ interface IFormNewBoard {
   reuseDelete: () => void;
 }
 
+interface ITitleDescription {
+  valueTitle: string;
+  valueDescription: string;
+}
 export default function FormNewBoard({ reuseDelete }: IFormNewBoard) {
   const dispatch = useAppDispatch();
 
@@ -30,9 +34,8 @@ export default function FormNewBoard({ reuseDelete }: IFormNewBoard) {
 
   const createNewBoard = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    console.log(valueTitle);
-    console.log(valueDescription);
-    dispatch(addBoard());
+
+    dispatch(addBoard({ title: valueTitle, description: valueDescription }));
 
     handleClose();
   };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TypographyBoardTitle } from './Board.styled';
 import { Container, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { deleteBoard, getBoards } from '../../features/BoardSlice/BoardSlice';
+import { deleteBoard, deleteBoardById, getBoards } from '../../features/BoardSlice/BoardSlice';
 import { useAppDispatch } from '../../store/hooks';
 import BoardItem from './BoardItem/BoardItem';
 import BoardAdd from './BoardAdd/BoardAdd';
@@ -37,12 +37,7 @@ function Board() {
     setOpenModalAddNewBoard(false);
   };
   const deleteElement = () => {
-    const boardsWithoutDeleteBoard = boards.map((board) => {
-      return board.id !== idDeleteBoard ? board : null;
-    });
-    const index = boardsWithoutDeleteBoard.indexOf(null);
-    boardsWithoutDeleteBoard.splice(index, 1);
-    dispatch(deleteBoard(boardsWithoutDeleteBoard));
+    dispatch(deleteBoardById(idDeleteBoard));
   };
 
   const openModalFormAddBoard = () => {
@@ -53,30 +48,6 @@ function Board() {
     dispatch(getBoards());
   }, []);
 
-  const createTestBoard = () => {
-    // await fetch(`https://morning-lowlands-47809.herokuapp.com/boards`, {
-    //   headers: {
-    //     Authorization:
-    //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5OWQzMTczMy03NTE0LTQ0MzQtYTNjZC0xZjUxMTIyOTMyZWMiLCJsb2dpbiI6ImFkbWluIiwiaWF0IjoxNjUyNzM1NjA1fQ.FPhPjvKQg_Cnz6yK9e-bvsYCmUwkTWJSst4zfGV8AGo',
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //   },
-    //   method: 'POST',
-    //   body: JSON.stringify({ title: '222', description: 'sfdsdfsdfds' }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((res) => console.log(res));
-    // const testBoards = await fetch('https://morning-lowlands-47809.herokuapp.com/boards', {
-    //   headers: {
-    //     Authorization:
-    //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5OWQzMTczMy03NTE0LTQ0MzQtYTNjZC0xZjUxMTIyOTMyZWMiLCJsb2dpbiI6ImFkbWluIiwiaWF0IjoxNjUyNzM1NjA1fQ.FPhPjvKQg_Cnz6yK9e-bvsYCmUwkTWJSst4zfGV8AGo',
-    //     'Content-Type': 'application/json;charset=utf-8',
-    //   },
-    //   method: 'GET',
-    // })
-    //   .then((response) => response.json())
-    //   .then((res) => console.log(res));
-    // console.log(testBoards);
-  };
   return (
     <Container>
       <TypographyBoardTitle variant="h3">Boards</TypographyBoardTitle>
