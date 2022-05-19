@@ -11,9 +11,12 @@ import HomePage from './pages/home/HomePage';
 import BoardsPage from './pages/boards/BoardsPage';
 import NotFoundPage from './pages/notFound/NotFoundPage';
 import PrivateRoute from './components/privateRoute/PrivateRouter';
+import { store } from './store/store';
+import { Provider } from 'react-redux';
 
 function App() {
   return (
+    <Provider store={store}>
     <AppBox>
       <Global styles={GlobalStyles} />
       <Header />
@@ -33,6 +36,7 @@ function App() {
       </Main>
       <Footer />
     </AppBox>
+    </Provider>
   );
 }
 export default App;

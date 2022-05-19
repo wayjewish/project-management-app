@@ -12,8 +12,13 @@ import {
   AdvanCard,
 } from './HomePage.styled';
 import MainImg from '../../assets/img/home.png';
+import ModalLogin from '../../components/Modal/ModalLogin';
+import ModalSingup from '../../components/Modal/ModalSingup';
+import { useAppDispatch } from '../../store/hooks';
+import { openModalSingup } from '../../store/features/modalSingUp/modalSingupSlice';
 
 function HomePage() {
+  const dispatch = useAppDispatch();
   return (
     <Container>
       <HomeWrap>
@@ -34,9 +39,11 @@ function HomePage() {
                 одного инструмента.
               </Typography>
             </Box>
-            <Button variant="contained" size="large">
+            <Button variant="contained" size="large" onClick={()=> dispatch(openModalSingup())}>
               Попробовать
             </Button>
+            <ModalLogin />
+          <ModalSingup />
           </FirstLeftBox>
           <FirstRightBox item md={5} sm={12}>
             <Box>

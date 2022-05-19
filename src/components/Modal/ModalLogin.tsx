@@ -1,14 +1,24 @@
 import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import { Button, Link, TextField, Typography, Box } from '@mui/material';
+import { Button, Link, TextField, Box, Dialog, Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+
+import { closeModalLogin } from '../../store/features/modalLogin/modalLoginSlice';
+import { openModalSingup } from '../../store/features/modalSingUp/modalSingupSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import ModalSingup from './ModalSingup';
 
 const ModalLogin = () => {
-  const [openLogin, setOpenLogin] = React.useState(false);
+  const dispatch = useAppDispatch();
+  const { isOpenedLogin } = useAppSelector((state) => state.modalLogin);
+
   return (
     <form noValidate autoComplete="off">
-      <Dialog open={openLogin}>
+      <Dialog open={isOpenedLogin} onClose={() => dispatch(closeModalLogin())}>
         <Box p={2} maxWidth={'420px'}>
-          <Typography variant="h5">Log In</Typography>
+          <Box display={'flex'} justifyContent={'space-between'}>
+            <Typography variant="h5">Login</Typography>
+            <CloseIcon onClick={() => dispatch(closeModalLogin())} />
+          </Box>
           <TextField
             fullWidth
             id="login"
@@ -29,7 +39,16 @@ const ModalLogin = () => {
             <Button variant="contained" size="large" color="primary">
               Login
             </Button>
-            <Link> Create account</Link>
+            <Link
+              onClick={() => {
+                dispatch(closeModalLogin());
+                dispatch(openModalSingup());
+              }}
+            >
+              {' '}
+              Create account
+            </Link>
+            <ModalSingup />
           </Box>
         </Box>
       </Dialog>

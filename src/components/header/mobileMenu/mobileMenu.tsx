@@ -5,8 +5,13 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { BurgerBox, DrawerBox } from './mobileMenu.styled';
 import SelectBox from '../selectLang/SelectBox';
+import { openModalLogin } from '../../../store/features/modalLogin/modalLoginSlice';
+import ModalLogin from '../../Modal/ModalLogin';
+import ModalSingup from '../../Modal/ModalSingup';
+import { useAppDispatch } from '../../../store/hooks';
 
 function BurgerMenu() {
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => () => {
@@ -35,9 +40,11 @@ function BurgerMenu() {
           >
             Close
           </Button>
-          <Button variant="outlined" fullWidth={true}>
+          <Button variant="outlined" fullWidth={true} onClick={() => dispatch(openModalLogin())}>
             Login
           </Button>
+          <ModalLogin />
+          <ModalSingup />
           <SelectBox media="mobile" />
         </DrawerBox>
       </Drawer>
