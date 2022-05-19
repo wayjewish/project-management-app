@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { TypographyBoardTitle } from './Board.styled';
-import { Container, Grid } from '@mui/material';
+import { TypographyBoardTitle, CircularProgressBox } from './Board.styled';
+import { Container, Grid, CircularProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { deleteBoard, deleteBoardById, getBoards } from '../../features/BoardSlice/BoardSlice';
+import { deleteBoardById, getBoards } from '../../features/BoardSlice/BoardSlice';
 import { useAppDispatch } from '../../store/hooks';
 import BoardItem from './BoardItem/BoardItem';
 import BoardAdd from './BoardAdd/BoardAdd';
@@ -15,12 +15,13 @@ interface IBoard {
   description: string;
 }
 interface IBoardsState {
-  boards: { boards: IBoard[] };
+  boards: { boards: IBoard[]; loading: boolean };
 }
 
 function Board() {
   const dispatch = useAppDispatch();
   const boards = useSelector((state: IBoardsState) => state.boards.boards);
+  const loader = useSelector((state: IBoardsState) => state.boards.loading);
   const [openModal, setOpenModal] = useState(false);
   const [openModalAddNewBoard, setOpenModalAddNewBoard] = useState(false);
   const [idDeleteBoard, setIdDeleteBoard] = useState('');
@@ -51,20 +52,26 @@ function Board() {
   return (
     <Container>
       <TypographyBoardTitle variant="h3">Boards</TypographyBoardTitle>
-      <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 1, sm: 2, md: 3 }}>
-        {boards.map((board) => {
-          return (
-            <BoardItem
-              key={board.id}
-              title={board.title}
-              description={board.description}
-              id={board.id}
-              initModalWindow={initModalWindowDeleteBoard}
-            />
-          );
-        })}
-        <BoardAdd openModalFormAddBoard={openModalFormAddBoard} />
-      </Grid>
+      {loader ? (
+        <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 1, sm: 2, md: 3 }}>
+          {boards.map((board) => {
+            return (
+              <BoardItem
+                key={board.id}
+                title={board.title}
+                description={board.description}
+                id={board.id}
+                initModalWindow={initModalWindowDeleteBoard}
+              />
+            );
+          })}
+          <BoardAdd openModalFormAddBoard={openModalFormAddBoard} />
+        </Grid>
+      ) : (
+        <CircularProgressBox>
+          <CircularProgress />
+        </CircularProgressBox>
+      )}
       {openModal ? (
         <ModalWindowConfirm
           textMassage={`Вы уверненны, что хотите удалить ${titleDeleteBoard} ?`}

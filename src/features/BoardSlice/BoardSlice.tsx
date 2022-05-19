@@ -29,7 +29,7 @@ const initialState: {
 } = {
   boards: [],
   isOpenModalConfirm: false,
-  loading: true,
+  loading: false,
 };
 
 export const getBoards: AsyncThunk<void, void, {}> = createAsyncThunk(
