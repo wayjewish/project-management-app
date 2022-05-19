@@ -7,7 +7,6 @@ import { AppBox, Main } from './App.styled';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import HomePage from './pages/home/HomePage';
-import BoardsPage from './pages/boards/BoardsPage';
 import NotFoundPage from './pages/notFound/NotFoundPage';
 import PrivateRoute from './components/privateRoute/PrivateRouter';
 

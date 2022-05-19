@@ -5,7 +5,7 @@ import authSlice from './features/auth/authSlice';
 
 export const store = configureStore({
   reducer: {
-   boards:BoardSlice
+   boards: BoardSlice,
    isAuth: authSlice,
   },
 });
