@@ -1,25 +1,14 @@
 import { styled } from '@mui/material/styles';
-import { Divider } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import { indigo } from '@mui/material/colors';
 
 export const Footer = styled('footer')({
   width: '100%',
-  height: '100%',
   background: `${indigo['A200']}`,
 });
 
-export const Wrap = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  padding: '10px 20px',
-
-  [theme.breakpoints.down('sm')]: {
-    alignItems: 'flex-start',
-  },
+export const FooterWrap = styled(Box)(({ theme }) => ({
+  padding: `${theme.spacing(2.5)} 0px`,
 }));
 
 export const LogoRss = styled('img')({
@@ -27,23 +16,33 @@ export const LogoRss = styled('img')({
   height: '36px',
 });
 
-export const Bot = styled('div')(({ theme }) => ({
+export const CenterBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'flex-start',
+  },
+}));
+
+export const BotBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: '50px',
+  justifyContent: 'center',
+  gap: theme.spacing(6),
 
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    gap: '10px',
+    gap: theme.spacing(1),
   },
 }));
 
-export const FooterDivider = styled(Divider)({
-  marginTop: '10px',
-  marginBottom: '10px',
+export const FooterDivider = styled(Divider)(({ theme }) => ({
+  margin: `${theme.spacing(1)} 0`,
   borderColor: 'rgba(255, 255, 255, 0.12)',
-});
+}));

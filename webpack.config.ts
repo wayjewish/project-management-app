@@ -3,10 +3,10 @@ import TerserPlugin from 'terser-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CopyPlugin  from 'copy-webpack-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 
-import { Configuration as WebpackConfiguration } from "webpack";
-import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
+import { Configuration as WebpackConfiguration } from 'webpack';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
@@ -22,7 +22,8 @@ interface WebpackConfigurationGenerator {
 
 const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
   return {
-    mode: argv && argv.mode === ("production" || "development" || "none") ? argv.mode : 'production',
+    mode:
+      argv && argv.mode === ('production' || 'development' || 'none') ? argv.mode : 'production',
     entry: './src/index.tsx',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
@@ -58,14 +59,12 @@ const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
       minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
     },
     plugins: [
-      new MiniCssExtractPlugin(), 
+      new MiniCssExtractPlugin(),
       new HtmlWebpackPlugin({
         template: './src/index.html',
-      }), 
+      }),
       new CopyPlugin({
-        patterns: [
-          { from: 'src/static', to: 'static' },
-        ],
+        patterns: [{ from: 'src/static', to: '' }],
       }),
     ],
     devServer: {
@@ -75,8 +74,9 @@ const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
       port: 3000,
       compress: true,
       open: true,
+      historyApiFallback: true,
     },
-  }
+  };
 };
 
 export default generateConfig;
