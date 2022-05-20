@@ -8,17 +8,13 @@ import {
   DialogTitle,
 } from '@mui/material';
 
-interface IModalWindowConfirm {
+interface IProps {
   textMassage: string;
   reuseDelete: () => void;
   deleteElement: () => void;
 }
 
-export default function ModalWindowConfirm({
-  textMassage,
-  reuseDelete,
-  deleteElement,
-}: IModalWindowConfirm) {
+export default function ModalWindowConfirm({ textMassage, reuseDelete, deleteElement }: IProps) {
   const [open, setOpen] = useState(true);
   const handleClose = (userResponse: boolean) => {
     reuseDelete();

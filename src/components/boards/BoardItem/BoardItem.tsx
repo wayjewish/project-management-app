@@ -7,14 +7,14 @@ import {
 } from './BoardItem.styled';
 import { Typography, Grid } from '@mui/material';
 
-interface IBoard {
+interface IProps {
   id: string;
   title: string;
   description: string;
   initModalWindow: (id: string, title: string) => void;
 }
 
-function BoardItem({ title, id, description, initModalWindow }: IBoard) {
+function BoardItem({ title, id, description, initModalWindow }: IProps) {
   return (
     <Grid item xs={1} sm={1} md={1}>
       <CardItem variant="elevation" elevation={8}>

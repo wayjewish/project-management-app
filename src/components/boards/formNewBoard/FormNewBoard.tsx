@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import { BoxFormNewBoard, FormInput, ButtonInput, BoxTitle } from './FormNewBoard.styled';
-import { Container, Dialog, DialogTitle, Box } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { useAppDispatch } from '../../../store/hooks';
-import { addBoard } from '../../../features/BoardSlice/BoardSlice';
 
-interface IFormNewBoard {
+import { Container, Dialog, DialogTitle, Box } from '@mui/material';
+import { BoxFormNewBoard, FormInput, ButtonInput, BoxTitle } from './FormNewBoard.styled';
+import CloseIcon from '@mui/icons-material/Close';
+
+import { useAppDispatch } from '../../../store/hooks';
+import { addBoard } from '../../../store/features/boards/boardsSlice';
+
+interface IProps {
   reuseDelete: () => void;
 }
 
-interface ITitleDescription {
-  valueTitle: string;
-  valueDescription: string;
-}
-export default function FormNewBoard({ reuseDelete }: IFormNewBoard) {
+export default function FormNewBoard({ reuseDelete }: IProps) {
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState(true);
