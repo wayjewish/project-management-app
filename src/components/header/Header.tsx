@@ -4,13 +4,13 @@ import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/mater
 
 import { Header, HeaderWrap, BoxBtns } from './Header.styled';
 import SelectBox from './selectLang/SelectBox';
-import BurgerMenu from './mobileMenu/mobileMenu';
+import MobileMenu from './mobileMenu/MobileMenu';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { change } from '../../store/features/auth/authSlice';
 
 function HeaderComponent() {
-  const { isAuth } = useAppSelector((state) => state.isAuth);
+  const { isAuth } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
   const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
@@ -38,7 +38,7 @@ function HeaderComponent() {
             </Button>
             <SelectBox media="desctop" />
           </BoxBtns>
-          <BurgerMenu />
+          <MobileMenu />
         </HeaderWrap>
       </Container>
     </Header>

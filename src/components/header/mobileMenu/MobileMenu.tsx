@@ -3,7 +3,7 @@ import { IconButton, Drawer, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { BurgerBox, DrawerBox } from './mobileMenu.styled';
+import { BurgerBox, DrawerBox } from './MobileMenu.styled';
 import SelectBox from '../selectLang/SelectBox';
 
 function BurgerMenu() {

@@ -1,12 +1,6 @@
 import { Box, Card, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-export const HomeWrap = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(3),
-}));
-
 export const FirstBox = styled(Grid)({
   display: 'flex',
   flexDirection: 'row',

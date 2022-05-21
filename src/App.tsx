@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Global } from '@emotion/react';
-
 import { GlobalStyles } from './Global.styled';
 import { AppBox, Main } from './App.styled';
+
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 
@@ -35,4 +35,5 @@ function App() {
     </AppBox>
   );
 }
+
 export default App;
