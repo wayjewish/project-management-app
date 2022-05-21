@@ -7,25 +7,29 @@ import {
 } from './BoardItem.styled';
 import { Typography, Grid } from '@mui/material';
 
-interface IProps {
-  id: string;
+interface IBoard {
   title: string;
+  id: string;
   description: string;
+}
+
+interface IProps {
+  board: IBoard;
   initModalWindow: (id: string, title: string) => void;
 }
 
-function BoardItem({ title, id, description, initModalWindow }: IProps) {
+function BoardItem({ board, initModalWindow }: IProps) {
   return (
     <Grid item xs={1} sm={1} md={1}>
       <CardItem variant="elevation" elevation={8}>
         <CardContentItem>
-          <Typography variant="h5">{title}</Typography>
-          <TypographyCardItem variant="h6">{description}</TypographyCardItem>
+          <Typography variant="h5">{board.title}</Typography>
+          <TypographyCardItem variant="h6">{board.description}</TypographyCardItem>
           <ButtonCardRemove
             variant="text"
             color="error"
             onClick={() => {
-              initModalWindow(id, title);
+              initModalWindow(board.id, board.title);
             }}
           >
             REMOVE

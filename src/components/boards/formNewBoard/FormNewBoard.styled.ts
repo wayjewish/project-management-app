@@ -4,22 +4,22 @@ import { Box, TextField, Button } from '@mui/material';
 export const BoxFormNewBoard = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: 24,
+  padding: '24px',
 }));
 
 export const BoxTitle = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  paddingRight: 24,
+  paddingRight: '24px',
 }));
 
 export const FormInput = styled(TextField)(() => ({
-  paddingBottom: 20,
-  width: 400,
+  paddingBottom: '20px',
+  width: '400px',
 }));
 
 export const ButtonInput = styled(Button)(() => ({
-  height: 42,
-  width: 100,
+  height: '42px',
+  width: '100px',
 }));

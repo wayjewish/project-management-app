@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 
 export const CardItem = styled(Card)(() => ({
-  height: 200,
+  height: '200px',
   cursor: 'pointer',
 }));
 
@@ -13,7 +13,7 @@ export const CardContentItem = styled(CardContent)(() => ({
 }));
 
 export const TypographyCardItem = styled(Typography)(() => ({
-  height: 100,
+  height: '100px',
   overflow: 'hidden',
 }));
 

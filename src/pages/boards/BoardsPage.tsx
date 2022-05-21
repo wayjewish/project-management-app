@@ -26,7 +26,7 @@ function Board() {
     setTitleDeleteBoard(title);
   };
 
-  const reuseDelete = () => {
+  const reuseDeleteBoard = () => {
     setOpenModal(false);
     setOpenModalAddNewBoard(false);
   };
@@ -51,9 +51,10 @@ function Board() {
             return (
               <BoardItem
                 key={board.id}
-                title={board.title}
-                description={board.description}
-                id={board.id}
+                // title={board.title}
+                // description={board.description}
+                // id={board.id}
+                board={board}
                 initModalWindow={initModalWindowDeleteBoard}
               />
             );
@@ -68,11 +69,11 @@ function Board() {
       {openModal ? (
         <ModalWindowConfirm
           textMassage={`Вы уверненны, что хотите удалить ${titleDeleteBoard} ?`}
-          reuseDelete={reuseDelete}
+          reuseDeleteBoard={reuseDeleteBoard}
           deleteElement={deleteElement}
         />
       ) : null}
-      {openModalAddNewBoard ? <FormNewBoard reuseDelete={reuseDelete} /> : null}
+      {openModalAddNewBoard ? <FormNewBoard reuseDeleteBoard={reuseDeleteBoard} /> : null}
     </Container>
   );
 }

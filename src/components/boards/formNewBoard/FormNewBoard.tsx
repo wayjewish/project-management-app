@@ -8,10 +8,10 @@ import { useAppDispatch } from '../../../store/hooks';
 import { addBoard } from '../../../store/features/boards/boardsSlice';
 
 interface IProps {
-  reuseDelete: () => void;
+  reuseDeleteBoard: () => void;
 }
 
-export default function FormNewBoard({ reuseDelete }: IProps) {
+export default function FormNewBoard({ reuseDeleteBoard }: IProps) {
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState(true);
@@ -26,7 +26,7 @@ export default function FormNewBoard({ reuseDelete }: IProps) {
   };
 
   const handleClose = () => {
-    reuseDelete();
+    reuseDeleteBoard();
     setOpen(false);
   };
 

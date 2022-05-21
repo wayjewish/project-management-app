@@ -10,14 +10,18 @@ import {
 
 interface IProps {
   textMassage: string;
-  reuseDelete: () => void;
+  reuseDeleteBoard: () => void;
   deleteElement: () => void;
 }
 
-export default function ModalWindowConfirm({ textMassage, reuseDelete, deleteElement }: IProps) {
+export default function ModalWindowConfirm({
+  textMassage,
+  reuseDeleteBoard,
+  deleteElement,
+}: IProps) {
   const [open, setOpen] = useState(true);
   const handleClose = (userResponse: boolean) => {
-    reuseDelete();
+    reuseDeleteBoard();
     setOpen(false);
     if (userResponse) {
       deleteElement();
