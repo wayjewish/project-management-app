@@ -1,79 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Grid, CircularProgress } from '@mui/material';
-import { TypographyBoardTitle, CircularProgressBox } from './BoardsPage.styled';
+import React from 'react';
+import { Container, Typography } from '@mui/material';
+import { PageContentWrap } from '../../Global.styled';
 
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { getBoards, deleteBoard } from '../../store/features/boards/boardsSlice';
-
-import BoardItem from '../../components/boards/BoardItem/BoardItem';
-import BoardAdd from '../../components/boards/BoardAdd/BoardAdd';
-import ModalWindowConfirm from '../../components/modalWindowСonfirm/ModalWindowConfirm';
-import FormNewBoard from '../../components/boards/formNewBoard/FormNewBoard';
+import Boards from '../../components/boards/Boards';
 
 function Board() {
-  const dispatch = useAppDispatch();
-  const boards = useAppSelector((state) => state.boards.boards);
-  const loader = useAppSelector((state) => state.boards.loading);
-
-  const [openModal, setOpenModal] = useState(false);
-  const [openModalAddNewBoard, setOpenModalAddNewBoard] = useState(false);
-  const [idDeleteBoard, setIdDeleteBoard] = useState('');
-  const [titleDeleteBoard, setTitleDeleteBoard] = useState('');
-
-  const initModalWindowDeleteBoard = (id: string, title: string) => {
-    setOpenModal(true);
-    setIdDeleteBoard(id);
-    setTitleDeleteBoard(title);
-  };
-
-  const reuseDeleteBoard = () => {
-    setOpenModal(false);
-    setOpenModalAddNewBoard(false);
-  };
-  const deleteElement = () => {
-    dispatch(deleteBoard(idDeleteBoard));
-  };
-
-  const openModalFormAddBoard = () => {
-    setOpenModalAddNewBoard(true);
-  };
-
-  useEffect(() => {
-    dispatch(getBoards());
-  }, []);
-
   return (
     <Container>
-      <TypographyBoardTitle variant="h3">Boards</TypographyBoardTitle>
-      {loader ? (
-        <Grid container spacing={{ xs: 2, md: 2 }} columns={{ xs: 1, sm: 2, md: 3 }}>
-          {boards.map((board) => {
-            return (
-              <BoardItem
-                key={board.id}
-                // title={board.title}
-                // description={board.description}
-                // id={board.id}
-                board={board}
-                initModalWindow={initModalWindowDeleteBoard}
-              />
-            );
-          })}
-          <BoardAdd openModalFormAddBoard={openModalFormAddBoard} />
-        </Grid>
-      ) : (
-        <CircularProgressBox>
-          <CircularProgress />
-        </CircularProgressBox>
-      )}
-      {openModal ? (
-        <ModalWindowConfirm
-          textMassage={`Вы уверненны, что хотите удалить ${titleDeleteBoard} ?`}
-          reuseDeleteBoard={reuseDeleteBoard}
-          deleteElement={deleteElement}
-        />
-      ) : null}
-      {openModalAddNewBoard ? <FormNewBoard reuseDeleteBoard={reuseDeleteBoard} /> : null}
+      <PageContentWrap>
+        <Typography
+          component="h1"
+          sx={{
+            typography: { sm: 'h2', xs: 'h3' },
+          }}
+        >
+          Boards
+        </Typography>
+        <Boards />
+      </PageContentWrap>
     </Container>
   );
 }

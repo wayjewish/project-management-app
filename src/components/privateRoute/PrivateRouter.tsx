@@ -9,7 +9,7 @@ interface IProps {
 
 function PrivateRoute(props: IProps) {
   const { children } = props;
-  const { isAuth } = useAppSelector((state) => state.isAuth);
+  const { isAuth } = useAppSelector((state) => state.auth);
 
   return isAuth ? children : <Navigate to="/" />;
 }

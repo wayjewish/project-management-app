@@ -1,42 +1,32 @@
 import React from 'react';
-import {
-  CardItem,
-  CardContentItem,
-  TypographyCardItem,
-  ButtonCardRemove,
-} from './BoardItem.styled';
-import { Typography, Grid } from '@mui/material';
-
-interface IBoard {
-  title: string;
-  id: string;
-  description: string;
-}
+import { Button, Typography } from '@mui/material';
+import { CardItem, CardItemContent, CardItemTop, CardItemBot } from './BoardItem.styled';
+import { IBoard } from '../../../types';
 
 interface IProps {
   board: IBoard;
-  initModalWindow: (id: string, title: string) => void;
+  removeBoard: (board: IBoard) => void;
 }
 
-function BoardItem({ board, initModalWindow }: IProps) {
+function BoardItem({ board, removeBoard }: IProps) {
+  const handlerClick = () => {
+    removeBoard(board);
+  };
+
   return (
-    <Grid item xs={1} sm={1} md={1}>
-      <CardItem variant="elevation" elevation={8}>
-        <CardContentItem>
+    <CardItem variant="elevation" elevation={8}>
+      <CardItemContent>
+        <CardItemTop>
           <Typography variant="h5">{board.title}</Typography>
-          <TypographyCardItem variant="h6">{board.description}</TypographyCardItem>
-          <ButtonCardRemove
-            variant="text"
-            color="error"
-            onClick={() => {
-              initModalWindow(board.id, board.title);
-            }}
-          >
-            REMOVE
-          </ButtonCardRemove>
-        </CardContentItem>
-      </CardItem>
-    </Grid>
+          <Typography variant="subtitle1">{board.description}</Typography>
+        </CardItemTop>
+        <CardItemBot>
+          <Button variant="text" color="error" onClick={handlerClick}>
+            Remove
+          </Button>
+        </CardItemBot>
+      </CardItemContent>
+    </CardItem>
   );
 }
 

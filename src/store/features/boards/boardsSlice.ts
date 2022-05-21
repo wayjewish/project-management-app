@@ -4,11 +4,9 @@ import boardService from './boards.service';
 
 const initialState: {
   boards: IBoard[];
-  isOpenModalConfirm: boolean;
   loading: boolean;
 } = {
   boards: [],
-  isOpenModalConfirm: false,
   loading: false,
 };
 
@@ -16,7 +14,6 @@ export const getBoards = createAsyncThunk(
   'boards/getBoards',
   async (_, { rejectWithValue, dispatch }) => {
     const res = await boardService.getAll();
-    console.log('board/getBoards', res);
     dispatch(setBoards(res.data));
   }
 );
@@ -24,12 +21,9 @@ export const getBoards = createAsyncThunk(
 export const addBoard = createAsyncThunk(
   'boards/addBoard',
   async (board: IBoardData, { rejectWithValue, dispatch }) => {
-    const add = await boardService.create(board);
-    console.log('board/addBoard add', add);
+    await boardService.create(board);
 
     const res = await boardService.getAll();
-    console.log('board/addBoard get', res);
-
     dispatch(setBoards(res.data));
   }
 );
@@ -37,12 +31,9 @@ export const addBoard = createAsyncThunk(
 export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',
   async (id: string, { rejectWithValue, dispatch }) => {
-    const resDelete = await boardService.delete(id);
-    console.log('board/addBoard delete', resDelete);
+    await boardService.delete(id);
 
     const res = await boardService.getAll();
-    console.log('board/addBoard get', res);
-
     dispatch(setBoards(res.data));
   }
 );

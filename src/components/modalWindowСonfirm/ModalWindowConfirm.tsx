@@ -9,42 +9,48 @@ import {
 } from '@mui/material';
 
 interface IProps {
-  textMassage: string;
-  reuseDeleteBoard: () => void;
-  deleteElement: () => void;
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  title: string;
+  text?: string;
+  yes?: () => void;
+  no?: () => void;
 }
 
 export default function ModalWindowConfirm({
-  textMassage,
-  reuseDeleteBoard,
-  deleteElement,
+  openModal,
+  setOpenModal,
+  title,
+  text,
+  yes,
+  no,
 }: IProps) {
-  const [open, setOpen] = useState(true);
   const handleClose = (userResponse: boolean) => {
-    reuseDeleteBoard();
-    setOpen(false);
     if (userResponse) {
-      deleteElement();
+      if (yes) {
+        yes();
+      }
+    } else {
+      if (no) {
+        no();
+      }
     }
+
+    setOpenModal(false);
   };
 
   return (
     <div>
-      <Dialog
-        open={open}
-        onClose={() => handleClose(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{textMassage}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">{}</DialogContentText>
-        </DialogContent>
+      <Dialog fullWidth maxWidth="sm" open={openModal} onClose={() => handleClose(false)}>
+        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+        {text && (
+          <DialogContent>
+            <DialogContentText>{text}</DialogContentText>
+          </DialogContent>
+        )}
         <DialogActions>
           <Button onClick={() => handleClose(false)}>Нет</Button>
-          <Button onClick={() => handleClose(true)} autoFocus>
-            Да
-          </Button>
+          <Button onClick={() => handleClose(true)}>Да</Button>
         </DialogActions>
       </Dialog>
     </div>

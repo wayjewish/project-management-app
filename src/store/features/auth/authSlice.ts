@@ -9,7 +9,7 @@ const initialState: IAuthState = {
 };
 
 export const authSlice = createSlice({
-  name: 'form',
+  name: 'auth',
   initialState,
   reducers: {
     change: (state, action: PayloadAction<boolean>) => {

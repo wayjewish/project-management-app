@@ -1,22 +1,30 @@
 import { styled } from '@mui/material/styles';
-import { Card, CardContent, Typography, Button } from '@mui/material';
+import { Card, CardContent, Box } from '@mui/material';
 
-export const CardItem = styled(Card)(() => ({
+export const CardItem = styled(Card)(({ theme }) => ({
   height: '200px',
-  cursor: 'pointer',
+
+  [theme.breakpoints.down('md')]: {
+    height: 'auto',
+  },
 }));
 
-export const CardContentItem = styled(CardContent)(() => ({
+export const CardItemContent = styled(CardContent)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  gap: theme.spacing(2),
+  height: '100%',
 }));
 
-export const TypographyCardItem = styled(Typography)(() => ({
-  height: '100px',
-  overflow: 'hidden',
+export const CardItemTop = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(1),
 }));
 
-export const ButtonCardRemove = styled(Button)(() => ({
-  alignSelf: 'flex-end',
+export const CardItemBot = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: theme.spacing(2),
 }));

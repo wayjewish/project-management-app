@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography, Grid } from '@mui/material';
-import { CardItemAdd, CancelOutlinedBoardAdd } from './BoardAdd.styled';
+import { Typography } from '@mui/material';
+import { CardAdd, CardAddContent, IconBoardAdd } from './BoardAdd.styled';
 
 interface IProps {
   openModalFormAddBoard: () => void;
@@ -8,12 +8,12 @@ interface IProps {
 
 function BoardAdd({ openModalFormAddBoard }: IProps) {
   return (
-    <Grid item xs={1} sm={1} md={1}>
-      <CardItemAdd variant="elevation" elevation={8} onClick={openModalFormAddBoard}>
+    <CardAdd variant="elevation" elevation={8} onClick={openModalFormAddBoard}>
+      <CardAddContent>
         <Typography variant="h5">Добавить</Typography>
-        <CancelOutlinedBoardAdd />
-      </CardItemAdd>
-    </Grid>
+        <IconBoardAdd />
+      </CardAddContent>
+    </CardAdd>
   );
 }
 
