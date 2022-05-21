@@ -6,18 +6,23 @@ import { openModalLogin } from '../../store/features/modalLogin/modalLoginSlice'
 import { closeModalSingup } from '../../store/features/modalSingUp/modalSingupSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import ModalLogin from './ModalLogin';
+import { useNavigate } from 'react-router-dom';
 
 const ModalSingup = () => {
+  let navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isOpenedSingup } = useAppSelector((state) => state.modaSingup);
-
+  function onDismiss() {
+    navigate(-1);
+    dispatch(closeModalSingup());
+  }
   return (
     <form noValidate autoComplete="off">
-      <Dialog open={isOpenedSingup} onClose={() => dispatch(closeModalSingup())}>
+      <Dialog open={isOpenedSingup} onClose={onDismiss}>
         <Box p={2} maxWidth={'420px'}>
           <Box display={'flex'} justifyContent={'space-between'}>
             <Typography variant="h5">Sing up</Typography>
-            <CloseIcon onClick={() => dispatch(closeModalSingup())} />
+            <CloseIcon onClick={onDismiss}/>
           </Box>
           <TextField
             fullWidth
@@ -47,7 +52,7 @@ const ModalSingup = () => {
             <Button variant="contained" size="large" color="primary">
               Sing up
             </Button>
-            <Link
+            <Link 
               onClick={() => {
                 dispatch(openModalLogin());
                 dispatch(closeModalSingup());
@@ -63,3 +68,5 @@ const ModalSingup = () => {
   );
 };
 export default ModalSingup;
+
+

@@ -21,6 +21,8 @@ export const GlobalStyles = css`
   a {
     text-decoration: none;
     transition: 0.2s;
+    color: inherit;
+    width: 100%;
   }
   a:hover {
     cursor: pointer;

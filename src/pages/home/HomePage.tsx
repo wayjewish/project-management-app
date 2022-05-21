@@ -16,9 +16,11 @@ import ModalLogin from '../../components/Modal/ModalLogin';
 import ModalSingup from '../../components/Modal/ModalSingup';
 import { useAppDispatch } from '../../store/hooks';
 import { openModalSingup } from '../../store/features/modalSingUp/modalSingupSlice';
+import { Link, useLocation } from 'react-router-dom';
 
 function HomePage() {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   return (
     <Container>
       <HomeWrap>
@@ -39,11 +41,13 @@ function HomePage() {
                 одного инструмента.
               </Typography>
             </Box>
-            <Button variant="contained" size="large" onClick={()=> dispatch(openModalSingup())}>
-              Попробовать
-            </Button>
+            <Link to="singup" state={{ backgroundLocation: location }}>
+              <Button variant="contained" size="large" onClick={() => dispatch(openModalSingup())}>
+                Попробовать
+              </Button>
+            </Link>
             <ModalLogin />
-          <ModalSingup />
+            <ModalSingup />
           </FirstLeftBox>
           <FirstRightBox item md={5} sm={12}>
             <Box>

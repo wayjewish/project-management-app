@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/material';
 
 import { Header, HeaderWrap, BoxBtns } from './Header.styled';
@@ -12,8 +12,9 @@ import ModalLogin from '../Modal/ModalLogin';
 import ModalSingup from '../Modal/ModalSingup';
 
 function HeaderComponent() {
-  const { isOpenedLogin } = useAppSelector((state) => state.modalLogin);
   const dispatch = useAppDispatch();
+  
+  const location = useLocation();
   const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
   return (
     <Header position="sticky" scrollTrigger={scrollTrigger} elevation={scrollTrigger ? 8 : 0}>
@@ -26,7 +27,9 @@ function HeaderComponent() {
           </Box>
           <BoxBtns>
             <Button color="inherit" onClick={() => dispatch(openModalLogin())}>
-              Login
+              <Link to="login" state={{ backgroundLocation: location }}>
+                Login
+              </Link>
             </Button>
             <ModalLogin />
             <ModalSingup />

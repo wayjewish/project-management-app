@@ -9,10 +9,13 @@ import { openModalLogin } from '../../../store/features/modalLogin/modalLoginSli
 import ModalLogin from '../../Modal/ModalLogin';
 import ModalSingup from '../../Modal/ModalSingup';
 import { useAppDispatch } from '../../../store/hooks';
+import { Link, useLocation } from 'react-router-dom';
 
 function BurgerMenu() {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
+
+  const location = useLocation();
 
   const toggleDrawer = (open: boolean) => () => {
     setIsOpen(open);
@@ -40,9 +43,11 @@ function BurgerMenu() {
           >
             Close
           </Button>
-          <Button variant="outlined" fullWidth={true} onClick={() => dispatch(openModalLogin())}>
-            Login
-          </Button>
+          <Link to="login" state={{ backgroundLocation: location }}>
+            <Button variant="outlined" fullWidth={true} onClick={() => dispatch(openModalLogin())}>
+              Login
+            </Button>
+          </Link>
           <ModalLogin />
           <ModalSingup />
           <SelectBox media="mobile" />
