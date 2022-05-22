@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { styled } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import { Container, Box } from '@mui/material';
 
 export const GlobalStyles = css`
   * {
@@ -36,8 +36,21 @@ export const GlobalStyles = css`
   }
 `;
 
+export const ContainerCustom = styled(Container)(({ theme }) => ({
+  flexGrow: '1',
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+}));
+
 export const PageContentWrap = styled(Box)(({ theme }) => ({
+  flexGrow: '1',
   display: 'flex',
   flexDirection: 'column',
   gap: theme.spacing(3),
+  height: '100%',
+
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(2),
+  },
 }));

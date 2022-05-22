@@ -9,7 +9,8 @@ interface IProps {
 }
 
 function BoardItem({ board, removeBoard }: IProps) {
-  const handlerClick = () => {
+  const handlerClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     removeBoard(board);
   };
 

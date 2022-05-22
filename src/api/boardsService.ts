@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
-import { api } from '../../api';
-import { IBoardData } from '../../../types';
+import { api } from './api';
+import { IBoardData } from '../types';
 
 const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5OWQzMTczMy03NTE0LTQ0MzQtYTNjZC0xZjUxMTIyOTMyZWMiLCJsb2dpbiI6ImFkbWluIiwiaWF0IjoxNjUzMDYwMDk3fQ.vzS0nBjU0jbODVxpzj0Ka3KSLGs7OXw94yEDwscYZkQ';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Yzc2NmRmMi05MzE3LTQ3ODQtOGRlZC1iODQ3NDQyMjk2NmEiLCJsb2dpbiI6ImFkbWluIiwiaWF0IjoxNjUzMjQzMjAzfQ.Ip2v4eZdHfYqe7u_h0Syi3M1CKHIZuPbYGOJG6TA70g';
 
 class BoardsService {
   endpoint: string;

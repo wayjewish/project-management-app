@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IBoard, IBoardData } from '../../../types';
-import boardService from './boards.service';
+import boardService from '../../../api/boardsService';
 
 const initialState: {
-  boards: IBoard[];
+  boards: IBoard[] | null;
   loading: boolean;
 } = {
-  boards: [],
+  boards: null,
   loading: false,
 };
 
@@ -38,7 +38,7 @@ export const deleteBoard = createAsyncThunk(
   }
 );
 
-export const boardSlice = createSlice({
+export const boardsSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
@@ -48,17 +48,14 @@ export const boardSlice = createSlice({
   },
   extraReducers: {
     [getBoards.pending.type]: (state) => {
-      state.loading = false;
-    },
-    [getBoards.fulfilled.type]: (state) => {
       state.loading = true;
     },
-    [getBoards.rejected.type]: () => {
-      console.log('Не может занрузиться Boards');
+    [getBoards.fulfilled.type]: (state) => {
+      state.loading = false;
     },
   },
 });
 
-export const { setBoards } = boardSlice.actions;
+export const { setBoards } = boardsSlice.actions;
 
-export default boardSlice.reducer;
+export default boardsSlice.reducer;

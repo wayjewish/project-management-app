@@ -11,13 +11,15 @@ export const AppBox = styled(Box)({
 
 export const Main = styled('main')(({ theme }) => ({
   flexGrow: '1',
+  display: 'flex',
+  flexDirection: 'column',
   width: '100%',
   height: '100%',
-  margin: `${theme.spacing(5)} 0px`,
+  margin: `${theme.spacing(3)} 0px`,
 
   backgroundColor: 'white',
 
   [theme.breakpoints.down('md')]: {
-    margin: `${theme.spacing(3)} 0px`,
+    margin: `${theme.spacing(2)} 0px`,
   },
 }));
