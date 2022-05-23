@@ -4,10 +4,20 @@ import boardsService from '../../../api/boardsService';
 
 const initialState: {
   boards: IBoard[] | null;
-  loading: boolean;
+  isLoading: boolean;
+  isOpenModal: {
+    formAdd: boolean;
+    confirmDelete: boolean;
+  };
+  deletedBoard: IBoard | null;
 } = {
   boards: null,
-  loading: false,
+  isLoading: false,
+  isOpenModal: {
+    formAdd: false,
+    confirmDelete: false,
+  },
+  deletedBoard: null,
 };
 
 export const getBoards = createAsyncThunk(
@@ -23,8 +33,7 @@ export const addBoard = createAsyncThunk(
   async (board: IBoardData, { rejectWithValue, dispatch }) => {
     await boardsService.create(board);
 
-    const res = await boardsService.getAll();
-    dispatch(setBoards(res.data));
+    dispatch(getBoards());
   }
 );
 
@@ -33,8 +42,7 @@ export const deleteBoard = createAsyncThunk(
   async (id: string, { rejectWithValue, dispatch }) => {
     await boardsService.delete(id);
 
-    const res = await boardsService.getAll();
-    dispatch(setBoards(res.data));
+    dispatch(getBoards());
   }
 );
 
@@ -45,17 +53,36 @@ export const boardsSlice = createSlice({
     setBoards: (state, action) => {
       state.boards = action.payload;
     },
+    changeIsOpenModal: (state, action) => {
+      state.isOpenModal = {
+        ...state.isOpenModal,
+        ...action.payload,
+      };
+    },
+    setDeletedBoard: (state, action) => {
+      state.deletedBoard = action.payload;
+    },
+    openConfirmDelete: (state, action) => {
+      state.deletedBoard = action.payload.deletedBoard;
+      state.isOpenModal.confirmDelete = action.payload.isOpen;
+    },
   },
   extraReducers: {
     [getBoards.pending.type]: (state) => {
-      state.loading = true;
+      state.isLoading = true;
+    },
+    [addBoard.pending.type]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteBoard.pending.type]: (state) => {
+      state.isLoading = true;
     },
     [getBoards.fulfilled.type]: (state) => {
-      state.loading = false;
+      state.isLoading = false;
     },
   },
 });
 
-export const { setBoards } = boardsSlice.actions;
+export const { setBoards, changeIsOpenModal, setDeletedBoard } = boardsSlice.actions;
 
 export default boardsSlice.reducer;

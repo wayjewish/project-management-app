@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import {
   Dialog,
   DialogTitle,
@@ -13,32 +14,30 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { IColumnData } from '../../../../api/types';
-import { addColumn } from '../../../../store/features/board/boardSlice';
+import { addColumn, changeIsOpenModalColumn } from '../../../../store/features/board/boardSlice';
 
-interface IProps {
-  openModal: boolean;
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function FormAddColumn({ openModal, setOpenModal }: IProps) {
+function ColumnFormAdd() {
   const dispatch = useAppDispatch();
-  const { board } = useAppSelector((state) => state.board);
+  const { board, isOpenModalColumn } = useAppSelector((state) => state.board);
 
-  const [data, setData] = useState<IColumnData>({
+  const initialData: IColumnData = {
     title: '',
-  });
+  };
+
+  const [data, setData] = useState(initialData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.currentTarget;
+    const { name, value } = e.currentTarget;
 
     setData({
       ...data,
-      [id]: value,
+      [name]: value,
     });
   };
 
   const handleClose = () => {
-    setOpenModal(false);
+    dispatch(changeIsOpenModalColumn({ formAdd: false }));
+    setData(initialData);
   };
 
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,8 +48,8 @@ function FormAddColumn({ openModal, setOpenModal }: IProps) {
     handleClose();
   };
 
-  return (
-    <Dialog fullWidth maxWidth="sm" open={openModal} onClose={handleClose}>
+  return ReactDOM.createPortal(
+    <Dialog fullWidth maxWidth="sm" open={isOpenModalColumn.formAdd} onClose={handleClose}>
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
@@ -59,7 +58,7 @@ function FormAddColumn({ openModal, setOpenModal }: IProps) {
         <Box id="addColumn" component="form" onSubmit={handlerSubmit} autoComplete="off">
           <FormInputsBox>
             <TextField
-              id="title"
+              name="title"
               label="Title"
               variant="outlined"
               value={data.title}
@@ -73,8 +72,9 @@ function FormAddColumn({ openModal, setOpenModal }: IProps) {
           Create
         </Button>
       </DialogActions>
-    </Dialog>
+    </Dialog>,
+    document.body
   );
 }
 
-export default FormAddColumn;
+export default ColumnFormAdd;

@@ -3,15 +3,20 @@ import { Button, Typography } from '@mui/material';
 import { CardItem, CardItemContent, CardItemTop, CardItemBot } from './BoardItem.styled';
 import { IBoard } from '../../../api/types';
 
+import { useAppDispatch } from '../../../store/hooks';
+import { changeIsOpenModal, setDeletedBoard } from '../../../store/features/boards/boardsSlice';
+
 interface IProps {
   board: IBoard;
-  clickRemoveBoard: (board: IBoard) => void;
 }
 
-function BoardItem({ board, clickRemoveBoard }: IProps) {
+function BoardItem({ board }: IProps) {
+  const dispatch = useAppDispatch();
+
   const handlerClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    clickRemoveBoard(board);
+    dispatch(setDeletedBoard(board));
+    dispatch(changeIsOpenModal({ confirmDelete: true }));
   };
 
   return (

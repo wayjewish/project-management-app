@@ -3,4 +3,5 @@ import { Card } from '@mui/material';
 
 export const TaskCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
+  cursor: 'pointer',
 }));

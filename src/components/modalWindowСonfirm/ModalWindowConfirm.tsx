@@ -9,39 +9,36 @@ import {
 } from '@mui/material';
 
 interface IProps {
-  openModal: boolean;
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
+  close: () => void;
   title: string;
   text?: string;
   yes?: () => void;
   no?: () => void;
 }
 
-export default function ModalWindowConfirm({
-  openModal,
-  setOpenModal,
-  title,
-  text,
-  yes,
-  no,
-}: IProps) {
-  const handleClose = (userResponse: boolean) => {
-    if (userResponse) {
-      if (yes) {
-        yes();
-      }
-    } else {
-      if (no) {
-        no();
-      }
+export default function ModalWindowConfirm({ isOpen, close, title, text, yes, no }: IProps) {
+  const handleAnswerYes = () => {
+    if (yes) {
+      yes();
     }
+    handleClose();
+  };
 
-    setOpenModal(false);
+  const handleAnswerNo = () => {
+    if (no) {
+      no();
+    }
+    handleClose();
+  };
+
+  const handleClose = () => {
+    close();
   };
 
   return (
     <div>
-      <Dialog fullWidth maxWidth="sm" open={openModal} onClose={() => handleClose(false)}>
+      <Dialog fullWidth maxWidth="sm" open={isOpen} onClose={handleClose}>
         <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         {text && (
           <DialogContent>
@@ -49,8 +46,8 @@ export default function ModalWindowConfirm({
           </DialogContent>
         )}
         <DialogActions>
-          <Button onClick={() => handleClose(false)}>Нет</Button>
-          <Button onClick={() => handleClose(true)}>Да</Button>
+          <Button onClick={handleAnswerNo}>Нет</Button>
+          <Button onClick={handleAnswerYes}>Да</Button>
         </DialogActions>
       </Dialog>
     </div>

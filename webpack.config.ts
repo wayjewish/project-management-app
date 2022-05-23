@@ -65,7 +65,7 @@ const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
         template: './src/index.html',
       }),
       new CopyPlugin({
-        patterns: [{ from: 'src/static', to: '' }],
+        patterns: [{ from: './src/static', to: '' }],
       }),
     ],
     devServer: {
@@ -77,6 +77,7 @@ const generateConfig: WebpackConfigurationGenerator = (env, argv) => {
       open: true,
       historyApiFallback: true,
     },
+    devtool: 'eval-source-map',
   };
 };
 

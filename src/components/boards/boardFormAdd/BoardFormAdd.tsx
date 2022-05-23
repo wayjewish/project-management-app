@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import {
   Dialog,
   DialogTitle,
@@ -11,34 +12,33 @@ import {
 import { CloseIconBox, FormInputsBox } from './BoardFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useAppDispatch } from '../../../store/hooks';
-import { addBoard } from '../../../store/features/boards/boardsSlice';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { addBoard, changeIsOpenModal } from '../../../store/features/boards/boardsSlice';
 import { IBoardData } from '../../../api/types';
 
-interface IProps {
-  openModal: boolean;
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export default function FormAddBoard({ openModal, setOpenModal }: IProps) {
+export default function BoardFormAdd() {
   const dispatch = useAppDispatch();
+  const { isOpenModal } = useAppSelector((state) => state.boards);
 
-  const [data, setData] = useState<IBoardData>({
+  const initialData: IBoardData = {
     title: '',
     description: '',
-  });
+  };
+
+  const [data, setData] = useState(initialData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.currentTarget;
+    const { name, value } = e.currentTarget;
 
     setData({
       ...data,
-      [id]: value,
+      [name]: value,
     });
   };
 
   const handleClose = () => {
-    setOpenModal(false);
+    dispatch(changeIsOpenModal({ formAdd: false }));
+    setData(initialData);
   };
 
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,8 +47,8 @@ export default function FormAddBoard({ openModal, setOpenModal }: IProps) {
     handleClose();
   };
 
-  return (
-    <Dialog fullWidth maxWidth="sm" open={openModal} onClose={handleClose}>
+  return ReactDOM.createPortal(
+    <Dialog fullWidth maxWidth="sm" open={isOpenModal.formAdd} onClose={handleClose}>
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
@@ -57,14 +57,14 @@ export default function FormAddBoard({ openModal, setOpenModal }: IProps) {
         <Box id="addBoard" component="form" onSubmit={handlerSubmit} autoComplete="off">
           <FormInputsBox>
             <TextField
-              id="title"
+              name="title"
               label="Title"
               variant="outlined"
               value={data.title}
               onChange={handleChange}
             />
             <TextField
-              id="description"
+              name="description"
               label="Description"
               multiline
               rows={4}
@@ -79,6 +79,7 @@ export default function FormAddBoard({ openModal, setOpenModal }: IProps) {
           Create
         </Button>
       </DialogActions>
-    </Dialog>
+    </Dialog>,
+    document.body
   );
 }

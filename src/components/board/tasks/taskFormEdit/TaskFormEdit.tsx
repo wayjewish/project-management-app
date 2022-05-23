@@ -13,27 +13,30 @@ import {
   CircularProgress,
   SelectChangeEvent,
 } from '@mui/material';
-import { CloseIconBox, FormInputsBox, CircularProgressBox } from './TaskFormAdd.styled';
+import { CloseIconBox, FormInputsBox, CircularProgressBox } from './TaskFormEdit.styled';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { ITaskData } from '../../../../api/types';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import {
-  addTask,
+  updateTask,
   changeIsOpenModalTask,
-  setActiveColumn,
+  setActiveTask,
+  setDeletedTask,
 } from '../../../../store/features/board/boardSlice';
 import { getUsers } from '../../../../store/features/users/usersSlice';
 
-function TaskFormAdd() {
+function TaskFormEdit() {
   const dispatch = useAppDispatch();
-  const { board, activeColumn, isOpenModalTask } = useAppSelector((state) => state.board);
+  const { activeTask, isOpenModalTask } = useAppSelector((state) => state.board);
   const users = useAppSelector((state) => state.users);
 
+  console.log(activeTask);
+
   const initialData: ITaskData = {
-    title: '',
-    description: '',
-    userId: '',
+    title: activeTask ? activeTask.title : '',
+    description: activeTask ? activeTask.description : '',
+    userId: activeTask ? activeTask.userId : '',
   };
 
   const [data, setData] = useState(initialData);
@@ -57,17 +60,31 @@ function TaskFormAdd() {
   };
 
   const handleClose = () => {
-    dispatch(changeIsOpenModalTask({ formAdd: false }));
-    dispatch(setActiveColumn(null));
+    dispatch(changeIsOpenModalTask({ formEdit: false }));
+    dispatch(setActiveTask(null));
     setData(initialData);
   };
 
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (board && activeColumn) {
-      dispatch(addTask({ boardId: board.id, columnId: activeColumn.id, data }));
+    if (activeTask) {
+      dispatch(
+        updateTask({
+          boardId: activeTask.boardId,
+          columnId: activeTask.columnId,
+          taskId: activeTask.id,
+          data,
+        })
+      );
     }
     handleClose();
+  };
+
+  const handleClickRemove = () => {
+    dispatch(setDeletedTask({ ...activeTask }));
+    dispatch(changeIsOpenModalTask({ confirmDelete: true, formEdit: false }));
+    dispatch(setActiveTask(null));
+    setData(initialData);
   };
 
   useEffect(() => {
@@ -75,11 +92,11 @@ function TaskFormAdd() {
   }, []);
 
   return ReactDOM.createPortal(
-    <Dialog fullWidth maxWidth="sm" open={isOpenModalTask.formAdd} onClose={handleClose}>
+    <Dialog fullWidth maxWidth="sm" open={isOpenModalTask.formEdit} onClose={handleClose}>
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
-      <DialogTitle variant="h5">Create task</DialogTitle>
+      <DialogTitle variant="h5">Edit task</DialogTitle>
       <DialogContent>
         {users.loading && (
           <CircularProgressBox>
@@ -87,7 +104,7 @@ function TaskFormAdd() {
           </CircularProgressBox>
         )}
         {!users.loading && users.users && (
-          <Box id="addTask" component="form" onSubmit={handlerSubmit} autoComplete="off">
+          <Box id="editTask" component="form" onSubmit={handlerSubmit} autoComplete="off">
             <FormInputsBox>
               <TextField
                 name="title"
@@ -121,8 +138,11 @@ function TaskFormAdd() {
         )}
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" type="submit" form="addTask">
-          Create
+        <Button variant="contained" color="error" onClick={handleClickRemove}>
+          Remove
+        </Button>
+        <Button variant="contained" type="submit" form="editTask">
+          Update
         </Button>
       </DialogActions>
     </Dialog>,
@@ -130,4 +150,4 @@ function TaskFormAdd() {
   );
 }
 
-export default TaskFormAdd;
+export default TaskFormEdit;

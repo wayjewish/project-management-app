@@ -11,12 +11,32 @@ import {
 import { IColumnFull } from '../../../../api/types';
 import Task from '../../tasks/task/Task';
 
+import { useAppDispatch } from '../../../../store/hooks';
+import {
+  changeIsOpenModalColumn,
+  changeIsOpenModalTask,
+  setActiveColumn,
+  setDeletedColumn,
+} from '../../../../store/features/board/boardSlice';
+
 interface IProps {
   column: IColumnFull;
 }
 
 function Column(props: IProps) {
   const { column } = props;
+
+  const dispatch = useAppDispatch();
+
+  const handlerClickAdd = () => {
+    dispatch(setActiveColumn(column));
+    dispatch(changeIsOpenModalTask({ formAdd: true }));
+  };
+
+  const handlerClickDelete = () => {
+    dispatch(setDeletedColumn(column));
+    dispatch(changeIsOpenModalColumn({ confirmDelete: true }));
+  };
 
   return (
     <ColumnBox>
@@ -34,8 +54,10 @@ function Column(props: IProps) {
           </TasksBox>
         </TasksOverflowBox>
         <BotBox>
-          <Button variant="text">+ Add</Button>
-          <Button variant="text" color="error">
+          <Button variant="text" onClick={handlerClickAdd}>
+            + Add
+          </Button>
+          <Button variant="text" color="error" onClick={handlerClickDelete}>
             Remove
           </Button>
         </BotBox>
