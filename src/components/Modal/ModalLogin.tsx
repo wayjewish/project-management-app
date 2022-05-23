@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Box, Dialog, Typography, Link } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { closeModalLogin } from '../../store/features/modalLogin/modalLoginSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import ModalSingup from './ModalSingup';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { openModalSingup } from '../../store/features/modalSingUp/modalSingupSlice';
 
 const inputFieldValues = [

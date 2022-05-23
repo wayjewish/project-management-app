@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
 import { Button, Link, TextField, Typography, Box, Dialog } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -6,32 +8,34 @@ import { openModalLogin } from '../../store/features/modalLogin/modalLoginSlice'
 import { closeModalSingup } from '../../store/features/modalSingUp/modalSingupSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import ModalLogin from './ModalLogin';
-import { useNavigate } from 'react-router-dom';
 
 const ModalSingup = () => {
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isOpenedSingup } = useAppSelector((state) => state.modaSingup);
+  const { isOpenedSingup } = useAppSelector((state) => state.modalSingup);
   function onDismiss() {
     navigate(-1);
     dispatch(closeModalSingup());
   }
+
   return (
     <form noValidate autoComplete="off">
       <Dialog open={isOpenedSingup} onClose={onDismiss}>
         <Box p={2} maxWidth={'420px'}>
           <Box display={'flex'} justifyContent={'space-between'}>
             <Typography variant="h5">Sing up</Typography>
-            <CloseIcon onClick={onDismiss}/>
+            <CloseIcon onClick={onDismiss} />
           </Box>
+
           <TextField
             fullWidth
             id="name"
             type="text"
             label="Name"
             placeholder="Name"
-            margin="normal"
+            margin="normal"  
           />
+
           <TextField
             fullWidth
             id="login"
@@ -49,10 +53,10 @@ const ModalSingup = () => {
             margin="normal"
           />
           <Box display={'flex'} flexDirection={'column'}>
-            <Button variant="contained" size="large" color="primary">
+            <Button variant="contained" size="large" color="primary" type="submit">
               Sing up
             </Button>
-            <Link 
+            <Link
               onClick={() => {
                 dispatch(openModalLogin());
                 dispatch(closeModalSingup());
@@ -68,5 +72,3 @@ const ModalSingup = () => {
   );
 };
 export default ModalSingup;
-
-
