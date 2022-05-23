@@ -1,17 +1,17 @@
 import React from 'react';
 import { Button, Typography } from '@mui/material';
 import { CardItem, CardItemContent, CardItemTop, CardItemBot } from './BoardItem.styled';
-import { IBoard } from '../../../types';
+import { IBoard } from '../../../api/types';
 
 interface IProps {
   board: IBoard;
-  removeBoard: (board: IBoard) => void;
+  clickRemoveBoard: (board: IBoard) => void;
 }
 
-function BoardItem({ board, removeBoard }: IProps) {
+function BoardItem({ board, clickRemoveBoard }: IProps) {
   const handlerClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    removeBoard(board);
+    clickRemoveBoard(board);
   };
 
   return (

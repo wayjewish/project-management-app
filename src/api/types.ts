@@ -32,11 +32,11 @@ export interface ITaskData {
   title: string;
   description: string;
   userId: string;
-  boardId: string;
-  columnId: string;
-  files: File[];
 }
 export interface ITask extends ITaskData {
   id: string;
   order: number;
+  boardId: string;
+  columnId: string;
+  files: File[];
 }

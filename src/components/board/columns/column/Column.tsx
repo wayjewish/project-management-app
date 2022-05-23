@@ -8,7 +8,7 @@ import {
   TasksBox,
   BotBox,
 } from './Column.styled';
-import { IColumnFull } from '../../../../types';
+import { IColumnFull } from '../../../../api/types';
 import Task from '../../tasks/task/Task';
 
 interface IProps {

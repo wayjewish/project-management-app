@@ -13,7 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { useAppDispatch } from '../../../store/hooks';
 import { addBoard } from '../../../store/features/boards/boardsSlice';
-import { IBoardData } from '../../../types';
+import { IBoardData } from '../../../api/types';
 
 interface IProps {
   openModal: boolean;
@@ -28,10 +28,12 @@ export default function FormAddBoard({ openModal, setOpenModal }: IProps) {
     description: '',
   });
 
-  const handleChange = (fieldName: string, value: string) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.currentTarget;
+
     setData({
       ...data,
-      [fieldName]: value,
+      [id]: value,
     });
   };
 
@@ -55,15 +57,19 @@ export default function FormAddBoard({ openModal, setOpenModal }: IProps) {
         <Box id="addBoard" component="form" onSubmit={handlerSubmit} autoComplete="off">
           <FormInputsBox>
             <TextField
+              id="title"
               label="Title"
               variant="outlined"
-              onChange={(e) => handleChange('title', e.currentTarget.value)}
+              value={data.title}
+              onChange={handleChange}
             />
             <TextField
+              id="description"
               label="Description"
               multiline
               rows={4}
-              onChange={(e) => handleChange('description', e.currentTarget.value)}
+              value={data.description}
+              onChange={handleChange}
             />
           </FormInputsBox>
         </Box>

@@ -12,7 +12,7 @@ import { CloseIconBox, FormInputsBox } from './ColumnFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { IColumnData } from '../../../../types';
+import { IColumnData } from '../../../../api/types';
 import { addColumn } from '../../../../store/features/board/boardSlice';
 
 interface IProps {
@@ -28,10 +28,12 @@ function FormAddColumn({ openModal, setOpenModal }: IProps) {
     title: '',
   });
 
-  const handleChange = (fieldName: string, value: string) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.currentTarget;
+
     setData({
       ...data,
-      [fieldName]: value,
+      [id]: value,
     });
   };
 
@@ -57,9 +59,11 @@ function FormAddColumn({ openModal, setOpenModal }: IProps) {
         <Box id="addColumn" component="form" onSubmit={handlerSubmit} autoComplete="off">
           <FormInputsBox>
             <TextField
+              id="title"
               label="Title"
               variant="outlined"
-              onChange={(e) => handleChange('title', e.currentTarget.value)}
+              value={data.title}
+              onChange={handleChange}
             />
           </FormInputsBox>
         </Box>

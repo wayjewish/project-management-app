@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Button } from '@mui/material';
 import { TaskCard } from './Task.styled';
-import { ITask } from '../../../../types';
+import { ITask } from '../../../../api/types';
 
 interface IProps {
   task: ITask;

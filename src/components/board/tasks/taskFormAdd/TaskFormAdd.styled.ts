@@ -12,3 +12,8 @@ export const FormInputsBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(2),
 }));
+
+export const CircularProgressBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+}));

@@ -10,26 +10,26 @@ import BoardItem from '../../components/boards/BoardItem/BoardItem';
 import BoardAdd from '../../components/boards/BoardAdd/BoardAdd';
 import ModalWindowConfirm from '../../components/modalWindowСonfirm/ModalWindowConfirm';
 import BoardFormAdd from './formAddBoard/BoardFormAdd';
-import { IBoard } from '../../types';
+import { IBoard } from '../../api/types';
 
 function Boards() {
   const dispatch = useAppDispatch();
   const { boards, loading } = useAppSelector((state) => state.boards);
 
-  const [openModalConfirm, setOpenModalConfirm] = useState(false);
-  const [openModalAddBoard, setOpenModalAddBoard] = useState(false);
+  const [isOpenModalConfirmDeleteBoard, setIsOpenModalConfirmDeleteBoard] = useState(false);
+  const [isOpenModalFormAddBoard, setIsOpenModalFormAddBoard] = useState(false);
   const [deletedBoard, setDeletedBoard] = useState<IBoard | null>();
 
   const openModalFormAddBoard = () => {
-    setOpenModalAddBoard(true);
+    setIsOpenModalFormAddBoard(true);
   };
 
-  const RemoveBoardInCard = (board: IBoard) => {
-    setOpenModalConfirm(true);
+  const clickRemoveBoard = (board: IBoard) => {
+    setIsOpenModalConfirmDeleteBoard(true);
     setDeletedBoard(board);
   };
 
-  const DeleteBoardConfirm = () => {
+  const confirmYes = () => {
     if (deletedBoard) {
       dispatch(deleteBoard(deletedBoard.id));
       setDeletedBoard(null);
@@ -55,7 +55,7 @@ function Boards() {
                 component={Link}
                 to={`/boards/${board.id}`}
               >
-                <BoardItem board={board} removeBoard={RemoveBoardInCard} />
+                <BoardItem board={board} clickRemoveBoard={clickRemoveBoard} />
               </Grid>
             ))}
           <Grid item md={4} sm={6} xs={12}>
@@ -67,15 +67,18 @@ function Boards() {
           <CircularProgress />
         </CircularProgressBox>
       )}
-      {openModalAddBoard && (
-        <BoardFormAdd openModal={openModalAddBoard} setOpenModal={setOpenModalAddBoard} />
+      {isOpenModalFormAddBoard && (
+        <BoardFormAdd
+          openModal={isOpenModalFormAddBoard}
+          setOpenModal={setIsOpenModalFormAddBoard}
+        />
       )}
-      {openModalConfirm && (
+      {isOpenModalConfirmDeleteBoard && (
         <ModalWindowConfirm
-          openModal={openModalConfirm}
-          setOpenModal={setOpenModalConfirm}
+          openModal={isOpenModalConfirmDeleteBoard}
+          setOpenModal={setIsOpenModalConfirmDeleteBoard}
           title={`Вы уверены, что хотите удалить ${deletedBoard?.title} ?`}
-          yes={DeleteBoardConfirm}
+          yes={confirmYes}
         />
       )}
     </BoardsWrap>

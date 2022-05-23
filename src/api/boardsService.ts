@@ -1,20 +1,12 @@
-import axios, { AxiosInstance } from 'axios';
-import { api } from './api';
-import { IBoardData } from '../types';
-
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1Yzc2NmRmMi05MzE3LTQ3ODQtOGRlZC1iODQ3NDQyMjk2NmEiLCJsb2dpbiI6ImFkbWluIiwiaWF0IjoxNjUzMjQzMjAzfQ.Ip2v4eZdHfYqe7u_h0Syi3M1CKHIZuPbYGOJG6TA70g';
+import { AxiosInstance } from 'axios';
+import instance from './instance';
+import { IBoardData } from './types';
 
 class BoardsService {
   instance: AxiosInstance;
 
   constructor() {
-    this.instance = axios.create({
-      baseURL: api.url,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    this.instance = instance;
   }
 
   getAll() {
