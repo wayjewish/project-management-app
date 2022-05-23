@@ -9,7 +9,7 @@ import { getBoards, deleteBoard } from '../../store/features/boards/boardsSlice'
 import BoardItem from '../../components/boards/BoardItem/BoardItem';
 import BoardAdd from '../../components/boards/BoardAdd/BoardAdd';
 import ModalWindowConfirm from '../../components/modalWindowСonfirm/ModalWindowConfirm';
-import FormAddBoard from './formAddBoard/FormAddBoard';
+import BoardFormAdd from './formAddBoard/BoardFormAdd';
 import { IBoard } from '../../types';
 
 function Boards() {
@@ -68,7 +68,7 @@ function Boards() {
         </CircularProgressBox>
       )}
       {openModalAddBoard && (
-        <FormAddBoard openModal={openModalAddBoard} setOpenModal={setOpenModalAddBoard} />
+        <BoardFormAdd openModal={openModalAddBoard} setOpenModal={setOpenModalAddBoard} />
       )}
       {openModalConfirm && (
         <ModalWindowConfirm

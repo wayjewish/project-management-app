@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IBoardFull } from '../../../types';
-import boardService from '../../../api/boardsService';
+import { IBoardFull, IColumnData } from '../../../types';
+import boardsService from '../../../api/boardsService';
+import columnsService from '../../../api/columnsService';
+import tasksService from '../../../api/tasksService';
 
 const initialState: {
   board: IBoardFull | null;
@@ -13,8 +15,40 @@ const initialState: {
 export const getBoard = createAsyncThunk(
   'board/getBoard',
   async (id: string, { rejectWithValue, dispatch }) => {
-    const res = await boardService.get(id);
-    console.log(res);
+    const res = await boardsService.get(id);
+    dispatch(setBoard(res.data));
+  }
+);
+
+interface IPropsAddColumn {
+  boardId: string;
+  data: IColumnData;
+}
+
+export const addColumn = createAsyncThunk(
+  'board/addColumn',
+  async (props: IPropsAddColumn, { rejectWithValue, dispatch }) => {
+    const { boardId, data } = props;
+    await columnsService.create(boardId, data);
+
+    const res = await boardsService.get(boardId);
+    dispatch(setBoard(res.data));
+  }
+);
+
+interface IPropsAddTask {
+  boardId: string;
+  columnId: string;
+  data: IColumnData;
+}
+
+export const addTask = createAsyncThunk(
+  'board/addTask',
+  async (props: IPropsAddTask, { rejectWithValue, dispatch }) => {
+    const { boardId, columnId, data } = props;
+    await tasksService.create(boardId, columnId, data);
+
+    const res = await boardsService.get(boardId);
     dispatch(setBoard(res.data));
   }
 );

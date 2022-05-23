@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IBoard, IBoardData } from '../../../types';
-import boardService from '../../../api/boardsService';
+import boardsService from '../../../api/boardsService';
 
 const initialState: {
   boards: IBoard[] | null;
@@ -13,7 +13,7 @@ const initialState: {
 export const getBoards = createAsyncThunk(
   'boards/getBoards',
   async (_, { rejectWithValue, dispatch }) => {
-    const res = await boardService.getAll();
+    const res = await boardsService.getAll();
     dispatch(setBoards(res.data));
   }
 );
@@ -21,9 +21,9 @@ export const getBoards = createAsyncThunk(
 export const addBoard = createAsyncThunk(
   'boards/addBoard',
   async (board: IBoardData, { rejectWithValue, dispatch }) => {
-    await boardService.create(board);
+    await boardsService.create(board);
 
-    const res = await boardService.getAll();
+    const res = await boardsService.getAll();
     dispatch(setBoards(res.data));
   }
 );
@@ -31,9 +31,9 @@ export const addBoard = createAsyncThunk(
 export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',
   async (id: string, { rejectWithValue, dispatch }) => {
-    await boardService.delete(id);
+    await boardsService.delete(id);
 
-    const res = await boardService.getAll();
+    const res = await boardsService.getAll();
     dispatch(setBoards(res.data));
   }
 );

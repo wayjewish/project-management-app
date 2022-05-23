@@ -19,10 +19,10 @@ export interface IBoardFull extends IBoard {
 
 export interface IColumnData {
   title: string;
-  order: number;
 }
 export interface IColumn extends IColumnData {
   id: string;
+  order: number;
 }
 export interface IColumnFull extends IColumn {
   tasks: ITask[];
@@ -30,7 +30,6 @@ export interface IColumnFull extends IColumn {
 
 export interface ITaskData {
   title: string;
-  order: number;
   description: string;
   userId: string;
   boardId: string;
@@ -39,4 +38,5 @@ export interface ITaskData {
 }
 export interface ITask extends ITaskData {
   id: string;
+  order: number;
 }

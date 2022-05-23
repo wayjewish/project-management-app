@@ -8,7 +8,7 @@ import {
   TextField,
   Button,
 } from '@mui/material';
-import { CloseIconBox, FormInputsBox } from './FormAddBoard.styled';
+import { CloseIconBox, FormInputsBox } from './BoardFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useAppDispatch } from '../../../store/hooks';
@@ -23,22 +23,15 @@ interface IProps {
 export default function FormAddBoard({ openModal, setOpenModal }: IProps) {
   const dispatch = useAppDispatch();
 
-  const [value, setValue] = useState<IBoardData>({
+  const [data, setData] = useState<IBoardData>({
     title: '',
     description: '',
   });
 
-  const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue({
-      ...value,
-      title: e.currentTarget.value,
-    });
-  };
-
-  const handleChangeDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue({
-      ...value,
-      description: e.currentTarget.value,
+  const handleChange = (fieldName: string, value: string) => {
+    setData({
+      ...data,
+      [fieldName]: value,
     });
   };
 
@@ -48,7 +41,7 @@ export default function FormAddBoard({ openModal, setOpenModal }: IProps) {
 
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(addBoard(value));
+    dispatch(addBoard(data));
     handleClose();
   };
 
@@ -61,8 +54,17 @@ export default function FormAddBoard({ openModal, setOpenModal }: IProps) {
       <DialogContent>
         <Box id="addBoard" component="form" onSubmit={handlerSubmit} autoComplete="off">
           <FormInputsBox>
-            <TextField label="Title" variant="outlined" onChange={handleChangeTitle} />
-            <TextField label="Description" multiline rows={4} onChange={handleChangeDescription} />
+            <TextField
+              label="Title"
+              variant="outlined"
+              onChange={(e) => handleChange('title', e.currentTarget.value)}
+            />
+            <TextField
+              label="Description"
+              multiline
+              rows={4}
+              onChange={(e) => handleChange('description', e.currentTarget.value)}
+            />
           </FormInputsBox>
         </Box>
       </DialogContent>
