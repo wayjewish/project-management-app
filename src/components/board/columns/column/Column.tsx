@@ -8,7 +8,7 @@ import {
   TasksBox,
   BotBox,
 } from './Column.styled';
-import { IColumnFull } from '../../../../api/types';
+import { IColumn } from '../../../../api/types';
 import Task from '../../tasks/task/Task';
 
 import { useAppDispatch } from '../../../../store/hooks';
@@ -20,7 +20,7 @@ import {
 import { changeIsOpenModalTasks } from '../../../../store/features/tasks/tasksSlice';
 
 interface IProps {
-  column: IColumnFull;
+  column: IColumn;
 }
 
 function Column(props: IProps) {
@@ -49,7 +49,7 @@ function Column(props: IProps) {
         <TasksOverflowBox>
           <TasksBox>
             {column.tasks.map((task) => (
-              <Task key={task.id} task={task} />
+              <Task key={task.id} task={task} parentColumn={column} />
             ))}
           </TasksBox>
         </TasksOverflowBox>

@@ -17,6 +17,7 @@ import {
   changeIsOpenModalTasks,
   deleteTask,
   setDeletedTask,
+  setActiveTask,
 } from '../../store/features/tasks/tasksSlice';
 
 function Board() {
@@ -41,15 +42,21 @@ function Board() {
   };
 
   const confirmYesTask = () => {
-    if (deletedTask) {
-      /*dispatch(
+    if (deletedTask && deletedTask.boardId && deletedTask.columnId) {
+      dispatch(
         deleteTask({
           boardId: deletedTask.boardId,
           columnId: deletedTask.columnId,
           id: deletedTask.id,
         })
-      );*/
+      );
     }
+    dispatch(setDeletedTask(null));
+  };
+
+  const confirmNoTask = () => {
+    dispatch(setActiveTask({ ...deletedTask }));
+    dispatch(changeIsOpenModalTasks({ formEdit: true }));
     dispatch(setDeletedTask(null));
   };
 
@@ -80,6 +87,7 @@ function Board() {
           close={closeModalConfirmTask}
           title={`Вы уверены, что хотите удалить таску ${deletedTask?.title} ?`}
           yes={confirmYesTask}
+          no={confirmNoTask}
         />
       )}
     </BoardWrap>

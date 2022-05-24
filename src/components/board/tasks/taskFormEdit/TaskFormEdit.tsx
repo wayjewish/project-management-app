@@ -23,11 +23,14 @@ import {
   setActiveTask,
   setDeletedTask,
   updateTask,
+  getTask,
 } from '../../../../store/features/tasks/tasksSlice';
 import { getUsers } from '../../../../store/features/users/usersSlice';
 
 function TaskFormEdit() {
   const dispatch = useAppDispatch();
+  const { board } = useAppSelector((state) => state.board);
+  const { activeColumn } = useAppSelector((state) => state.columns);
   const { activeTask, isOpenModalTasks } = useAppSelector((state) => state.tasks);
   const users = useAppSelector((state) => state.users);
 
@@ -65,15 +68,22 @@ function TaskFormEdit() {
 
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (activeTask) {
-      /*dispatch(
+    if (activeTask && activeTask.boardId && activeTask.columnId) {
+      const dataFull = {
+        ...data,
+        order: activeTask.order,
+        boardId: activeTask.boardId,
+        columnId: activeTask.columnId,
+      };
+
+      dispatch(
         updateTask({
           boardId: activeTask.boardId,
           columnId: activeTask.columnId,
           id: activeTask.id,
-          data,
+          data: dataFull,
         })
-      );*/
+      );
     }
     handleClose();
   };
@@ -86,6 +96,9 @@ function TaskFormEdit() {
   };
 
   useEffect(() => {
+    if (board && activeColumn && activeTask) {
+      dispatch(getTask({ boardId: board.id, columnId: activeColumn.id, id: activeTask.id }));
+    }
     dispatch(getUsers());
   }, []);
 

@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IBoardFull } from '../../../api/types';
+import { IBoard } from '../../../api/types';
 import boardsService, { IPropsGetBoard } from '../../../api/boardsService';
 
 const initialState: {
-  board: IBoardFull | null;
+  board: IBoard | null;
   loading: boolean;
 } = {
   board: null,

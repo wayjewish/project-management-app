@@ -10,22 +10,22 @@ export interface IBoardData {
   title: string;
   description: string;
 }
-export interface IBoard extends IBoardData {
-  id: string;
+export interface IBoardDataFull extends IBoardData {
+  columns: IColumn[];
 }
-export interface IBoardFull extends IBoard {
-  columns: IColumnFull[];
+export interface IBoard extends IBoardDataFull {
+  id: string;
 }
 
 export interface IColumnData {
   title: string;
 }
-export interface IColumn extends IColumnData {
-  id: string;
+export interface IColumnDataFull extends IColumnData {
   order: number;
-}
-export interface IColumnFull extends IColumn {
   tasks: ITask[];
+}
+export interface IColumn extends IColumnDataFull {
+  id: string;
 }
 
 export interface ITaskData {
@@ -33,12 +33,12 @@ export interface ITaskData {
   description: string;
   userId: string;
 }
-export interface ITask extends ITaskData {
-  id: string;
+export interface ITaskDataFull extends ITaskData {
   order: number;
-  files: File[];
+  boardId?: string;
+  columnId?: string;
 }
-export interface ITaskFull extends ITask {
-  boardId: string;
-  columnId: string;
+export interface ITask extends ITaskDataFull {
+  id: string;
+  files: File[];
 }

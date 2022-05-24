@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import instance from './instance';
-import { IColumnData } from './types';
+import { ITaskData, ITaskDataFull } from './types';
 
 export interface IPropsGetAllTask {
   boardId: string;
@@ -16,14 +16,14 @@ export interface IPropsGetTask {
 export interface IPropsAddTask {
   boardId: string;
   columnId: string;
-  data: IColumnData;
+  data: ITaskData;
 }
 
 export interface IPropsUpdateTask {
   boardId: string;
   columnId: string;
   id: string;
-  data: IColumnData;
+  data: ITaskDataFull;
 }
 
 export interface IPropsDeleteTask {

@@ -3,6 +3,7 @@ import { ITask } from '../../../api/types';
 import tasksService, {
   IPropsAddTask,
   IPropsDeleteTask,
+  IPropsGetTask,
   IPropsUpdateTask,
 } from '../../../api/tasksService';
 import { getBoard } from '../board/boardSlice';
@@ -26,6 +27,15 @@ const initialState: {
   deletedTask: null,
   activeTask: null,
 };
+
+export const getTask = createAsyncThunk(
+  'tasks/getTask',
+  async (props: IPropsGetTask, { rejectWithValue, dispatch }) => {
+    const res = await tasksService.get(props);
+
+    dispatch(setActiveTask(res.data));
+  }
+);
 
 export const addTask = createAsyncThunk(
   'tasks/addTask',
