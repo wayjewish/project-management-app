@@ -2,13 +2,13 @@ import React from 'react';
 import { ColumnBox, ColumnContent, ButtonAddColumn } from './ColumnAdd.styled';
 
 import { useAppDispatch } from '../../../../store/hooks';
-import { changeIsOpenModalColumn } from '../../../../store/features/board/boardSlice';
+import { changeIsOpenModalColumns } from '../../../../store/features/columns/columnsSlice';
 
 function Column() {
   const dispatch = useAppDispatch();
 
   const handlerClick = () => {
-    dispatch(changeIsOpenModalColumn({ formAdd: true }));
+    dispatch(changeIsOpenModalColumns({ formAdd: true }));
   };
 
   return (

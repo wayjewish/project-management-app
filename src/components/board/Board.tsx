@@ -1,16 +1,5 @@
 import React from 'react';
 import { BoardWrap, ColumnsBox, ColumnsOverflowBox } from './Board.styled';
-
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import {
-  changeIsOpenModalColumn,
-  changeIsOpenModalTask,
-  deleteColumn,
-  deleteTask,
-  setDeletedColumn,
-  setDeletedTask,
-} from '../../store/features/board/boardSlice';
-
 import ModalWindowConfirm from '../modalWindowСonfirm/ModalWindowConfirm';
 import Column from './columns/column/Column';
 import ColumnAdd from './columns/columnAdd/ColumnAdd';
@@ -18,35 +7,48 @@ import ColumnFormAdd from './columns/columnFormAdd/ColumnFormAdd';
 import TaskFormAdd from './tasks/taskFormAdd/TaskFormAdd';
 import TaskFormEdit from './tasks/taskFormEdit/TaskFormEdit';
 
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import {
+  changeIsOpenModalColumns,
+  deleteColumn,
+  setDeletedColumn,
+} from '../../store/features/columns/columnsSlice';
+import {
+  changeIsOpenModalTasks,
+  deleteTask,
+  setDeletedTask,
+} from '../../store/features/tasks/tasksSlice';
+
 function Board() {
   const dispatch = useAppDispatch();
-  const { board, isOpenModalColumn, deletedColumn, isOpenModalTask, deletedTask, activeTask } =
-    useAppSelector((state) => state.board);
+  const { board } = useAppSelector((state) => state.board);
+  const { isOpenModalColumns, deletedColumn } = useAppSelector((state) => state.columns);
+  const { isOpenModalTasks, deletedTask } = useAppSelector((state) => state.tasks);
 
   const closeModalConfirmColumn = () => {
-    dispatch(changeIsOpenModalColumn({ confirmDelete: false }));
+    dispatch(changeIsOpenModalColumns({ confirmDelete: false }));
   };
 
   const confirmYesColumn = () => {
     if (board && deletedColumn) {
-      dispatch(deleteColumn({ boardId: board.id, columnId: deletedColumn.id }));
+      dispatch(deleteColumn({ boardId: board.id, id: deletedColumn.id }));
     }
     dispatch(setDeletedColumn(null));
   };
 
   const closeModalConfirmTask = () => {
-    dispatch(changeIsOpenModalTask({ confirmDelete: false }));
+    dispatch(changeIsOpenModalTasks({ confirmDelete: false }));
   };
 
   const confirmYesTask = () => {
     if (deletedTask) {
-      dispatch(
+      /*dispatch(
         deleteTask({
           boardId: deletedTask.boardId,
           columnId: deletedTask.columnId,
-          taskId: deletedTask.id,
+          id: deletedTask.id,
         })
-      );
+      );*/
     }
     dispatch(setDeletedTask(null));
   };
@@ -64,17 +66,17 @@ function Board() {
 
       <ColumnFormAdd />
       <ModalWindowConfirm
-        isOpen={isOpenModalColumn.confirmDelete}
+        isOpen={isOpenModalColumns.confirmDelete}
         close={closeModalConfirmColumn}
         title={`Вы уверены, что хотите удалить колонку ${deletedColumn?.title} ?`}
         yes={confirmYesColumn}
       />
 
-      <TaskFormAdd />
-      {activeTask && <TaskFormEdit />}
-      {deletedTask && (
+      {isOpenModalTasks.formAdd && <TaskFormAdd />}
+      {isOpenModalTasks.formEdit && <TaskFormEdit />}
+      {isOpenModalTasks.confirmDelete && (
         <ModalWindowConfirm
-          isOpen={isOpenModalTask.confirmDelete}
+          isOpen={isOpenModalTasks.confirmDelete}
           close={closeModalConfirmTask}
           title={`Вы уверены, что хотите удалить таску ${deletedTask?.title} ?`}
           yes={confirmYesTask}

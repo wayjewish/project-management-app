@@ -2,6 +2,31 @@ import { AxiosInstance } from 'axios';
 import instance from './instance';
 import { IColumnData } from './types';
 
+export interface IPropsGetAllColumn {
+  boardId: string;
+}
+
+export interface IPropsGetColumn {
+  boardId: string;
+  id: string;
+}
+
+export interface IPropsAddColumn {
+  boardId: string;
+  data: IColumnData;
+}
+
+export interface IPropsUpdateColumn {
+  boardId: string;
+  id: string;
+  data: IColumnData;
+}
+
+export interface IPropsDeleteColumn {
+  boardId: string;
+  id: string;
+}
+
 class ColumnsService {
   instance: AxiosInstance;
 
@@ -9,19 +34,19 @@ class ColumnsService {
     this.instance = instance;
   }
 
-  getAll(boardId: string) {
+  getAll({ boardId }: IPropsGetAllColumn) {
     return this.instance.get(`/boards/${boardId}/columns`);
   }
-  get(boardId: string, id: string) {
+  get({ boardId, id }: IPropsGetColumn) {
     return this.instance.get(`/boards/${boardId}/columns/${id}`);
   }
-  create(boardId: string, data: IColumnData) {
+  create({ boardId, data }: IPropsAddColumn) {
     return this.instance.post(`/boards/${boardId}/columns`, data);
   }
-  update(boardId: string, id: string, data: IColumnData) {
+  update({ boardId, id, data }: IPropsUpdateColumn) {
     return this.instance.put(`/boards/${boardId}/columns/${id}`, data);
   }
-  delete(boardId: string, id: string) {
+  delete({ boardId, id }: IPropsDeleteColumn) {
     return this.instance.delete(`/boards/${boardId}/columns/${id}`);
   }
 }

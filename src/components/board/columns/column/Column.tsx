@@ -13,11 +13,11 @@ import Task from '../../tasks/task/Task';
 
 import { useAppDispatch } from '../../../../store/hooks';
 import {
-  changeIsOpenModalColumn,
-  changeIsOpenModalTask,
+  changeIsOpenModalColumns,
   setActiveColumn,
   setDeletedColumn,
-} from '../../../../store/features/board/boardSlice';
+} from '../../../../store/features/columns/columnsSlice';
+import { changeIsOpenModalTasks } from '../../../../store/features/tasks/tasksSlice';
 
 interface IProps {
   column: IColumnFull;
@@ -30,12 +30,12 @@ function Column(props: IProps) {
 
   const handlerClickAdd = () => {
     dispatch(setActiveColumn(column));
-    dispatch(changeIsOpenModalTask({ formAdd: true }));
+    dispatch(changeIsOpenModalTasks({ formAdd: true }));
   };
 
   const handlerClickDelete = () => {
     dispatch(setDeletedColumn(column));
-    dispatch(changeIsOpenModalColumn({ confirmDelete: true }));
+    dispatch(changeIsOpenModalColumns({ confirmDelete: true }));
   };
 
   return (

@@ -11,14 +11,18 @@ import {
 } from '@mui/material';
 import { CloseIconBox, FormInputsBox } from './ColumnFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
+import { IColumnData } from '../../../../api/types';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { IColumnData } from '../../../../api/types';
-import { addColumn, changeIsOpenModalColumn } from '../../../../store/features/board/boardSlice';
+import {
+  addColumn,
+  changeIsOpenModalColumns,
+} from '../../../../store/features/columns/columnsSlice';
 
 function ColumnFormAdd() {
   const dispatch = useAppDispatch();
-  const { board, isOpenModalColumn } = useAppSelector((state) => state.board);
+  const { board } = useAppSelector((state) => state.board);
+  const { isOpenModalColumns } = useAppSelector((state) => state.columns);
 
   const initialData: IColumnData = {
     title: '',
@@ -36,7 +40,7 @@ function ColumnFormAdd() {
   };
 
   const handleClose = () => {
-    dispatch(changeIsOpenModalColumn({ formAdd: false }));
+    dispatch(changeIsOpenModalColumns({ formAdd: false }));
     setData(initialData);
   };
 
@@ -49,7 +53,7 @@ function ColumnFormAdd() {
   };
 
   return ReactDOM.createPortal(
-    <Dialog fullWidth maxWidth="sm" open={isOpenModalColumn.formAdd} onClose={handleClose}>
+    <Dialog fullWidth maxWidth="sm" open={isOpenModalColumns.formAdd} onClose={handleClose}>
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>

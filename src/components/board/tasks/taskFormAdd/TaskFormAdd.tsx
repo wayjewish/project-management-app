@@ -15,19 +15,18 @@ import {
 } from '@mui/material';
 import { CloseIconBox, FormInputsBox, CircularProgressBox } from './TaskFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
-
 import { ITaskData } from '../../../../api/types';
+
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import {
-  addTask,
-  changeIsOpenModalTask,
-  setActiveColumn,
-} from '../../../../store/features/board/boardSlice';
+import { setActiveColumn } from '../../../../store/features/columns/columnsSlice';
+import { changeIsOpenModalTasks, addTask } from '../../../../store/features/tasks/tasksSlice';
 import { getUsers } from '../../../../store/features/users/usersSlice';
 
 function TaskFormAdd() {
   const dispatch = useAppDispatch();
-  const { board, activeColumn, isOpenModalTask } = useAppSelector((state) => state.board);
+  const { board } = useAppSelector((state) => state.board);
+  const { activeColumn } = useAppSelector((state) => state.columns);
+  const { isOpenModalTasks } = useAppSelector((state) => state.tasks);
   const users = useAppSelector((state) => state.users);
 
   const initialData: ITaskData = {
@@ -57,7 +56,7 @@ function TaskFormAdd() {
   };
 
   const handleClose = () => {
-    dispatch(changeIsOpenModalTask({ formAdd: false }));
+    dispatch(changeIsOpenModalTasks({ formAdd: false }));
     dispatch(setActiveColumn(null));
     setData(initialData);
   };
@@ -75,7 +74,7 @@ function TaskFormAdd() {
   }, []);
 
   return ReactDOM.createPortal(
-    <Dialog fullWidth maxWidth="sm" open={isOpenModalTask.formAdd} onClose={handleClose}>
+    <Dialog fullWidth maxWidth="sm" open={isOpenModalTasks.formAdd} onClose={handleClose}>
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>

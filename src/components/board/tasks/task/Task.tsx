@@ -4,7 +4,7 @@ import { TaskCard } from './Task.styled';
 import { ITask } from '../../../../api/types';
 
 import { useAppDispatch } from '../../../../store/hooks';
-import { changeIsOpenModalTask, setActiveTask } from '../../../../store/features/board/boardSlice';
+import { changeIsOpenModalTasks, setActiveTask } from '../../../../store/features/tasks/tasksSlice';
 
 interface IProps {
   task: ITask;
@@ -17,7 +17,7 @@ function Task(props: IProps) {
 
   const handlerClick = () => {
     dispatch(setActiveTask(task));
-    dispatch(changeIsOpenModalTask({ formEdit: true }));
+    dispatch(changeIsOpenModalTasks({ formEdit: true }));
   };
 
   return (

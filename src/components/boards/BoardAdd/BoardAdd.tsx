@@ -3,13 +3,13 @@ import { Typography } from '@mui/material';
 import { CardAdd, CardAddContent, IconBoardAdd } from './BoardAdd.styled';
 
 import { useAppDispatch } from '../../../store/hooks';
-import { changeIsOpenModal } from '../../../store/features/boards/boardsSlice';
+import { changeIsOpenModalBoards } from '../../../store/features/boards/boardsSlice';
 
 function BoardAdd() {
   const dispatch = useAppDispatch();
 
   const handlerClick = () => {
-    dispatch(changeIsOpenModal({ formAdd: true }));
+    dispatch(changeIsOpenModalBoards({ formAdd: true }));
   };
 
   return (

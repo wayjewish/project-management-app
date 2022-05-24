@@ -17,7 +17,8 @@ function BoardPage() {
   const { board, loading } = useAppSelector((state) => state.board);
 
   useEffect(() => {
-    dispatch(getBoard(params.boardId as string));
+    const boardId = params.boardId as string;
+    dispatch(getBoard({ id: boardId }));
   }, []);
 
   return (

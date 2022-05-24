@@ -15,23 +15,21 @@ import {
 } from '@mui/material';
 import { CloseIconBox, FormInputsBox, CircularProgressBox } from './TaskFormEdit.styled';
 import CloseIcon from '@mui/icons-material/Close';
-
 import { ITaskData } from '../../../../api/types';
+
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import {
-  updateTask,
-  changeIsOpenModalTask,
+  changeIsOpenModalTasks,
   setActiveTask,
   setDeletedTask,
-} from '../../../../store/features/board/boardSlice';
+  updateTask,
+} from '../../../../store/features/tasks/tasksSlice';
 import { getUsers } from '../../../../store/features/users/usersSlice';
 
 function TaskFormEdit() {
   const dispatch = useAppDispatch();
-  const { activeTask, isOpenModalTask } = useAppSelector((state) => state.board);
+  const { activeTask, isOpenModalTasks } = useAppSelector((state) => state.tasks);
   const users = useAppSelector((state) => state.users);
-
-  console.log(activeTask);
 
   const initialData: ITaskData = {
     title: activeTask ? activeTask.title : '',
@@ -60,7 +58,7 @@ function TaskFormEdit() {
   };
 
   const handleClose = () => {
-    dispatch(changeIsOpenModalTask({ formEdit: false }));
+    dispatch(changeIsOpenModalTasks({ formEdit: false }));
     dispatch(setActiveTask(null));
     setData(initialData);
   };
@@ -68,21 +66,21 @@ function TaskFormEdit() {
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (activeTask) {
-      dispatch(
+      /*dispatch(
         updateTask({
           boardId: activeTask.boardId,
           columnId: activeTask.columnId,
-          taskId: activeTask.id,
+          id: activeTask.id,
           data,
         })
-      );
+      );*/
     }
     handleClose();
   };
 
   const handleClickRemove = () => {
     dispatch(setDeletedTask({ ...activeTask }));
-    dispatch(changeIsOpenModalTask({ confirmDelete: true, formEdit: false }));
+    dispatch(changeIsOpenModalTasks({ confirmDelete: true, formEdit: false }));
     dispatch(setActiveTask(null));
     setData(initialData);
   };
@@ -92,7 +90,7 @@ function TaskFormEdit() {
   }, []);
 
   return ReactDOM.createPortal(
-    <Dialog fullWidth maxWidth="sm" open={isOpenModalTask.formEdit} onClose={handleClose}>
+    <Dialog fullWidth maxWidth="sm" open={isOpenModalTasks.formEdit} onClose={handleClose}>
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>

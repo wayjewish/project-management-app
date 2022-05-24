@@ -36,7 +36,9 @@ export interface ITaskData {
 export interface ITask extends ITaskData {
   id: string;
   order: number;
+  files: File[];
+}
+export interface ITaskFull extends ITask {
   boardId: string;
   columnId: string;
-  files: File[];
 }

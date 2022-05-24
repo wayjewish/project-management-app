@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import {
   getBoards,
   deleteBoard,
-  changeIsOpenModal,
+  changeIsOpenModalBoards,
   setDeletedBoard,
 } from '../../store/features/boards/boardsSlice';
 
@@ -18,15 +18,17 @@ import BoardFormAdd from './boardFormAdd/BoardFormAdd';
 
 function Boards() {
   const dispatch = useAppDispatch();
-  const { boards, isLoading, isOpenModal, deletedBoard } = useAppSelector((state) => state.boards);
+  const { boards, isLoading, isOpenModalBoards, deletedBoard } = useAppSelector(
+    (state) => state.boards
+  );
 
   const closeModalConfirm = () => {
-    dispatch(changeIsOpenModal({ confirmDelete: false }));
+    dispatch(changeIsOpenModalBoards({ confirmDelete: false }));
   };
 
   const confirmYes = () => {
     if (deletedBoard) {
-      dispatch(deleteBoard(deletedBoard.id));
+      dispatch(deleteBoard({ id: deletedBoard.id }));
       dispatch(setDeletedBoard(null));
     }
   };
@@ -64,7 +66,7 @@ function Boards() {
       )}
       <BoardFormAdd />
       <ModalWindowConfirm
-        isOpen={isOpenModal.confirmDelete}
+        isOpen={isOpenModalBoards.confirmDelete}
         close={closeModalConfirm}
         title={`Вы уверены, что хотите удалить доску ${deletedBoard?.title} ?`}
         yes={confirmYes}

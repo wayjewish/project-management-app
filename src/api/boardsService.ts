@@ -2,6 +2,23 @@ import { AxiosInstance } from 'axios';
 import instance from './instance';
 import { IBoardData } from './types';
 
+export interface IPropsGetBoard {
+  id: string;
+}
+
+export interface IPropsAddBoard {
+  data: IBoardData;
+}
+
+export interface IPropsUpdateBoard {
+  id: string;
+  data: IBoardData;
+}
+
+export interface IPropsDeleteBoard {
+  id: string;
+}
+
 class BoardsService {
   instance: AxiosInstance;
 
@@ -12,16 +29,16 @@ class BoardsService {
   getAll() {
     return this.instance.get('/boards');
   }
-  get(id: string) {
+  get({ id }: IPropsGetBoard) {
     return this.instance.get(`/boards/${id}`);
   }
-  create(data: IBoardData) {
+  create({ data }: IPropsAddBoard) {
     return this.instance.post('/boards', data);
   }
-  update(id: string, data: IBoardData) {
+  update({ id, data }: IPropsUpdateBoard) {
     return this.instance.put(`/boards/${id}`, data);
   }
-  delete(id: string) {
+  delete({ id }: IPropsDeleteBoard) {
     return this.instance.delete(`/boards/${id}`);
   }
 }

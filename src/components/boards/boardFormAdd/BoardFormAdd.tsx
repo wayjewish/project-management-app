@@ -13,12 +13,12 @@ import { CloseIconBox, FormInputsBox } from './BoardFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { addBoard, changeIsOpenModal } from '../../../store/features/boards/boardsSlice';
+import { addBoard, changeIsOpenModalBoards } from '../../../store/features/boards/boardsSlice';
 import { IBoardData } from '../../../api/types';
 
 export default function BoardFormAdd() {
   const dispatch = useAppDispatch();
-  const { isOpenModal } = useAppSelector((state) => state.boards);
+  const { isOpenModalBoards } = useAppSelector((state) => state.boards);
 
   const initialData: IBoardData = {
     title: '',
@@ -37,18 +37,18 @@ export default function BoardFormAdd() {
   };
 
   const handleClose = () => {
-    dispatch(changeIsOpenModal({ formAdd: false }));
+    dispatch(changeIsOpenModalBoards({ formAdd: false }));
     setData(initialData);
   };
 
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(addBoard(data));
+    dispatch(addBoard({ data }));
     handleClose();
   };
 
   return ReactDOM.createPortal(
-    <Dialog fullWidth maxWidth="sm" open={isOpenModal.formAdd} onClose={handleClose}>
+    <Dialog fullWidth maxWidth="sm" open={isOpenModalBoards.formAdd} onClose={handleClose}>
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>

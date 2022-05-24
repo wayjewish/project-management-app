@@ -4,7 +4,10 @@ import { CardItem, CardItemContent, CardItemTop, CardItemBot } from './BoardItem
 import { IBoard } from '../../../api/types';
 
 import { useAppDispatch } from '../../../store/hooks';
-import { changeIsOpenModal, setDeletedBoard } from '../../../store/features/boards/boardsSlice';
+import {
+  changeIsOpenModalBoards,
+  setDeletedBoard,
+} from '../../../store/features/boards/boardsSlice';
 
 interface IProps {
   board: IBoard;
@@ -16,7 +19,7 @@ function BoardItem({ board }: IProps) {
   const handlerClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     dispatch(setDeletedBoard(board));
-    dispatch(changeIsOpenModal({ confirmDelete: true }));
+    dispatch(changeIsOpenModalBoards({ confirmDelete: true }));
   };
 
   return (
