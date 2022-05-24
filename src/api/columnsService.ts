@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import instance from './instance';
-import { IColumnData } from './types';
+import { IColumnData, IColumnDataFull } from './types';
 
 export interface IPropsGetAllColumn {
   boardId: string;
@@ -19,7 +19,7 @@ export interface IPropsAddColumn {
 export interface IPropsUpdateColumn {
   boardId: string;
   id: string;
-  data: IColumnData;
+  data: IColumnDataFull;
 }
 
 export interface IPropsDeleteColumn {

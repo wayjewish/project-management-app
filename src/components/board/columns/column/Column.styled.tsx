@@ -23,6 +23,16 @@ export const TopBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
+export const TitleBox = styled(Box)(({ theme }) => ({
+  cursor: 'pointer',
+}));
+
+export const TopBtnsBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: theme.spacing(1),
+}));
+
 export const TasksOverflowBox = styled(Box)(({ theme }) => ({
   flex: '1 1 auto',
   width: '250px',

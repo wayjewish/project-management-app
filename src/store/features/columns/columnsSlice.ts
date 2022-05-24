@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IColumn } from '../../../api/types';
-import columnsService, { IPropsAddColumn, IPropsDeleteColumn } from '../../../api/columnsService';
+import columnsService, {
+  IPropsAddColumn,
+  IPropsUpdateColumn,
+  IPropsDeleteColumn,
+} from '../../../api/columnsService';
 import { getBoard } from '../board/boardSlice';
 
 const initialState: {
@@ -25,6 +29,15 @@ export const addColumn = createAsyncThunk(
   'columns/addColumn',
   async (props: IPropsAddColumn, { rejectWithValue, dispatch }) => {
     await columnsService.create(props);
+
+    dispatch(getBoard({ id: props.boardId }));
+  }
+);
+
+export const updateColumn = createAsyncThunk(
+  'columns/updateColumn',
+  async (props: IPropsUpdateColumn, { rejectWithValue, dispatch }) => {
+    await columnsService.update(props);
 
     dispatch(getBoard({ id: props.boardId }));
   }

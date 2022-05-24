@@ -10,11 +10,9 @@ export interface IBoardData {
   title: string;
   description: string;
 }
-export interface IBoardDataFull extends IBoardData {
-  columns: IColumn[];
-}
-export interface IBoard extends IBoardDataFull {
+export interface IBoard extends IBoardData {
   id: string;
+  columns: IColumn[];
 }
 
 export interface IColumnData {
@@ -22,10 +20,10 @@ export interface IColumnData {
 }
 export interface IColumnDataFull extends IColumnData {
   order: number;
-  tasks: ITask[];
 }
 export interface IColumn extends IColumnDataFull {
   id: string;
+  tasks: ITask[];
 }
 
 export interface ITaskData {
