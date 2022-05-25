@@ -18,9 +18,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import { ITaskData } from '../../../../api/types';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { setActiveColumn } from '../../../../store/features/columns/columnsSlice';
-import { changeIsOpenModalTasks, addTask } from '../../../../store/features/tasks/tasksSlice';
-import { getUsers } from '../../../../store/features/users/usersSlice';
+import { setActiveColumn } from '../../../../store/features/columnsSlice';
+import { changeIsOpenModalTasks, addTask } from '../../../../store/features/tasksSlice';
+import { getUsers } from '../../../../store/features/usersSlice';
 
 function TaskFormAdd() {
   const dispatch = useAppDispatch();

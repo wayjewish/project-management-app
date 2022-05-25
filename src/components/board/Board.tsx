@@ -12,13 +12,13 @@ import {
   changeIsOpenModalColumns,
   deleteColumn,
   setDeletedColumn,
-} from '../../store/features/columns/columnsSlice';
+} from '../../store/features/columnsSlice';
 import {
   changeIsOpenModalTasks,
   deleteTask,
   setDeletedTask,
   setActiveTask,
-} from '../../store/features/tasks/tasksSlice';
+} from '../../store/features/tasksSlice';
 
 function Board() {
   const dispatch = useAppDispatch();
@@ -71,13 +71,15 @@ function Board() {
         </ColumnsBox>
       </ColumnsOverflowBox>
 
-      <ColumnFormAdd />
-      <ModalWindowConfirm
-        isOpen={isOpenModalColumns.confirmDelete}
-        close={closeModalConfirmColumn}
-        title={`Вы уверены, что хотите удалить колонку ${deletedColumn?.title} ?`}
-        yes={confirmYesColumn}
-      />
+      {isOpenModalColumns.formAdd && <ColumnFormAdd />}
+      {isOpenModalColumns.confirmDelete && (
+        <ModalWindowConfirm
+          isOpen={isOpenModalColumns.confirmDelete}
+          close={closeModalConfirmColumn}
+          title={`Вы уверены, что хотите удалить колонку ${deletedColumn?.title} ?`}
+          yes={confirmYesColumn}
+        />
+      )}
 
       {isOpenModalTasks.formAdd && <TaskFormAdd />}
       {isOpenModalTasks.formEdit && <TaskFormEdit />}

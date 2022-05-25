@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IUser } from '../../../api/types';
-import usersService from '../../../api/usersService';
+import { IUser } from '../../api/types';
+import usersService from '../../api/usersService';
 
 const initialState: {
   users: IUser[] | null;

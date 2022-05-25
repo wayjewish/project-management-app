@@ -1,14 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IColumn } from '../../../api/types';
+import { IColumn } from '../../api/types';
 import columnsService, {
   IPropsAddColumn,
   IPropsUpdateColumn,
   IPropsDeleteColumn,
-} from '../../../api/columnsService';
-import { getBoard } from '../board/boardSlice';
+} from '../../api/columnsService';
+import { getBoard } from './boardSlice';
 
 const initialState: {
-  loading: boolean;
   isOpenModalColumns: {
     formAdd: boolean;
     confirmDelete: boolean;
@@ -16,7 +15,6 @@ const initialState: {
   deletedColumn: IColumn | null;
   activeColumn: IColumn | null;
 } = {
-  loading: false,
   isOpenModalColumns: {
     formAdd: false,
     confirmDelete: false,

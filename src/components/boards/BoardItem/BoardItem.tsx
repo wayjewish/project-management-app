@@ -4,10 +4,7 @@ import { CardItem, CardItemContent, CardItemTop, CardItemBot } from './BoardItem
 import { IBoard } from '../../../api/types';
 
 import { useAppDispatch } from '../../../store/hooks';
-import {
-  changeIsOpenModalBoards,
-  setDeletedBoard,
-} from '../../../store/features/boards/boardsSlice';
+import { changeIsOpenModalBoards, setDeletedBoard } from '../../../store/features/boardsSlice';
 
 interface IProps {
   board: IBoard;

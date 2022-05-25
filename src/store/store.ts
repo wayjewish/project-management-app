@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authSlice from './features/auth/authSlice';
-import BoardsSlice from './features/boards/boardsSlice';
-import boardSlice from './features/board/boardSlice';
-import columnsSlice from './features/columns/columnsSlice';
-import tasksSlice from './features/tasks/tasksSlice';
-import usersSlice from './features/users/usersSlice';
+import authSlice from './features/authSlice';
+import BoardsSlice from './features/boardsSlice';
+import boardSlice from './features/boardSlice';
+import columnsSlice from './features/columnsSlice';
+import tasksSlice from './features/tasksSlice';
+import usersSlice from './features/usersSlice';
 
 export const store = configureStore({
   reducer: {

@@ -1,20 +1,32 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IBoard } from '../../../api/types';
-import boardsService, { IPropsGetBoard } from '../../../api/boardsService';
+import { IBoard } from '../../api/types';
+import boardsService, { IPropsGetBoard } from '../../api/boardsService';
 
 const initialState: {
   board: IBoard | null;
-  loading: boolean;
+  isLoading: boolean;
+  error: {
+    error: string;
+    message: string;
+  } | null;
 } = {
   board: null,
-  loading: false,
+  isLoading: false,
+  error: null,
 };
 
 export const getBoard = createAsyncThunk(
   'board/getBoard',
   async (props: IPropsGetBoard, { rejectWithValue, dispatch }) => {
     const res = await boardsService.get(props);
-    dispatch(setBoard(res.data));
+    const data = res.data;
+    console.log(data);
+
+    if (data.error) {
+      dispatch(setErrorBoard({ error: data.error.error, message: data.error.message }));
+    } else {
+      dispatch(setBoard(data));
+    }
   }
 );
 
@@ -25,17 +37,20 @@ export const boardSlice = createSlice({
     setBoard: (state, action) => {
       state.board = action.payload;
     },
+    setErrorBoard: (state, action) => {
+      state.error = action.payload;
+    },
   },
   extraReducers: {
     [getBoard.pending.type]: (state) => {
-      state.loading = true;
+      state.isLoading = true;
     },
     [getBoard.fulfilled.type]: (state) => {
-      state.loading = false;
+      state.isLoading = false;
     },
   },
 });
 
-export const { setBoard } = boardSlice.actions;
+export const { setBoard, setErrorBoard } = boardSlice.actions;
 
 export default boardSlice.reducer;

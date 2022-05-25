@@ -4,8 +4,8 @@ import { TaskCard } from './Task.styled';
 import { IColumn, ITask } from '../../../../api/types';
 
 import { useAppDispatch } from '../../../../store/hooks';
-import { setActiveColumn } from '../../../../store/features/columns/columnsSlice';
-import { changeIsOpenModalTasks, setActiveTask } from '../../../../store/features/tasks/tasksSlice';
+import { setActiveColumn } from '../../../../store/features/columnsSlice';
+import { changeIsOpenModalTasks, setActiveTask } from '../../../../store/features/tasksSlice';
 
 interface IProps {
   task: ITask;

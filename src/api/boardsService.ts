@@ -27,19 +27,19 @@ class BoardsService {
   }
 
   getAll() {
-    return this.instance.get('/boards');
+    return this.instance.get('/boards').catch((error) => error.response);
   }
   get({ id }: IPropsGetBoard) {
-    return this.instance.get(`/boards/${id}`);
+    return this.instance.get(`/boards/${id}`).catch((error) => error.response);
   }
   create({ data }: IPropsAddBoard) {
-    return this.instance.post('/boards', data);
+    return this.instance.post('/boards', data).catch((error) => error.response);
   }
   update({ id, data }: IPropsUpdateBoard) {
-    return this.instance.put(`/boards/${id}`, data);
+    return this.instance.put(`/boards/${id}`, data).catch((error) => error.response);
   }
   delete({ id }: IPropsDeleteBoard) {
-    return this.instance.delete(`/boards/${id}`);
+    return this.instance.delete(`/boards/${id}`).catch((error) => error.response);
   }
 }
 

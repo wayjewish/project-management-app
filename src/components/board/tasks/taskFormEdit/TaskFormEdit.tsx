@@ -18,14 +18,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import { ITaskData } from '../../../../api/types';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { setActiveColumn } from '../../../../store/features/columnsSlice';
 import {
   changeIsOpenModalTasks,
   setActiveTask,
   setDeletedTask,
   updateTask,
   getTask,
-} from '../../../../store/features/tasks/tasksSlice';
-import { getUsers } from '../../../../store/features/users/usersSlice';
+} from '../../../../store/features/tasksSlice';
+import { getUsers } from '../../../../store/features/usersSlice';
 
 function TaskFormEdit() {
   const dispatch = useAppDispatch();
@@ -62,6 +63,7 @@ function TaskFormEdit() {
 
   const handleClose = () => {
     dispatch(changeIsOpenModalTasks({ formEdit: false }));
+    dispatch(setActiveColumn(null));
     dispatch(setActiveTask(null));
     setData(initialData);
   };
@@ -90,14 +92,15 @@ function TaskFormEdit() {
 
   const handleClickRemove = () => {
     dispatch(setDeletedTask({ ...activeTask }));
-    dispatch(changeIsOpenModalTasks({ confirmDelete: true, formEdit: false }));
-    dispatch(setActiveTask(null));
-    setData(initialData);
+    dispatch(changeIsOpenModalTasks({ confirmDelete: true }));
+    handleClose();
   };
 
   useEffect(() => {
-    if (board && activeColumn && activeTask) {
-      dispatch(getTask({ boardId: board.id, columnId: activeColumn.id, id: activeTask.id }));
+    if (activeTask && !activeTask.boardId && !activeTask.columnId) {
+      if (board && activeColumn) {
+        dispatch(getTask({ boardId: board.id, columnId: activeColumn.id, id: activeTask.id }));
+      }
     }
     dispatch(getUsers());
   }, []);

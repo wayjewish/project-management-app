@@ -9,7 +9,7 @@ import {
   deleteBoard,
   changeIsOpenModalBoards,
   setDeletedBoard,
-} from '../../store/features/boards/boardsSlice';
+} from '../../store/features/boardsSlice';
 
 import BoardItem from './boardItem/BoardItem';
 import BoardAdd from './boardAdd/BoardAdd';

@@ -19,8 +19,8 @@ import {
   setActiveColumn,
   setDeletedColumn,
   updateColumn,
-} from '../../../../store/features/columns/columnsSlice';
-import { changeIsOpenModalTasks } from '../../../../store/features/tasks/tasksSlice';
+} from '../../../../store/features/columnsSlice';
+import { changeIsOpenModalTasks } from '../../../../store/features/tasksSlice';
 
 interface IProps {
   column: IColumn;

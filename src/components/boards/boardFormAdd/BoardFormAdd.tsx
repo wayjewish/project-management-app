@@ -13,7 +13,7 @@ import { CloseIconBox, FormInputsBox } from './BoardFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { addBoard, changeIsOpenModalBoards } from '../../../store/features/boards/boardsSlice';
+import { addBoard, changeIsOpenModalBoards } from '../../../store/features/boardsSlice';
 import { IBoardData } from '../../../api/types';
 
 export default function BoardFormAdd() {

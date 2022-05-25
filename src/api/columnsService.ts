@@ -35,19 +35,23 @@ class ColumnsService {
   }
 
   getAll({ boardId }: IPropsGetAllColumn) {
-    return this.instance.get(`/boards/${boardId}/columns`);
+    return this.instance.get(`/boards/${boardId}/columns`).catch((error) => error.response);
   }
   get({ boardId, id }: IPropsGetColumn) {
-    return this.instance.get(`/boards/${boardId}/columns/${id}`);
+    return this.instance.get(`/boards/${boardId}/columns/${id}`).catch((error) => error.response);
   }
   create({ boardId, data }: IPropsAddColumn) {
-    return this.instance.post(`/boards/${boardId}/columns`, data);
+    return this.instance.post(`/boards/${boardId}/columns`, data).catch((error) => error.response);
   }
   update({ boardId, id, data }: IPropsUpdateColumn) {
-    return this.instance.put(`/boards/${boardId}/columns/${id}`, data);
+    return this.instance
+      .put(`/boards/${boardId}/columns/${id}`, data)
+      .catch((error) => error.response);
   }
   delete({ boardId, id }: IPropsDeleteColumn) {
-    return this.instance.delete(`/boards/${boardId}/columns/${id}`);
+    return this.instance
+      .delete(`/boards/${boardId}/columns/${id}`)
+      .catch((error) => error.response);
   }
 }
 

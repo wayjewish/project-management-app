@@ -1,15 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ITask } from '../../../api/types';
+import { ITask } from '../../api/types';
 import tasksService, {
   IPropsAddTask,
   IPropsDeleteTask,
   IPropsGetTask,
   IPropsUpdateTask,
-} from '../../../api/tasksService';
-import { getBoard } from '../board/boardSlice';
+} from '../../api/tasksService';
+import { getBoard } from './boardSlice';
 
 const initialState: {
-  loading: boolean;
   isOpenModalTasks: {
     formAdd: boolean;
     formEdit: boolean;
@@ -18,7 +17,6 @@ const initialState: {
   deletedTask: ITask | null;
   activeTask: ITask | null;
 } = {
-  loading: false,
   isOpenModalTasks: {
     formAdd: false,
     formEdit: false,

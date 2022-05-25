@@ -8,9 +8,9 @@ export const ColumnContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  gap: theme.spacing(1),
+  //gap: theme.spacing(1),
   maxHeight: '100%',
-  padding: theme.spacing(1),
+  //padding: theme.spacing(1),
 
   borderRadius: theme.spacing(1),
   background: grey[300],
@@ -21,9 +21,11 @@ export const TopBox = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'space-between',
   gap: theme.spacing(1),
+  padding: theme.spacing(1),
+  paddingBottom: '0',
 }));
 
-export const TitleBox = styled(Box)(({ theme }) => ({
+export const TitleBox = styled(Box)(() => ({
   cursor: 'pointer',
 }));
 
@@ -36,6 +38,7 @@ export const TopBtnsBox = styled(Box)(({ theme }) => ({
 export const TasksOverflowBox = styled(Box)(({ theme }) => ({
   flex: '1 1 auto',
   width: '250px',
+  padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
 
   overflowY: 'auto',
 }));
@@ -51,4 +54,6 @@ export const BotBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   gap: theme.spacing(1),
+  padding: theme.spacing(1),
+  paddingTop: '0',
 }));

@@ -14,10 +14,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { IColumnData } from '../../../../api/types';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import {
-  addColumn,
-  changeIsOpenModalColumns,
-} from '../../../../store/features/columns/columnsSlice';
+import { addColumn, changeIsOpenModalColumns } from '../../../../store/features/columnsSlice';
 
 function ColumnFormAdd() {
   const dispatch = useAppDispatch();

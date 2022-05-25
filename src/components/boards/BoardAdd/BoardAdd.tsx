@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { CardAdd, CardAddContent, IconBoardAdd } from './BoardAdd.styled';
 
 import { useAppDispatch } from '../../../store/hooks';
-import { changeIsOpenModalBoards } from '../../../store/features/boards/boardsSlice';
+import { changeIsOpenModalBoards } from '../../../store/features/boardsSlice';
 
 function BoardAdd() {
   const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Typography, CircularProgress, Button } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -7,28 +7,36 @@ import { ContainerCustom, PageContentWrap } from '../../Global.styled';
 import { TopBox, CircularProgressBox } from './BoardPage.styled';
 
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { getBoard } from '../../store/features/board/boardSlice';
+import { getBoard, setErrorBoard } from '../../store/features/boardSlice';
 
 import Board from '../../components/board/Board';
 
 function BoardPage() {
   const params = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { board, loading } = useAppSelector((state) => state.board);
+  const { board, isLoading, error } = useAppSelector((state) => state.board);
 
   useEffect(() => {
     const boardId = params.boardId as string;
     dispatch(getBoard({ id: boardId }));
   }, []);
 
+  useEffect(() => {
+    if (error) {
+      dispatch(setErrorBoard(null));
+      navigate('/boards', { replace: true });
+    }
+  }, [error]);
+
   return (
     <ContainerCustom maxWidth={false}>
-      {loading && (
+      {isLoading && (
         <CircularProgressBox>
           <CircularProgress />
         </CircularProgressBox>
       )}
-      {!loading && board && (
+      {!isLoading && board && (
         <PageContentWrap>
           <TopBox>
             <Typography
