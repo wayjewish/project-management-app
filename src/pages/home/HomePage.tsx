@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Button, CardContent, Container, Grid, Typography } from '@mui/material';
 
+import { PageContentWrap } from '../../Global.styled';
 import {
   HomeImage,
   BoxVideo,
   AdvanGridItem,
-  HomeWrap,
   FirstBox,
   FirstLeftBox,
   FirstRightBox,
@@ -23,7 +23,7 @@ function HomePage() {
   const location = useLocation();
   return (
     <Container>
-      <HomeWrap>
+      <PageContentWrap>
         <FirstBox container spacing={3}>
           <FirstLeftBox item md={6} sm={12}>
             <Typography
@@ -132,7 +132,7 @@ function HomePage() {
           </Typography>
           <BoxVideo />
         </Box>
-      </HomeWrap>
+      </PageContentWrap>
     </Container>
   );
 }

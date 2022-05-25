@@ -4,7 +4,7 @@ import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/mater
 
 import { Header, HeaderWrap, BoxBtns } from './Header.styled';
 import SelectBox from './selectLang/SelectBox';
-import BurgerMenu from './mobileMenu/mobileMenu';
+import MobileMenu from './mobileMenu/MobileMenu';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { openModalLogin } from '../../store/features/modalLogin/modalLoginSlice';
@@ -12,11 +12,10 @@ import { change } from '../../store/features/auth/authSlice';
 import ModalLogin from '../Modal/ModalLogin';
 import ModalSingup from '../Modal/ModalSingup';
 
-
 function HeaderComponent() {
+  const { isAuth } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  
-  const { isAuth } = useAppSelector((state) => state.isAuth);
+
   const location = useLocation();
   const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
 
@@ -24,7 +23,6 @@ function HeaderComponent() {
     console.log(`isAuth=${isAuth}`);
   }, [isAuth]);
 
-  
   return (
     <Header position="sticky" scrollTrigger={scrollTrigger} elevation={scrollTrigger ? 8 : 0}>
       <Container>
@@ -35,16 +33,22 @@ function HeaderComponent() {
             </Typography>
           </Box>
           <BoxBtns>
-            <Button color="inherit" onClick={() => {dispatch(openModalLogin()); dispatch(change(!isAuth))}}>
-              <Link to="login" state={{ backgroundLocation: location }}>
+            <Link to="login" state={{ backgroundLocation: location }}>
+              <Button
+                color="inherit"
+                onClick={() => {
+                  dispatch(openModalLogin());
+                  dispatch(change(!isAuth));
+                }}
+              >
                 Login
-              </Link>
-            </Button>
+              </Button>
+            </Link>
             <ModalLogin />
             <ModalSingup />
-            <SelectBox media="desctop" />
+            <SelectBox media="desctop" />{' '}
           </BoxBtns>
-          <BurgerMenu />
+          <MobileMenu />
         </HeaderWrap>
       </Container>
     </Header>

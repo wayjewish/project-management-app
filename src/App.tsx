@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Global } from '@emotion/react';
-
 import { GlobalStyles } from './Global.styled';
 import { AppBox, Main } from './App.styled';
+
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import LoginPopup from './components/Modal/ModalLogin';
@@ -29,6 +29,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="login" element={<LoginPopup />} />
             <Route path="singup" element={<SingupPopup />} />
+            
             <Route
               path="/boards"
               element={
@@ -51,4 +52,5 @@ function App() {
     </Provider>
   );
 }
+
 export default App;

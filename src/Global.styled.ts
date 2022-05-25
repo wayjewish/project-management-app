@@ -1,10 +1,13 @@
 import { css } from '@emotion/react';
+import { styled } from '@mui/material/styles';
+import { Box } from '@mui/material';
 
 export const GlobalStyles = css`
   * {
     margin: 0;
     border: 0;
     padding: 0;
+    box-sizing: border-box;
   }
   html {
     box-sizing: border-box;
@@ -34,3 +37,9 @@ export const GlobalStyles = css`
     outline: none;
   }
 `;
+
+export const PageContentWrap = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(3),
+}));
