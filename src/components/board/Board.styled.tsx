@@ -28,5 +28,7 @@ export const ColumnsBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
   width: '100%',
   height: '100%',
+  paddingBottom: theme.spacing(1),
+
   overflowX: 'auto',
 }));
