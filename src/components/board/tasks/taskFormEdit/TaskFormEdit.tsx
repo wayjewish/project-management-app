@@ -7,6 +7,8 @@ import {
   DialogActions,
   Box,
   TextField,
+  FormControl,
+  InputLabel,
   Select,
   MenuItem,
   Button,
@@ -134,19 +136,22 @@ function TaskFormEdit() {
                 value={data.description}
                 onChange={handleChange}
               />
-              <Select
-                name="userId"
-                label="User"
-                variant="outlined"
-                value={data.userId}
-                onChange={handleChangeSelect}
-              >
-                {users.users.map((user) => (
-                  <MenuItem key={user.id} value={user.id}>
-                    {user.name}
-                  </MenuItem>
-                ))}
-              </Select>
+              <FormControl>
+                <InputLabel>User</InputLabel>
+                <Select
+                  name="userId"
+                  label="User"
+                  variant="outlined"
+                  value={data.userId}
+                  onChange={handleChangeSelect}
+                >
+                  {users.users.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      {user.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </FormInputsBox>
           </Box>
         )}
