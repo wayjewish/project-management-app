@@ -46,8 +46,8 @@ function HomePage() {
                 Попробовать
               </Button>
             </Link>
-            <ModalLogin />
-            <ModalSingup />
+            <ModalSingup/>
+            <ModalLogin/>
           </FirstLeftBox>
           <FirstRightBox item md={5} sm={12}>
             <Box>

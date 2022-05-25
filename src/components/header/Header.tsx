@@ -9,15 +9,17 @@ import MobileMenu from './mobileMenu/MobileMenu';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { openModalLogin } from '../../store/features/modalLogin/modalLoginSlice';
 import { change } from '../../store/features/auth/authSlice';
-import ModalLogin from '../Modal/ModalLogin';
 import ModalSingup from '../Modal/ModalSingup';
+import ModalLogin from '../Modal/ModalLogin';
 
 function HeaderComponent() {
   const { isAuth } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
-  const location = useLocation();
+
   const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
+  
+  const location = useLocation();
 
   useEffect(() => {
     console.log(`isAuth=${isAuth}`);
@@ -44,8 +46,8 @@ function HeaderComponent() {
                 Login
               </Button>
             </Link>
-            <ModalLogin />
-            <ModalSingup />
+            <ModalSingup/>
+            <ModalLogin/>
             <SelectBox media="desctop" />{' '}
           </BoxBtns>
           <MobileMenu />

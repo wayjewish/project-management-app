@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { Button, TextField, Box, Dialog, Typography, Link } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { validationSchema } from './Validate'
 import { closeModalLogin } from '../../store/features/modalLogin/modalLoginSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import ModalSingup from './ModalSingup';
 import { openModalSingup } from '../../store/features/modalSingUp/modalSingupSlice';
-import { IFormDataErrorLogin, IFormDataLogin } from '../../types';
+
 
 const ModalLogin = () => {
   const dispatch = useAppDispatch();
@@ -20,96 +24,63 @@ const ModalLogin = () => {
     dispatch(closeModalLogin());
   };
 
-  const [form, setForm] = useState<IFormDataLogin>({
-    login: '',
-    password: '',
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
   });
 
-  const [error, setError] = useState<IFormDataErrorLogin>({
-    loginTextError: '',
-    loginError: false,
-    passwordTextError: '',
-    passwordError: false,
-    disabled: true,
-  });
-
-  const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.currentTarget.value,
-    });
-    validateForm();
-  };
-
-  const validateForm = () => {
-    if (form.login.length == 0) {
-      return setError({ ...error, loginTextError: 'Login is required', loginError: true });
-    }
-    if (form.password.length == 0) {
-      return setError({ ...error, passwordTextError: 'Password is required', passwordError: true });
-    }
-    if (form.password.length < 8) {
-      return setError({
-        ...error,
-        passwordTextError: 'Password must have a minimum 8 characters',
-        passwordError: true,
-      });
-    }
-    return setError({
-      ...error,
-      loginTextError: '',
-      loginError: false,
-      passwordTextError: '',
-      passwordError: false,
-      disabled: false
-    });
+  const onSubmit = (data: any) => {
+    console.log(JSON.stringify(data, null, 2));
+    reset();
   };
 
   return (
     <form noValidate autoComplete="off">
-      <Dialog open={isOpenedLogin} onClose={onDismiss}>
-        <Box p={2} maxWidth={'420px'}>
+      <Dialog open={isOpenedLogin} onClose={onDismiss} fullWidth maxWidth="sm">
+        <Box p={2} >
           <Box display={'flex'} justifyContent={'space-between'}>
             <Typography variant="h5">Login</Typography>
-            <CloseIcon onClick={onDismiss} />
+            <CloseIcon onClick={onDismiss} style={{cursor:'pointer'}} />
           </Box>
           <TextField
             fullWidth
-            id="login"
             type="text"
-            name="login"
             label="Login"
             placeholder="Login"
-            margin="normal"
-            value={form.login}
-            onChange={updateForm}
+            {...register('login')}
             required
-            error={Boolean(error?.loginError)}
-            helperText={error?.loginTextError}
+            error={errors.login ? true : false}
+            helperText={errors.login?.message}
             variant="outlined"
+            margin="dense"
           />
           <TextField
             fullWidth
             type="password"
-            name="password"
             label="Password"
             placeholder="Password"
-            margin="normal"
-            value={form.password}
-            onChange={updateForm}
+            {...register('password')}
             required
-            error={Boolean(error?.passwordError)}
-            helperText={error?.passwordTextError}
+            error={errors.password ? true : false}
+            helperText={errors.password?.message}
             variant="outlined"
+            margin="dense"
           />
           <Box display={'flex'} flexDirection={'column'}>
-            <Button variant="contained" size="large" color="primary" disabled={error?.disabled}>
+            <Button variant="contained" size="large" color="primary" onClick={handleSubmit(onSubmit)}>
               Login
             </Button>
             <Link
               onClick={() => {
-                dispatch(openModalSingup());
                 dispatch(closeModalLogin());
+                setTimeout(() => {
+                  dispatch(openModalSingup());
+                }, 500);
               }}
             >
               Create account
