@@ -101,8 +101,8 @@ function Column(props: IProps) {
         )}
         <TasksOverflowBox>
           <TasksBox>
-            {column.tasks.map((task) => (
-              <Task key={task.id} task={task} parentColumn={column} />
+            {column.tasks.map((task, index) => (
+              <Task key={task.id} index={index} task={task} parentColumn={column} />
             ))}
           </TasksBox>
         </TasksOverflowBox>
