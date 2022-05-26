@@ -7,7 +7,7 @@ import SelectBox from './selectLang/SelectBox';
 import MobileMenu from './mobileMenu/MobileMenu';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { change } from '../../store/features/auth/authSlice';
+import { change } from '../../store/features/authSlice';
 
 function HeaderComponent() {
   const { isAuth } = useAppSelector((state) => state.auth);

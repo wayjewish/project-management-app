@@ -7,10 +7,11 @@ import { AppBox, Main } from './App.styled';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 
+import PrivateRoute from './components/privateRoute/PrivateRouter';
 import HomePage from './pages/home/HomePage';
 import BoardsPage from './pages/boards/BoardsPage';
 import NotFoundPage from './pages/notFound/NotFoundPage';
-import PrivateRoute from './components/privateRoute/PrivateRouter';
+import BoardPage from './pages/board/BoardPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/boards/:boardId" element={<BoardPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Main>
