@@ -20,7 +20,6 @@ export const getBoard = createAsyncThunk(
   async (props: IPropsGetBoard, { rejectWithValue, dispatch }) => {
     const res = await boardsService.get(props);
     const data = res.data;
-    console.log(data);
 
     if (data.error) {
       dispatch(setErrorBoard({ error: data.error.error, message: data.error.message }));
