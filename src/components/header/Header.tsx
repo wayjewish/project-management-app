@@ -7,9 +7,7 @@ import SelectBox from './selectLang/SelectBox';
 import MobileMenu from './mobileMenu/MobileMenu';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { change, IAuthState } from '../../store/features/auth/authSlice';
-import UserService from '../../store/features/user/user.service';
-import { getToken } from '../../store/features/user/userSlice';
+import { change } from '../../store/features/authSlice';
 
 function HeaderComponent() {
   const { isAuth } = useAppSelector((state) => state.auth);
@@ -23,9 +21,6 @@ function HeaderComponent() {
 
   function handleClickLogin() {
     dispatch(change(!isAuth));
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5OWQzMTczMy03NTE0LTQ0MzQtYTNjZC0xZjUxMTIyOTMyZWMiLCJsb2dpbiI6ImFkbWluIiwiaWF0IjoxNjUzMDYwMDk3fQ.vzS0nBjU0jbODVxpzj0Ka3KSLGs7OXw94yEDwscYZkQ';
-    dispatch(getToken());
   }
 
   return (
@@ -38,25 +33,9 @@ function HeaderComponent() {
             </Typography>
           </Box>
           <BoxBtns>
-            {isAuth ? (
-              <Button color="inherit" onClick={handleClickLogin}>
-                Login
-              </Button>
-            ) : (
-              <>
-                <Button
-                  color="inherit"
-                  onClick={() => {
-                    console.log('Edit Profile');
-                  }}
-                >
-                  Edit Profile
-                </Button>
-                <Button color="inherit" onClick={handleClickLogin}>
-                  Logout
-                </Button>
-              </>
-            )}
+            <Button color="inherit" onClick={handleClickLogin}>
+              Login
+            </Button>
             <SelectBox media="desctop" />
           </BoxBtns>
           <MobileMenu />
