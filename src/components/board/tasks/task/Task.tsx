@@ -9,6 +9,7 @@ import { setActiveColumn } from '../../../../store/features/columnsSlice';
 import { changeIsOpenModalTasks, setActiveTask } from '../../../../store/features/tasksSlice';
 
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
+import { getNewColsWhenMoveTask, IDragItemTask } from './Task.helpers';
 
 interface IProps {
   index: number;
@@ -16,17 +17,11 @@ interface IProps {
   parentColumn: IColumn;
 }
 
-interface IDragItemTask {
-  id: string;
-  index: number;
-  parentColumnId: string;
-}
-
 function Task(props: IProps) {
-  const { task, index, parentColumn } = props;
-
   const dispatch = useAppDispatch();
   const { board } = useAppSelector((state) => state.board);
+
+  const { task, index, parentColumn } = props;
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -34,60 +29,6 @@ function Task(props: IProps) {
     dispatch(setActiveColumn(parentColumn)); // жестоко
     dispatch(setActiveTask(task));
     dispatch(changeIsOpenModalTasks({ formEdit: true }));
-  };
-
-  const moveCard = (dragItem: IDragItemTask) => {
-    if (!board) return;
-
-    const newColumns = [...board.columns];
-
-    const hoverColumnIndex = newColumns.map((column) => column.id).indexOf(parentColumn.id);
-    const newHoverColumnTasks = [...newColumns[hoverColumnIndex].tasks];
-
-    let dragTask: ITask | null = null;
-
-    const isDiffColumn = dragItem.parentColumnId !== parentColumn.id;
-    if (isDiffColumn) {
-      const dragColumnIndex = newColumns
-        .map((column) => column.id)
-        .indexOf(dragItem.parentColumnId);
-      const newDragColumnTasks = [...newColumns[dragColumnIndex].tasks];
-
-      const checkDragTaskInDragColumn = newDragColumnTasks.find((task) => task.id === dragItem.id);
-      if (checkDragTaskInDragColumn) {
-        dragTask = newDragColumnTasks[dragItem.index];
-        newDragColumnTasks.splice(dragItem.index, 1);
-
-        newColumns[dragColumnIndex] = {
-          ...newColumns[dragColumnIndex],
-          tasks: newDragColumnTasks,
-        };
-      }
-    } else {
-      const checkDragTaskInHoverColumn = newHoverColumnTasks.find(
-        (task) => task.id === dragItem.id
-      );
-
-      if (checkDragTaskInHoverColumn) {
-        dragTask = newHoverColumnTasks[dragItem.index];
-        newHoverColumnTasks.splice(dragItem.index, 1);
-      }
-    }
-
-    if (!dragTask) return;
-
-    newHoverColumnTasks.splice(index, 0, dragTask);
-    newColumns[hoverColumnIndex] = {
-      ...newColumns[hoverColumnIndex],
-      tasks: newHoverColumnTasks,
-    };
-
-    dispatch(
-      setBoard({
-        ...board,
-        columns: newColumns,
-      })
-    );
   };
 
   const [{ isDragging }, drag] = useDrag({
@@ -102,7 +43,7 @@ function Task(props: IProps) {
     }),
   });
 
-  const [_, drop] = useDrop<IDragItemTask, void, void>({
+  const [collectedProps, drop] = useDrop<IDragItemTask, void, void>({
     accept: 'task',
     hover(item: IDragItemTask, monitor) {
       if (!ref.current) {
@@ -128,16 +69,42 @@ function Task(props: IProps) {
         return;
       }
 
-      moveCard(item);
+      if (!board) {
+        return;
+      }
+
+      const newColumns = getNewColsWhenMoveTask({
+        board: board,
+        dragItem: item,
+        hoverTask: { ...task, index },
+        hoverColumn: parentColumn,
+      });
+
+      dispatch(
+        setBoard({
+          ...board,
+          columns: newColumns,
+        })
+      );
+
       item.index = hoverIndex;
       item.parentColumnId = parentColumn.id;
+    },
+    drop(item: IDragItemTask, monitor) {
+      console.log(item);
     },
   });
 
   drag(drop(ref));
 
   return (
-    <TaskCard ref={ref} variant="elevation" elevation={8} onClick={handlerClick}>
+    <TaskCard
+      ref={ref}
+      variant="elevation"
+      elevation={8}
+      onClick={handlerClick}
+      isDragging={isDragging}
+    >
       <Typography component="p" variant="h5">
         {task.title}
       </Typography>
