@@ -1,10 +1,16 @@
 import { styled } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import { Box, BoxProps } from '@mui/material';
 import { grey } from '@mui/material/colors';
+
+interface StyledColumnBoxProps extends BoxProps {
+  isDragging?: boolean;
+}
 
 export const ColumnBox = styled(Box)(() => ({}));
 
-export const ColumnContent = styled(Box)(({ theme }) => ({
+export const ColumnContent = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isDragging',
+})<StyledColumnBoxProps>(({ isDragging, theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -12,6 +18,10 @@ export const ColumnContent = styled(Box)(({ theme }) => ({
 
   borderRadius: theme.spacing(1),
   background: grey[300],
+
+  ...(isDragging && {
+    opacity: '0.5',
+  }),
 }));
 
 export const TopBox = styled(Box)(({ theme }) => ({

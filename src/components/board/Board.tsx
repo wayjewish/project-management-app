@@ -68,8 +68,8 @@ function Board() {
       <DndProvider backend={HTML5Backend}>
         <ColumnsOverflowBox>
           <ColumnsBox>
-            {board?.columns.map((column) => (
-              <Column key={column.id} column={column} />
+            {board?.columns.map((column, index) => (
+              <Column key={column.id} index={index} column={column} />
             ))}
             <ColumnAdd />
           </ColumnsBox>

@@ -16,6 +16,7 @@ const initialState: {
   };
   deletedTask: ITask | null;
   activeTask: ITask | null;
+  dragTask: ITask | null;
 } = {
   isOpenModalTasks: {
     formAdd: false,
@@ -24,6 +25,7 @@ const initialState: {
   },
   deletedTask: null,
   activeTask: null,
+  dragTask: null,
 };
 
 export const getTask = createAsyncThunk(
@@ -78,9 +80,13 @@ export const tasksSlice = createSlice({
     setActiveTask: (state, action) => {
       state.activeTask = action.payload;
     },
+    setDragTask: (state, action) => {
+      state.dragTask = action.payload;
+    },
   },
 });
 
-export const { changeIsOpenModalTasks, setDeletedTask, setActiveTask } = tasksSlice.actions;
+export const { changeIsOpenModalTasks, setDeletedTask, setActiveTask, setDragTask } =
+  tasksSlice.actions;
 
 export default tasksSlice.reducer;

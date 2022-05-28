@@ -4,40 +4,36 @@ import { IBoard, IColumn, ITask } from '../../../../api/types';
 export interface IDragItemTask {
   id: string;
   index: number;
-  parentColumnId: string;
-}
-
-interface IHoverTask extends ITask {
-  index: number;
 }
 
 interface IPropsMoveTask {
   board: IBoard;
-  dragItem: IDragItemTask;
-  hoverTask?: IHoverTask;
-  hoverColumn: IColumn;
+  dragTask: ITask;
+  hoverTask?: ITask;
+  column: IColumn;
 }
 
-export const getNewColsWhenMoveTask = (props: IPropsMoveTask) => {
-  const { board, dragItem, hoverTask, hoverColumn } = props;
+export const moveTask = (props: IPropsMoveTask) => {
+  const { board, dragTask, hoverTask, column } = props;
 
+  if (!dragTask.columnId) return;
+
+  const newDragTask = { ...dragTask };
   const newColumns = [...board.columns];
 
-  const hoverColumnIndex = newColumns.map((column) => column.id).indexOf(hoverColumn.id);
+  const hoverColumnIndex = newColumns.map((column) => column.id).indexOf(column.id);
+  const hoverColumn = newColumns[hoverColumnIndex];
 
-  let dragTask: ITask | null = null;
+  const isDiffColumn = dragTask.columnId !== hoverColumn.id;
 
-  const isDiffColumn = dragItem.parentColumnId !== hoverColumn.id;
   if (isDiffColumn) {
-    const dragColumnIndex = newColumns.map((column) => column.id).indexOf(dragItem.parentColumnId);
+    const dragColumnIndex = newColumns.map((column) => column.id).indexOf(dragTask.columnId);
     const dragColumn = newColumns[dragColumnIndex];
 
-    const checkDragTaskInDragColumn = dragColumn.tasks.find((task) => task.id === dragItem.id);
-    if (checkDragTaskInDragColumn) {
-      dragTask = dragColumn.tasks[dragItem.index];
-
-      const newTasks = update(dragColumn.tasks, {
-        $splice: [[dragItem.index, 1]],
+    const dragTaskIndex = dragColumn.tasks.map((task) => task.id).indexOf(dragTask.id);
+    if (dragTaskIndex !== -1) {
+      const newTasks = update(newColumns[dragColumnIndex].tasks, {
+        $splice: [[dragTaskIndex, 1]],
       });
 
       newColumns[dragColumnIndex] = {
@@ -46,12 +42,10 @@ export const getNewColsWhenMoveTask = (props: IPropsMoveTask) => {
       };
     }
   } else {
-    const checkDragTaskInHoverColumn = hoverColumn.tasks.find((task) => task.id === dragItem.id);
-    if (checkDragTaskInHoverColumn) {
-      dragTask = hoverColumn.tasks[dragItem.index];
-
-      const newTasks = update(hoverColumn.tasks, {
-        $splice: [[dragItem.index, 1]],
+    const dragTaskIndex = hoverColumn.tasks.map((task) => task.id).indexOf(dragTask.id);
+    if (dragTaskIndex !== -1) {
+      const newTasks = update(newColumns[hoverColumnIndex].tasks, {
+        $splice: [[dragTaskIndex, 1]],
       });
 
       newColumns[hoverColumnIndex] = {
@@ -61,16 +55,18 @@ export const getNewColsWhenMoveTask = (props: IPropsMoveTask) => {
     }
   }
 
-  if (!dragTask) return;
-
   let newTasks: ITask[] | null;
   if (hoverTask) {
-    newTasks = update(hoverColumn.tasks, {
-      $splice: [[hoverTask.index, 0, dragTask]],
+    const hoverTaskIndex = hoverColumn.tasks.map((task) => task.id).indexOf(hoverTask.id);
+
+    newTasks = update(newColumns[hoverColumnIndex].tasks, {
+      $splice: [[hoverTaskIndex, 0, dragTask]],
     });
   } else {
-    newTasks = update(hoverColumn.tasks, {
-      $splice: [[hoverColumn.tasks.length, 0, dragTask]],
+    const newIndex = hoverColumn.tasks.length > 0 ? hoverColumn.tasks.length : 0;
+
+    newTasks = update(newColumns[hoverColumnIndex].tasks, {
+      $splice: [[newIndex, 0, dragTask]],
     });
   }
 
@@ -81,5 +77,7 @@ export const getNewColsWhenMoveTask = (props: IPropsMoveTask) => {
     tasks: newTasks,
   };
 
-  return newColumns;
+  newDragTask.columnId = hoverColumn.id;
+
+  return { dragTask: newDragTask, columns: newColumns };
 };

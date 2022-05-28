@@ -6,10 +6,14 @@ import { IColumn, ITask } from '../../../../api/types';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { setBoard } from '../../../../store/features/boardSlice';
 import { setActiveColumn } from '../../../../store/features/columnsSlice';
-import { changeIsOpenModalTasks, setActiveTask } from '../../../../store/features/tasksSlice';
+import {
+  changeIsOpenModalTasks,
+  setActiveTask,
+  setDragTask,
+} from '../../../../store/features/tasksSlice';
 
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
-import { getNewColsWhenMoveTask, IDragItemTask } from './Task.helpers';
+import { moveTask, IDragItemTask } from './Task.helpers';
 
 interface IProps {
   index: number;
@@ -20,13 +24,14 @@ interface IProps {
 function Task(props: IProps) {
   const dispatch = useAppDispatch();
   const { board } = useAppSelector((state) => state.board);
+  const { dragTask } = useAppSelector((state) => state.tasks);
 
   const { task, index, parentColumn } = props;
 
   const ref = useRef<HTMLDivElement>(null);
 
   const handlerClick = () => {
-    dispatch(setActiveColumn(parentColumn)); // жестоко
+    dispatch(setActiveColumn(parentColumn));
     dispatch(setActiveTask(task));
     dispatch(changeIsOpenModalTasks({ formEdit: true }));
   };
@@ -36,64 +41,64 @@ function Task(props: IProps) {
     item: {
       id: task.id,
       index,
-      parentColumnId: parentColumn.id,
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
+    end(item, monitor) {
+      console.log('end', item);
+      dispatch(setDragTask(null));
+    },
   });
 
-  const [collectedProps, drop] = useDrop<IDragItemTask, void, void>({
+  const [, drop] = useDrop<IDragItemTask, void, void>({
     accept: 'task',
     hover(item: IDragItemTask, monitor) {
-      if (!ref.current) {
-        return;
-      }
+      if (!board || !dragTask) return;
+      if (!ref.current) return;
+      if (task.id === dragTask.id) return;
 
       const dragIndex = item.index;
       const hoverIndex = index;
-      if (dragIndex === hoverIndex) {
-        return;
-      }
 
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
       const clientOffset = monitor.getClientOffset();
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
+      if (parentColumn.id === dragTask.columnId) {
+        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
+        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
       }
 
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-
-      if (!board) {
-        return;
-      }
-
-      const newColumns = getNewColsWhenMoveTask({
+      const newData = moveTask({
         board: board,
-        dragItem: item,
-        hoverTask: { ...task, index },
-        hoverColumn: parentColumn,
+        dragTask,
+        hoverTask: task,
+        column: parentColumn,
       });
+
+      if (!newData) return;
 
       dispatch(
         setBoard({
           ...board,
-          columns: newColumns,
+          columns: newData.columns,
         })
       );
 
-      item.index = hoverIndex;
-      item.parentColumnId = parentColumn.id;
+      dispatch(setDragTask(newData.dragTask));
     },
     drop(item: IDragItemTask, monitor) {
-      console.log(item);
+      console.log('drop', item);
+      //запрос
     },
   });
+
+  if (isDragging && dragTask === null) {
+    dispatch(setDragTask({ ...task, boardId: board?.id, columnId: parentColumn.id }));
+  }
 
   drag(drop(ref));
 
@@ -103,7 +108,7 @@ function Task(props: IProps) {
       variant="elevation"
       elevation={8}
       onClick={handlerClick}
-      isDragging={isDragging}
+      isDragging={dragTask?.id === task.id && true}
     >
       <Typography component="p" variant="h5">
         {task.title}

@@ -14,6 +14,7 @@ const initialState: {
   };
   deletedColumn: IColumn | null;
   activeColumn: IColumn | null;
+  dragColumn: IColumn | null;
 } = {
   isOpenModalColumns: {
     formAdd: false,
@@ -21,6 +22,7 @@ const initialState: {
   },
   deletedColumn: null,
   activeColumn: null,
+  dragColumn: null,
 };
 
 export const addColumn = createAsyncThunk(
@@ -66,9 +68,13 @@ export const columnsSlice = createSlice({
     setActiveColumn: (state, action) => {
       state.activeColumn = action.payload;
     },
+    setDragColumn: (state, action) => {
+      state.dragColumn = action.payload;
+    },
   },
 });
 
-export const { changeIsOpenModalColumns, setDeletedColumn, setActiveColumn } = columnsSlice.actions;
+export const { changeIsOpenModalColumns, setDeletedColumn, setActiveColumn, setDragColumn } =
+  columnsSlice.actions;
 
 export default columnsSlice.reducer;
