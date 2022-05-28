@@ -35,23 +35,29 @@ class ColumnsService {
   }
 
   getAll({ boardId }: IPropsGetAllColumn) {
-    return this.instance.get(`/boards/${boardId}/columns`).catch((error) => error.response);
+    return this.instance.get(`/boards/${boardId}/columns`).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   get({ boardId, id }: IPropsGetColumn) {
-    return this.instance.get(`/boards/${boardId}/columns/${id}`).catch((error) => error.response);
+    return this.instance.get(`/boards/${boardId}/columns/${id}`).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   create({ boardId, data }: IPropsAddColumn) {
-    return this.instance.post(`/boards/${boardId}/columns`, data).catch((error) => error.response);
+    return this.instance.post(`/boards/${boardId}/columns`, data).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   update({ boardId, id, data }: IPropsUpdateColumn) {
-    return this.instance
-      .put(`/boards/${boardId}/columns/${id}`, data)
-      .catch((error) => error.response);
+    return this.instance.put(`/boards/${boardId}/columns/${id}`, data).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   delete({ boardId, id }: IPropsDeleteColumn) {
-    return this.instance
-      .delete(`/boards/${boardId}/columns/${id}`)
-      .catch((error) => error.response);
+    return this.instance.delete(`/boards/${boardId}/columns/${id}`).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
 }
 

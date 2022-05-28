@@ -21,8 +21,13 @@ import {
   setDeletedColumn,
   updateColumn,
   setDragColumn,
+  updateColumnDND,
 } from '../../../../store/features/columnsSlice';
-import { changeIsOpenModalTasks, setDragTask } from '../../../../store/features/tasksSlice';
+import {
+  changeIsOpenModalTasks,
+  setDragTask,
+  updateTaskDND,
+} from '../../../../store/features/tasksSlice';
 
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { moveColumn, IDragItemColumn } from './Column.helpers';
@@ -93,7 +98,6 @@ function Column(props: IProps) {
       isDragging: monitor.isDragging(),
     }),
     end(item, monitor) {
-      console.log('end', item);
       dispatch(setDragColumn(null));
     },
   });
@@ -119,22 +123,36 @@ function Column(props: IProps) {
         if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) return;
       }
 
-      const newColumns = moveColumn({
+      const newData = moveColumn({
         board: board,
         dragColumn,
         hoverColumn: column,
       });
 
+      if (!newData) return;
+
       dispatch(
         setBoard({
           ...board,
-          columns: newColumns,
+          columns: newData.columns,
         })
       );
+
+      dispatch(setDragColumn(newData.dragColumn));
     },
     drop(item: IDragItemColumn, monitor) {
-      console.log('drop', item);
-      //запрос
+      if (board && dragColumn) {
+        dispatch(
+          updateColumnDND({
+            boardId: board.id,
+            id: item.id,
+            data: {
+              title: dragColumn.title,
+              order: dragColumn.order,
+            },
+          })
+        );
+      }
     },
   });
 
@@ -190,8 +208,23 @@ function Column(props: IProps) {
       dispatch(setDragTask(newData.dragTask));
     },
     drop(item: IDragItemTask, monitor) {
-      console.log('drop', item);
-      //запрос
+      if (dragTask && dragTask.boardId && dragTask.columnId) {
+        dispatch(
+          updateTaskDND({
+            boardId: dragTask.boardId,
+            columnId: item.columnId,
+            id: dragTask.id,
+            data: {
+              title: dragTask.title,
+              description: dragTask.description,
+              order: dragTask.order,
+              userId: dragTask.userId,
+              boardId: dragTask.boardId,
+              columnId: dragTask.columnId,
+            },
+          })
+        );
+      }
     },
   });
 
@@ -217,10 +250,6 @@ function Column(props: IProps) {
       );
 
       dispatch(setDragTask(newData.dragTask));
-    },
-    drop(item: IDragItemTask, monitor) {
-      console.log('drop', item);
-      //запрос
     },
   });
 

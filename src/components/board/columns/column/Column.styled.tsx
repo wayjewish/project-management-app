@@ -18,6 +18,7 @@ export const ColumnContent = styled(Box, {
 
   borderRadius: theme.spacing(1),
   background: grey[300],
+  cursor: 'pointer',
 
   ...(isDragging && {
     opacity: '0.5',

@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ITask } from '../../api/types';
+import { IErrorApi, ITask } from '../../api/types';
 import tasksService, {
   IPropsAddTask,
   IPropsDeleteTask,
   IPropsGetTask,
   IPropsUpdateTask,
 } from '../../api/tasksService';
-import { getBoard } from './boardSlice';
+import { getBoard, setBoard } from './boardSlice';
 
 const initialState: {
   isOpenModalTasks: {
@@ -17,6 +17,9 @@ const initialState: {
   deletedTask: ITask | null;
   activeTask: ITask | null;
   dragTask: ITask | null;
+  errorsTasks: {
+    dnd: IErrorApi | null;
+  };
 } = {
   isOpenModalTasks: {
     formAdd: false,
@@ -26,6 +29,9 @@ const initialState: {
   deletedTask: null,
   activeTask: null,
   dragTask: null,
+  errorsTasks: {
+    dnd: null,
+  },
 };
 
 export const getTask = createAsyncThunk(
@@ -64,6 +70,25 @@ export const deleteTask = createAsyncThunk(
   }
 );
 
+export const updateTaskDND = createAsyncThunk(
+  'tasks/updateTaskDND',
+  async (props: IPropsUpdateTask, { rejectWithValue, dispatch }) => {
+    const res = await tasksService.update(props);
+
+    if (res.catch) {
+      dispatch(
+        setErrorsTasks({
+          dnd: {
+            code: res.data.statusCode,
+            message: res.data.message,
+          },
+        })
+      );
+      dispatch(getBoard({ id: props.boardId }));
+    }
+  }
+);
+
 export const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
@@ -83,10 +108,21 @@ export const tasksSlice = createSlice({
     setDragTask: (state, action) => {
       state.dragTask = action.payload;
     },
+    setErrorsTasks: (state, action) => {
+      state.errorsTasks = {
+        ...state.errorsTasks,
+        ...action.payload,
+      };
+    },
   },
 });
 
-export const { changeIsOpenModalTasks, setDeletedTask, setActiveTask, setDragTask } =
-  tasksSlice.actions;
+export const {
+  changeIsOpenModalTasks,
+  setDeletedTask,
+  setActiveTask,
+  setDragTask,
+  setErrorsTasks,
+} = tasksSlice.actions;
 
 export default tasksSlice.reducer;

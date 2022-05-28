@@ -10,6 +10,7 @@ import {
   changeIsOpenModalTasks,
   setActiveTask,
   setDragTask,
+  updateTaskDND,
 } from '../../../../store/features/tasksSlice';
 
 import { useDrag, useDrop, XYCoord } from 'react-dnd';
@@ -41,12 +42,12 @@ function Task(props: IProps) {
     item: {
       id: task.id,
       index,
+      columnId: parentColumn.id,
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
     end(item, monitor) {
-      console.log('end', item);
       dispatch(setDragTask(null));
     },
   });
@@ -89,10 +90,6 @@ function Task(props: IProps) {
       );
 
       dispatch(setDragTask(newData.dragTask));
-    },
-    drop(item: IDragItemTask, monitor) {
-      console.log('drop', item);
-      //запрос
     },
   });
 

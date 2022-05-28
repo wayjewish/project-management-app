@@ -15,10 +15,12 @@ interface IPropsMoveColumn {
 export const moveColumn = (props: IPropsMoveColumn) => {
   const { board, dragColumn, hoverColumn } = props;
 
+  const newDragColumn = { ...dragColumn };
   let newColumns = [...board.columns];
 
   const dragColumnIndex = newColumns.map((column) => column.id).indexOf(dragColumn.id);
   const hoverColumnIndex = newColumns.map((column) => column.id).indexOf(hoverColumn.id);
+  newDragColumn.order = hoverColumnIndex + 1;
 
   newColumns = update(newColumns, {
     $splice: [
@@ -27,5 +29,5 @@ export const moveColumn = (props: IPropsMoveColumn) => {
     ],
   });
 
-  return newColumns;
+  return { dragColumn: newDragColumn, columns: newColumns };
 };

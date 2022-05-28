@@ -4,6 +4,7 @@ import { IBoard, IColumn, ITask } from '../../../../api/types';
 export interface IDragItemTask {
   id: string;
   index: number;
+  columnId: string;
 }
 
 interface IPropsMoveTask {
@@ -58,12 +59,14 @@ export const moveTask = (props: IPropsMoveTask) => {
   let newTasks: ITask[] | null;
   if (hoverTask) {
     const hoverTaskIndex = hoverColumn.tasks.map((task) => task.id).indexOf(hoverTask.id);
+    newDragTask.order = hoverTaskIndex + 1;
 
     newTasks = update(newColumns[hoverColumnIndex].tasks, {
       $splice: [[hoverTaskIndex, 0, dragTask]],
     });
   } else {
     const newIndex = hoverColumn.tasks.length > 0 ? hoverColumn.tasks.length : 0;
+    newDragTask.order = newIndex + 1;
 
     newTasks = update(newColumns[hoverColumnIndex].tasks, {
       $splice: [[newIndex, 0, dragTask]],
