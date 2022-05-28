@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, CardContent, Container, Grid, Typography } from '@mui/material';
 
 import { PageContentWrap } from '../../Global.styled';
@@ -13,7 +14,18 @@ import {
 } from './HomePage.styled';
 import MainImg from '../../assets/img/home.png';
 
+import { useAppSelector } from '../../store/hooks';
+
 function HomePage() {
+  const navigate = useNavigate();
+  const { isAuth } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/boards', { replace: true });
+    }
+  }, [isAuth]);
+
   return (
     <Container>
       <PageContentWrap>
