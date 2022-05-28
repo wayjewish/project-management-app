@@ -40,3 +40,8 @@ export interface ITask extends ITaskDataFull {
   id: string;
   files: File[];
 }
+
+export interface IErrorApi {
+  code: number;
+  message: string;
+}

@@ -20,6 +20,9 @@ import {
   setActiveTask,
 } from '../../store/features/tasksSlice';
 
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 function Board() {
   const dispatch = useAppDispatch();
   const { board } = useAppSelector((state) => state.board);
@@ -62,14 +65,16 @@ function Board() {
 
   return (
     <BoardWrap>
-      <ColumnsOverflowBox>
-        <ColumnsBox>
-          {board?.columns.map((column) => (
-            <Column key={column.id} column={column} />
-          ))}
-          <ColumnAdd />
-        </ColumnsBox>
-      </ColumnsOverflowBox>
+      <DndProvider backend={HTML5Backend}>
+        <ColumnsOverflowBox>
+          <ColumnsBox>
+            {board?.columns.map((column, index) => (
+              <Column key={column.id} index={index} column={column} />
+            ))}
+            <ColumnAdd />
+          </ColumnsBox>
+        </ColumnsOverflowBox>
+      </DndProvider>
 
       {isOpenModalColumns.formAdd && <ColumnFormAdd />}
       {isOpenModalColumns.confirmDelete && (

@@ -10,16 +10,24 @@ class UsersService {
   }
 
   getAll() {
-    return this.instance.get('/users').catch((error) => error.response);
+    return this.instance.get('/users').catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   get(id: string) {
-    return this.instance.get(`/users/${id}`).catch((error) => error.response);
+    return this.instance.get(`/users/${id}`).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   update(id: string, data: IUserData) {
-    return this.instance.put(`/users/${id}`, data).catch((error) => error.response);
+    return this.instance.put(`/users/${id}`, data).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   delete(id: string) {
-    return this.instance.delete(`/users/${id}`).catch((error) => error.response);
+    return this.instance.delete(`/users/${id}`).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
 }
 
