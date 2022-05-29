@@ -13,6 +13,8 @@ import BoardsPage from './pages/boards/BoardsPage';
 import NotFoundPage from './pages/notFound/NotFoundPage';
 import BoardPage from './pages/board/BoardPage';
 
+import Errors from './components/errors/Errors';
+
 function App() {
   return (
     <AppBox>
@@ -29,11 +31,20 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/boards/:boardId" element={<BoardPage />} />
+          <Route
+            path="/boards/:boardId"
+            element={
+              <PrivateRoute>
+                <BoardPage />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Main>
       <Footer />
+
+      <Errors />
     </AppBox>
   );
 }

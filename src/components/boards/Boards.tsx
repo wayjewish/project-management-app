@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, CircularProgress } from '@mui/material';
-import { BoardsWrap, CircularProgressBox } from './Boards.styled';
+import { Grid } from '@mui/material';
+import { BoardsWrap } from './Boards.styled';
 import { Link } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
@@ -15,6 +15,7 @@ import BoardItem from './boardItem/BoardItem';
 import BoardAdd from './boardAdd/BoardAdd';
 import ModalWindowConfirm from '../../components/modalWindowСonfirm/ModalWindowConfirm';
 import BoardFormAdd from './boardFormAdd/BoardFormAdd';
+import Loading from '../loading/Loading';
 
 function Boards() {
   const dispatch = useAppDispatch();
@@ -60,9 +61,7 @@ function Boards() {
           </Grid>
         </Grid>
       ) : (
-        <CircularProgressBox>
-          <CircularProgress />
-        </CircularProgressBox>
+        <Loading />
       )}
       <BoardFormAdd />
       <ModalWindowConfirm
