@@ -1,5 +1,4 @@
-import { AxiosInstance } from 'axios';
-import instance from './instance';
+import axios, { AxiosRequestConfig } from 'axios';
 import { ITaskData, ITaskDataFull } from './types';
 
 export interface IPropsGetAllTask {
@@ -33,41 +32,66 @@ export interface IPropsDeleteTask {
 }
 
 class TasksService {
-  instance: AxiosInstance;
+  token: string;
+  config: AxiosRequestConfig;
 
   constructor() {
-    this.instance = instance;
+    this.token = '';
+    this.config = {
+      baseURL: 'https://desolate-crag-37445.herokuapp.com/',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    };
+  }
+
+  updateToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.token = token;
+      this.config = {
+        ...this.config,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+    }
   }
 
   getAll({ boardId, columnId }: IPropsGetAllTask) {
-    return this.instance.get(`/boards/${boardId}/columns/${columnId}/tasks`).catch((error) => {
+    this.updateToken();
+    return axios.get(`/boards/${boardId}/columns/${columnId}/tasks`, this.config).catch((error) => {
       return { ...error.response, catch: true };
     });
   }
   get({ boardId, columnId, id }: IPropsGetTask) {
-    return this.instance
-      .get(`/boards/${boardId}/columns/${columnId}/tasks/${id}`)
+    this.updateToken();
+    return axios
+      .get(`/boards/${boardId}/columns/${columnId}/tasks/${id}`, this.config)
       .catch((error) => {
         return { ...error.response, catch: true };
       });
   }
   create({ boardId, columnId, data }: IPropsAddTask) {
-    return this.instance
-      .post(`/boards/${boardId}/columns/${columnId}/tasks`, data)
+    this.updateToken();
+    return axios
+      .post(`/boards/${boardId}/columns/${columnId}/tasks`, data, this.config)
       .catch((error) => {
         return { ...error.response, catch: true };
       });
   }
   update({ boardId, columnId, id, data }: IPropsUpdateTask) {
-    return this.instance
-      .put(`/boards/${boardId}/columns/${columnId}/tasks/${id}`, data)
+    this.updateToken();
+    return axios
+      .put(`/boards/${boardId}/columns/${columnId}/tasks/${id}`, data, this.config)
       .catch((error) => {
         return { ...error.response, catch: true };
       });
   }
   delete({ boardId, columnId, id }: IPropsDeleteTask) {
-    return this.instance
-      .delete(`/boards/${boardId}/columns/${columnId}/tasks/${id}`)
+    this.updateToken();
+    return axios
+      .delete(`/boards/${boardId}/columns/${columnId}/tasks/${id}`, this.config)
       .catch((error) => {
         return { ...error.response, catch: true };
       });

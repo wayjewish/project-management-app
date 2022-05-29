@@ -1,5 +1,4 @@
-import { AxiosInstance } from 'axios';
-import instance from './instance';
+import axios, { AxiosRequestConfig } from 'axios';
 
 export interface IPropsSignIn {
   login: string;
@@ -13,19 +12,21 @@ export interface IPropsSignUp {
 }
 
 class UsersService {
-  instance: AxiosInstance;
+  config: AxiosRequestConfig;
 
   constructor() {
-    this.instance = instance;
+    this.config = {
+      baseURL: 'https://desolate-crag-37445.herokuapp.com/',
+    };
   }
 
   signin(data: IPropsSignIn) {
-    return this.instance.post('/signin', data).catch((error) => {
+    return axios.post('/signin', data, this.config).catch((error) => {
       return { ...error.response, catch: true };
     });
   }
   signup(data: IPropsSignUp) {
-    return this.instance.post('/signup', data).catch((error) => {
+    return axios.post('/signup', data, this.config).catch((error) => {
       return { ...error.response, catch: true };
     });
   }

@@ -36,7 +36,7 @@ export const GlobalStyles = css`
   }
 `;
 
-export const ContainerCustom = styled(Container)(({ theme }) => ({
+export const ContainerCustom = styled(Container)(() => ({
   flexGrow: '1',
   display: 'flex',
   flexDirection: 'column',

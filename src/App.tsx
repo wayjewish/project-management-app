@@ -15,10 +15,6 @@ import BoardsPage from './pages/boards/BoardsPage';
 import BoardPage from './pages/board/BoardPage';
 import NotFoundPage from './pages/notFound/NotFoundPage';
 
-interface ILocationState {
-  background?: Location;
-}
-
 function App() {
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };

@@ -24,7 +24,12 @@ export const getBoards = createAsyncThunk(
   'boards/getBoards',
   async (_, { rejectWithValue, dispatch }) => {
     const res = await boardsService.getAll();
-    dispatch(setBoards(res.data));
+
+    if (res.catch) {
+      console.log(res);
+    } else {
+      dispatch(setBoards(res.data));
+    }
   }
 );
 

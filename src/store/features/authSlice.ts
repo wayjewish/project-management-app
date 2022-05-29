@@ -19,7 +19,7 @@ export interface IAuthState {
 
 const initialState: IAuthState = {
   isAuth: localStorage.getItem('isAuth') === 'true' ? true : false,
-  token: null,
+  token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
   signIn: {
     isLoading: false,
     isSuccess: false,
