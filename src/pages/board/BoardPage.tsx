@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Typography, CircularProgress, Button } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { ContainerCustom, PageContentWrap } from '../../Global.styled';
-import { TopBox, CircularProgressBox } from './BoardPage.styled';
+import { TopBox } from './BoardPage.styled';
 
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { getBoard, setErrorsBoard } from '../../store/features/boardSlice';
 
 import Board from '../../components/board/Board';
+import Loading from '../../components/loading/Loading';
 
 function BoardPage() {
   const params = useParams();
@@ -31,11 +32,7 @@ function BoardPage() {
 
   return (
     <ContainerCustom maxWidth={false}>
-      {isLoading && (
-        <CircularProgressBox>
-          <CircularProgress />
-        </CircularProgressBox>
-      )}
+      {isLoading && <Loading />}
       {!isLoading && board && (
         <PageContentWrap>
           <TopBox>

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IBoard, IErrorApi } from '../../api/types';
 import boardsService, { IPropsGetBoard } from '../../api/boardsService';
+import { addError } from './appSlice';
 
 const initialState: {
   board: IBoard | null;
@@ -35,6 +36,13 @@ export const getBoard = createAsyncThunk(
             code: res.data.statusCode,
             message: res.data.message,
           },
+        })
+      );
+
+      dispatch(
+        addError({
+          type: 'error',
+          message: 'Нет такой борды',
         })
       );
     } else {

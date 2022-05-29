@@ -12,12 +12,12 @@ import {
   Select,
   MenuItem,
   Button,
-  CircularProgress,
   SelectChangeEvent,
 } from '@mui/material';
-import { CloseIconBox, FormInputsBox, CircularProgressBox } from './TaskFormAdd.styled';
+import { CloseIconBox, FormInputsBox } from './TaskFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
 import { ITaskData } from '../../../../api/types';
+import Loading from '../../../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { setActiveColumn } from '../../../../store/features/columnsSlice';
@@ -82,11 +82,7 @@ function TaskFormAdd() {
       </CloseIconBox>
       <DialogTitle variant="h5">Create task</DialogTitle>
       <DialogContent>
-        {users.loading && (
-          <CircularProgressBox>
-            <CircularProgress />
-          </CircularProgressBox>
-        )}
+        {users.loading && <Loading />}
         {!users.loading && users.users && (
           <Box id="addTask" component="form" onSubmit={handlerSubmit} autoComplete="off">
             <FormInputsBox>
