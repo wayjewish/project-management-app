@@ -41,7 +41,6 @@ class ColumnsService {
   }
 
   updateToken() {
-    this.updateToken();
     const token = localStorage.getItem('token');
     if (token) {
       this.token = token;

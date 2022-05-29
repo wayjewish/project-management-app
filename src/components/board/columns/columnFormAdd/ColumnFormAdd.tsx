@@ -43,7 +43,9 @@ function ColumnFormAdd() {
 
   const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('handlerSubmit');
     if (board) {
+      console.log('handlerSubmit2');
       dispatch(addColumn({ boardId: board.id, data }));
     }
     handleClose();

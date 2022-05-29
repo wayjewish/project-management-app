@@ -15,9 +15,11 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { CloseIconBox, FormInputsBox } from './SignUp.styled';
+import Loading from '../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { signUpRequest } from '../../store/features/authSlice';
+import { setsignUp, signUpRequest } from '../../store/features/authSlice';
+import { addAlert } from '../../store/features/appSlice';
 
 interface IFormValues {
   name: string;
@@ -59,6 +61,19 @@ const SignUp = () => {
     if (signUp.isSuccess) {
       handleClose();
       reset();
+
+      dispatch(
+        setsignUp({
+          isSuccess: false,
+        })
+      );
+
+      dispatch(
+        addAlert({
+          type: 'success',
+          message: 'User created',
+        })
+      );
     }
   }, [signUp.isSuccess]);
 
@@ -114,7 +129,7 @@ const SignUp = () => {
       </DialogContent>
       <DialogActions>
         {signUp.isLoading ? (
-          <p>Loading...</p>
+          <Loading />
         ) : (
           <Button variant="contained" type="submit" form="signUp">
             Sign In

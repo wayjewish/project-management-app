@@ -96,9 +96,11 @@ export const authSlice = createSlice({
       state.isAuth = action.payload;
       localStorage.setItem('isAuth', String(action.payload));
     },
-    setToken: (state, action: PayloadAction<string>) => {
+    setToken: (state, action: PayloadAction<string | null>) => {
       state.token = action.payload;
-      localStorage.setItem('token', action.payload);
+      if (typeof action.payload === 'string') {
+        localStorage.setItem('token', action.payload);
+      }
     },
     setsignIn: (state, action) => {
       state.signIn = {

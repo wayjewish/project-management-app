@@ -15,6 +15,8 @@ import BoardsPage from './pages/boards/BoardsPage';
 import BoardPage from './pages/board/BoardPage';
 import NotFoundPage from './pages/notFound/NotFoundPage';
 
+import Alerts from './components/alerts/Alerts';
+
 function App() {
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
@@ -37,7 +39,14 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/boards/:boardId" element={<BoardPage />} />
+          <Route
+            path="/boards/:boardId"
+            element={
+              <PrivateRoute>
+                <BoardPage />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
 
@@ -49,6 +58,8 @@ function App() {
         )}
       </Main>
       <Footer />
+
+      <Alerts />
     </AppBox>
   );
 }

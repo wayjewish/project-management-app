@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { CloseIconBox, FormInputsBox } from './SignIn.styled';
+import Loading from '../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setsignIn, signInRequest } from '../../store/features/authSlice';
@@ -57,6 +58,12 @@ const SignIn = () => {
     if (signIn.isSuccess) {
       handleClose();
       reset();
+
+      dispatch(
+        setsignIn({
+          isSuccess: false,
+        })
+      );
       navigate('/boards', { replace: true });
     }
   }, [signIn.isSuccess]);
@@ -102,7 +109,7 @@ const SignIn = () => {
       </DialogContent>
       <DialogActions>
         {signIn.isLoading ? (
-          <p>Loading...</p>
+          <Loading />
         ) : (
           <Button variant="contained" type="submit" form="signIn">
             Sign In
