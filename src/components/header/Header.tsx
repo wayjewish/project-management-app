@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/material';
 
@@ -6,22 +6,9 @@ import { Header, HeaderWrap, BoxBtns } from './Header.styled';
 import SelectBox from './selectLang/SelectBox';
 import MobileMenu from './mobileMenu/MobileMenu';
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { openModalLogin } from '../../store/features/modalLogin/modalLoginSlice';
-import ModalSingup from '../Modal/ModalSingup';
-import ModalLogin from '../Modal/ModalLogin';
-import { change } from '../../store/features/authSlice';
-
 function HeaderComponent() {
-  const { isAuth } = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
-
-  const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
   const location = useLocation();
-
-  useEffect(() => {
-    console.log(`isAuth=${isAuth}`);
-  }, [isAuth]);
+  const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
 
   return (
     <Header position="sticky" scrollTrigger={scrollTrigger} elevation={scrollTrigger ? 8 : 0}>
@@ -33,20 +20,23 @@ function HeaderComponent() {
             </Typography>
           </Box>
           <BoxBtns>
-            <Link to="login" state={{ backgroundLocation: location }}>
-              <Button
-                color="inherit"
-                onClick={() => {
-                  dispatch(openModalLogin());
-                  dispatch(change(!isAuth));
-                }}
-              >
-                Login
-              </Button>
-            </Link>
-            <ModalSingup />
-            <ModalLogin />
-            <SelectBox media="desctop" />{' '}
+            <Button
+              color="inherit"
+              component={Link}
+              to="/singin"
+              state={{ backgroundLocation: location }}
+            >
+              Sing In
+            </Button>
+            <Button
+              color="inherit"
+              component={Link}
+              to="/singup"
+              state={{ backgroundLocation: location }}
+            >
+              Sing Up
+            </Button>
+            <SelectBox media="desctop" />
           </BoxBtns>
           <MobileMenu />
         </HeaderWrap>

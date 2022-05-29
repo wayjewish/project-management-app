@@ -6,14 +6,9 @@ import columnsSlice from './features/columnsSlice';
 import tasksSlice from './features/tasksSlice';
 import usersSlice from './features/usersSlice';
 
-import modalSingupReducer from './features/modalSingUp/modalSingupSlice'
-import modalLoginReducer from './features/modalLogin/modalLoginSlice'
-
 export const store = configureStore({
   reducer: {
     auth: authSlice,
-    modalSingup: modalSingupReducer,
-    modalLogin: modalLoginReducer,
     boards: BoardsSlice,
     board: boardSlice,
     columns: columnsSlice,

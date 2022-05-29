@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import { Box, Button, CardContent, Container, Grid, Typography } from '@mui/material';
 
 import { PageContentWrap } from '../../Global.styled';
@@ -13,26 +12,8 @@ import {
   AdvanCard,
 } from './HomePage.styled';
 import MainImg from '../../assets/img/home.png';
-import ModalLogin from '../../components/Modal/ModalLogin';
-import ModalSingup from '../../components/Modal/ModalSingup';
-import { useAppDispatch } from '../../store/hooks';
-import { openModalSingup } from '../../store/features/modalSingUp/modalSingupSlice';
-import { Link, useLocation } from 'react-router-dom';
-
-import { useAppSelector } from '../../store/hooks';
 
 function HomePage() {
-  const dispatch = useAppDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { isAuth } = useAppSelector((state) => state.auth);
-
-  useEffect(() => {
-    if (isAuth) {
-      navigate('/boards', { replace: true });
-    }
-  }, [isAuth]);
-
   return (
     <Container>
       <PageContentWrap>
@@ -53,13 +34,9 @@ function HomePage() {
                 одного инструмента.
               </Typography>
             </Box>
-            <Link to="singup" state={{ backgroundLocation: location }}>
-              <Button variant="contained" size="large" onClick={() => dispatch(openModalSingup())}>
-                Попробовать
-              </Button>
-            </Link>
-            <ModalSingup />
-            <ModalLogin />
+            <Button variant="contained" size="large">
+              Попробовать
+            </Button>
           </FirstLeftBox>
           <FirstRightBox item md={5} sm={12}>
             <Box>

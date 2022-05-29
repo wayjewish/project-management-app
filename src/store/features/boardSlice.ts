@@ -26,7 +26,6 @@ export const getBoard = createAsyncThunk(
   'board/getBoard',
   async (props: IPropsGetBoard, { rejectWithValue, dispatch }) => {
     const res = await boardsService.get(props);
-    const data = res.data;
 
     if (res.catch) {
       dispatch(
@@ -38,7 +37,7 @@ export const getBoard = createAsyncThunk(
         })
       );
     } else {
-      const board = sortBoardData(data);
+      const board = sortBoardData(res.data);
       dispatch(setBoard(board));
     }
   }

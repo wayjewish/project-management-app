@@ -6,14 +6,18 @@ import { AppBox, Main } from './App.styled';
 
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import LoginPopup from './components/Modal/ModalLogin';
-import SingupPopup from './components/Modal/ModalSingup';
+import SignIn from './components/signIn/SignIn';
+import SignUp from './components/signUp/SignUp';
 
 import PrivateRoute from './components/privateRoute/PrivateRouter';
 import HomePage from './pages/home/HomePage';
 import BoardsPage from './pages/boards/BoardsPage';
 import BoardPage from './pages/board/BoardPage';
 import NotFoundPage from './pages/notFound/NotFoundPage';
+
+interface ILocationState {
+  background?: Location;
+}
 
 function App() {
   const location = useLocation();
@@ -26,8 +30,8 @@ function App() {
       <Main>
         <Routes location={state?.backgroundLocation || location}>
           <Route path="/" element={<HomePage />} />
-          <Route path="login" element={<LoginPopup />} />
-          <Route path="singup" element={<SingupPopup />} />
+          <Route path="/singin" element={<SignIn />} />
+          <Route path="/singup" element={<SignUp />} />
 
           <Route
             path="/boards"
@@ -40,10 +44,11 @@ function App() {
           <Route path="/boards/:boardId" element={<BoardPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+
         {state?.backgroundLocation && (
           <Routes>
-            <Route path="login" element={<LoginPopup />} />
-            <Route path="singup" element={<SingupPopup />} />
+            <Route path="/singin" element={<SignIn />} />
+            <Route path="/singup" element={<SignUp />} />
           </Routes>
         )}
       </Main>
