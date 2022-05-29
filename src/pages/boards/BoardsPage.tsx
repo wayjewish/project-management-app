@@ -4,7 +4,7 @@ import { PageContentWrap } from '../../Global.styled';
 
 import Boards from '../../components/boards/Boards';
 
-function Board() {
+function BoardsPage() {
   return (
     <Container>
       <PageContentWrap>
@@ -22,4 +22,4 @@ function Board() {
   );
 }
 
-export default Board;
+export default BoardsPage;

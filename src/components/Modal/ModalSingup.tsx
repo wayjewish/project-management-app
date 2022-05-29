@@ -11,11 +11,10 @@ import { openModalLogin } from '../../store/features/modalLogin/modalLoginSlice'
 import { closeModalSingup } from '../../store/features/modalSingUp/modalSingupSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import ModalLogin from './ModalLogin';
-import { validationSchema } from './Validate'
-
+import { validationSchema } from './Validate';
 
 export default function ModalSingup() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isOpenedSingup } = useAppSelector((state) => state.modalSingup);
 
@@ -33,6 +32,7 @@ export default function ModalSingup() {
     resolver: yupResolver(validationSchema),
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (data: any) => {
     console.log(JSON.stringify(data, null, 2));
     reset();
@@ -41,7 +41,7 @@ export default function ModalSingup() {
   return (
     <form noValidate autoComplete="off">
       <Dialog open={isOpenedSingup} onClose={onDismiss} fullWidth maxWidth="sm">
-        <Box p={2} >
+        <Box p={2}>
           <Box display={'flex'} justifyContent={'space-between'}>
             <Typography variant="h5">Sing up</Typography>
             <CloseIcon onClick={onDismiss} style={{ cursor: 'pointer' }} />

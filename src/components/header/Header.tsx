@@ -8,17 +8,15 @@ import MobileMenu from './mobileMenu/MobileMenu';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { openModalLogin } from '../../store/features/modalLogin/modalLoginSlice';
-import { change } from '../../store/features/auth/authSlice';
 import ModalSingup from '../Modal/ModalSingup';
 import ModalLogin from '../Modal/ModalLogin';
+import { change } from '../../store/features/authSlice';
 
 function HeaderComponent() {
   const { isAuth } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 
-
   const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
-  
   const location = useLocation();
 
   useEffect(() => {
@@ -46,8 +44,8 @@ function HeaderComponent() {
                 Login
               </Button>
             </Link>
-            <ModalSingup/>
-            <ModalLogin/>
+            <ModalSingup />
+            <ModalLogin />
             <SelectBox media="desctop" />{' '}
           </BoxBtns>
           <MobileMenu />

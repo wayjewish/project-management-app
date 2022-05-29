@@ -1,37 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, CircularProgress } from '@mui/material';
-import { BordersWrap, CircularProgressBox } from './Boards.styled';
+import { BoardsWrap, CircularProgressBox } from './Boards.styled';
+import { Link } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { getBoards, deleteBoard } from '../../store/features/boards/boardsSlice';
+import {
+  getBoards,
+  deleteBoard,
+  changeIsOpenModalBoards,
+  setDeletedBoard,
+} from '../../store/features/boardsSlice';
 
-import BoardItem from '../../components/boards/BoardItem/BoardItem';
-import BoardAdd from '../../components/boards/BoardAdd/BoardAdd';
+import BoardItem from './boardItem/BoardItem';
+import BoardAdd from './boardAdd/BoardAdd';
 import ModalWindowConfirm from '../../components/modalWindowСonfirm/ModalWindowConfirm';
-import FormAddBoard from './formAddBoard/FormAddBoard';
-import { IBoard } from '../../types';
+import BoardFormAdd from './boardFormAdd/BoardFormAdd';
 
-function Board() {
+function Boards() {
   const dispatch = useAppDispatch();
-  const { boards, loading } = useAppSelector((state) => state.boards);
+  const { boards, isLoading, isOpenModalBoards, deletedBoard } = useAppSelector(
+    (state) => state.boards
+  );
 
-  const [openModalConfirm, setOpenModalConfirm] = useState(false);
-  const [openModalAddBoard, setOpenModalAddBoard] = useState(false);
-  const [deletedBoard, setDeletedBoard] = useState<IBoard | null>();
-
-  const openModalFormAddBoard = () => {
-    setOpenModalAddBoard(true);
+  const closeModalConfirm = () => {
+    dispatch(changeIsOpenModalBoards({ confirmDelete: false }));
   };
 
-  const RemoveBoardInCard = (board: IBoard) => {
-    setOpenModalConfirm(true);
-    setDeletedBoard(board);
-  };
-
-  const DeleteBoardConfirm = () => {
+  const confirmYes = () => {
     if (deletedBoard) {
-      dispatch(deleteBoard(deletedBoard.id));
-      setDeletedBoard(null);
+      dispatch(deleteBoard({ id: deletedBoard.id }));
+      dispatch(setDeletedBoard(null));
     }
   };
 
@@ -40,16 +38,25 @@ function Board() {
   }, []);
 
   return (
-    <BordersWrap>
-      {loading ? (
+    <BoardsWrap>
+      {!isLoading ? (
         <Grid container spacing={3}>
-          {boards.map((board) => (
-            <Grid key={board.id} item md={4} sm={6} xs={12}>
-              <BoardItem board={board} removeBoard={RemoveBoardInCard} />
-            </Grid>
-          ))}
+          {boards &&
+            boards.map((board) => (
+              <Grid
+                key={board.id}
+                item
+                md={4}
+                sm={6}
+                xs={12}
+                component={Link}
+                to={`/boards/${board.id}`}
+              >
+                <BoardItem board={board} />
+              </Grid>
+            ))}
           <Grid item md={4} sm={6} xs={12}>
-            <BoardAdd openModalFormAddBoard={openModalFormAddBoard} />
+            <BoardAdd />
           </Grid>
         </Grid>
       ) : (
@@ -57,19 +64,15 @@ function Board() {
           <CircularProgress />
         </CircularProgressBox>
       )}
-      {openModalAddBoard && (
-        <FormAddBoard openModal={openModalAddBoard} setOpenModal={setOpenModalAddBoard} />
-      )}
-      {openModalConfirm && (
-        <ModalWindowConfirm
-          openModal={openModalConfirm}
-          setOpenModal={setOpenModalConfirm}
-          title={`Вы уверены, что хотите удалить ${deletedBoard?.title} ?`}
-          yes={DeleteBoardConfirm}
-        />
-      )}
-    </BordersWrap>
+      <BoardFormAdd />
+      <ModalWindowConfirm
+        isOpen={isOpenModalBoards.confirmDelete}
+        close={closeModalConfirm}
+        title={`Вы уверены, что хотите удалить доску ${deletedBoard?.title} ?`}
+        yes={confirmYes}
+      />
+    </BoardsWrap>
   );
 }
 
-export default Board;
+export default Boards;
