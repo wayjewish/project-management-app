@@ -1,43 +1,43 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-export interface IErrorApp {
+export interface IAlertApp {
   id: string;
-  type: string;
+  type: 'error' | 'warning' | 'info' | 'success';
   message: string;
 }
 
 export interface IAuthState {
-  errors: IErrorApp[];
+  alerts: IAlertApp[];
 }
 
 const initialState: IAuthState = {
-  errors: [],
+  alerts: [],
 };
 
 export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    addError: (state, action) => {
-      const error = {
+    addAlert: (state, action) => {
+      const alert = {
         ...action.payload,
         id: uuidv4(),
       };
 
-      state.errors.push(error);
+      state.alerts.push(alert);
     },
-    removeError: (state, action) => {
-      const deletedError = action.payload;
-      const newErrors = [...state.errors];
-      const index = newErrors.map((error) => error.id).indexOf(deletedError.id);
+    removeAlert: (state, action) => {
+      const deletedAlert = action.payload;
+      const newAlerts = [...state.alerts];
+      const index = newAlerts.map((alert) => alert.id).indexOf(deletedAlert.id);
 
-      newErrors.splice(index, 1);
-      state.errors = newErrors;
+      newAlerts.splice(index, 1);
+      state.alerts = newAlerts;
     },
   },
 });
 
-export const { addError, removeError } = appSlice.actions;
+export const { addAlert, removeAlert } = appSlice.actions;
 
 export default appSlice.reducer;

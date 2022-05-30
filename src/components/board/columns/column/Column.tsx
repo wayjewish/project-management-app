@@ -71,6 +71,7 @@ function Column(props: IProps) {
     setValueTitle(e.target.value);
   };
   const submitTitle = () => {
+    if (!valueTitle) return;
     if (board) {
       dispatch(
         updateColumn({

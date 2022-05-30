@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Snackbar } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import { IErrorApp, removeError } from '../../../store/features/appSlice';
+import { IAlertApp, removeAlert } from '../../../store/features/appSlice';
 import { useAppDispatch } from '../../../store/hooks';
 
 interface IProps {
   isOpen: boolean;
-  error: IErrorApp;
+  alert: IAlertApp;
 }
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
@@ -16,7 +16,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 function AlertComponent(props: IProps) {
   const dispatch = useAppDispatch();
 
-  const { isOpen, error } = props;
+  const { isOpen, alert } = props;
 
   const [open, setOpen] = React.useState(false);
   const [timer, setTimer] = React.useState<NodeJS.Timeout | null>(null);
@@ -43,13 +43,13 @@ function AlertComponent(props: IProps) {
   const close = () => {
     setOpen(false);
     setTimer(null);
-    dispatch(removeError(error));
+    dispatch(removeAlert(alert));
   };
 
   return (
     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-        {error.message}
+      <Alert onClose={handleClose} severity={alert.type} sx={{ width: '100%' }}>
+        {alert.message}
       </Alert>
     </Snackbar>
   );

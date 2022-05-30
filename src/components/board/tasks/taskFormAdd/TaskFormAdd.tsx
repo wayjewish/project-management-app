@@ -12,17 +12,25 @@ import {
   Select,
   MenuItem,
   Button,
-  SelectChangeEvent,
 } from '@mui/material';
 import { CloseIconBox, FormInputsBox } from './TaskFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
-import { ITaskData } from '../../../../api/types';
 import Loading from '../../../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { setActiveColumn } from '../../../../store/features/columnsSlice';
 import { changeIsOpenModalTasks, addTask } from '../../../../store/features/tasksSlice';
 import { getUsers } from '../../../../store/features/usersSlice';
+
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
+interface IFormValues {
+  title: string;
+  description: string;
+  userId: string;
+}
 
 function TaskFormAdd() {
   const dispatch = useAppDispatch();
@@ -31,44 +39,33 @@ function TaskFormAdd() {
   const { isOpenModalTasks } = useAppSelector((state) => state.tasks);
   const users = useAppSelector((state) => state.users);
 
-  const initialData: ITaskData = {
-    title: '',
-    description: '',
-    userId: '',
-  };
+  const schema = yup
+    .object({
+      title: yup.string().required('Login is required'),
+      description: yup.string().required('Description is required'),
+      userId: yup.string().required('User is required'),
+    })
+    .required();
 
-  const [data, setData] = useState(initialData);
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormValues>({
+    resolver: yupResolver(schema),
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
-
-  const handleChangeSelect = (e: SelectChangeEvent<string>) => {
-    const { name, value } = e.target;
-
-    setData({
-      ...data,
-      [name]: value,
-    });
+  const onSubmit = (data: IFormValues) => {
+    if (board && activeColumn) {
+      dispatch(addTask({ boardId: board.id, columnId: activeColumn.id, data }));
+    }
+    handleClose();
   };
 
   const handleClose = () => {
     dispatch(changeIsOpenModalTasks({ formAdd: false }));
     dispatch(setActiveColumn(null));
-    setData(initialData);
-  };
-
-  const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (board && activeColumn) {
-      dispatch(addTask({ boardId: board.id, columnId: activeColumn.id, data }));
-    }
-    handleClose();
   };
 
   useEffect(() => {
@@ -84,38 +81,47 @@ function TaskFormAdd() {
       <DialogContent>
         {users.loading && <Loading />}
         {!users.loading && users.users && (
-          <Box id="addTask" component="form" onSubmit={handlerSubmit} autoComplete="off">
+          <Box id="addTask" component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             <FormInputsBox>
               <TextField
-                name="title"
+                id="title"
+                type="text"
                 label="Title"
+                placeholder="Title"
+                {...register('title')}
+                required
+                error={errors.title ? true : false}
+                helperText={errors.title?.message}
                 variant="outlined"
-                value={data.title}
-                onChange={handleChange}
               />
               <TextField
-                name="description"
+                id="description"
+                type="text"
                 label="Description"
+                placeholder="Description"
+                {...register('description')}
+                required
+                error={errors.description ? true : false}
+                helperText={errors.description?.message}
                 variant="outlined"
-                value={data.description}
-                onChange={handleChange}
               />
-              <FormControl>
-                <InputLabel>User</InputLabel>
-                <Select
-                  name="userId"
-                  label="User"
-                  variant="outlined"
-                  value={data.userId}
-                  onChange={handleChangeSelect}
-                >
-                  {users.users.map((user) => (
-                    <MenuItem key={user.id} value={user.id}>
-                      {user.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              <TextField
+                select
+                id="userId"
+                type="text"
+                label="User"
+                placeholder="User"
+                inputProps={register('userId')}
+                error={errors.userId ? true : false}
+                helperText={errors.userId?.message}
+                variant="outlined"
+              >
+                {users.users.map((user) => (
+                  <MenuItem key={user.id} value={user.id}>
+                    {user.name}
+                  </MenuItem>
+                ))}
+              </TextField>
             </FormInputsBox>
           </Box>
         )}

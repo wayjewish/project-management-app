@@ -23,7 +23,7 @@ export const GlobalStyles = css`
   }
   a {
     text-decoration: none;
-    transition: 0.2s;
+    color: inherit;
   }
   a:hover {
     cursor: pointer;
@@ -36,7 +36,7 @@ export const GlobalStyles = css`
   }
 `;
 
-export const ContainerCustom = styled(Container)(({ theme }) => ({
+export const ContainerCustom = styled(Container)(() => ({
   flexGrow: '1',
   display: 'flex',
   flexDirection: 'column',

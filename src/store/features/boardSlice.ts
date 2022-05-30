@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IBoard, IErrorApi } from '../../api/types';
 import boardsService, { IPropsGetBoard } from '../../api/boardsService';
-import { addError } from './appSlice';
+import { addAlert } from './appSlice';
 
 const initialState: {
   board: IBoard | null;
@@ -27,7 +27,6 @@ export const getBoard = createAsyncThunk(
   'board/getBoard',
   async (props: IPropsGetBoard, { rejectWithValue, dispatch }) => {
     const res = await boardsService.get(props);
-    const data = res.data;
 
     if (res.catch) {
       dispatch(
@@ -40,13 +39,13 @@ export const getBoard = createAsyncThunk(
       );
 
       dispatch(
-        addError({
+        addAlert({
           type: 'error',
-          message: 'Нет такой борды',
+          message: 'There is no such board',
         })
       );
     } else {
-      const board = sortBoardData(data);
+      const board = sortBoardData(res.data);
       dispatch(setBoard(board));
     }
   }
