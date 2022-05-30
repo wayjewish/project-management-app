@@ -1,4 +1,4 @@
-import { Box, Card, Grid } from '@mui/material';
+import { Card, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 export const FirstBox = styled(Grid)({
@@ -27,12 +27,4 @@ export const AdvanGridItem = styled(Grid)({
 export const AdvanCard = styled(Card)({
   width: '100%',
   height: '100%',
-});
-
-export const BoxVideo = styled(Box)({
-  width: '100%',
-  height: '335px',
-
-  border: '1px solid #000000',
-  borderRadius: '10px',
 });

@@ -41,7 +41,7 @@ export const getBoard = createAsyncThunk(
       dispatch(
         addAlert({
           type: 'error',
-          message: 'There is no such board',
+          message: 'alert.notFindBoard',
         })
       );
     } else {

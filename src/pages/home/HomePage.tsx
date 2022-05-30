@@ -1,10 +1,9 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Box, Button, CardContent, Container, Grid, Typography } from '@mui/material';
-
 import { PageContentWrap } from '../../Global.styled';
 import {
   HomeImage,
-  BoxVideo,
   AdvanGridItem,
   FirstBox,
   FirstLeftBox,
@@ -13,7 +12,12 @@ import {
 } from './HomePage.styled';
 import MainImg from '../../assets/img/home.png';
 
+import { useTranslation } from 'react-i18next';
+
 function HomePage() {
+  const location = useLocation();
+  const { t } = useTranslation();
+
   return (
     <Container>
       <PageContentWrap>
@@ -26,16 +30,19 @@ function HomePage() {
               }}
               mb={1}
             >
-              RSS Tracker
+              {t('pages.home.first.title')}
             </Typography>
             <Box mb={2}>
-              <Typography variant="body1">
-                Сервис для совместной работы и организации процессов. Контролируйте задачи с помощью
-                одного инструмента.
-              </Typography>
+              <Typography variant="body1">{t('pages.home.first.subtitle')}</Typography>
             </Box>
-            <Button variant="contained" size="large">
-              Попробовать
+            <Button
+              variant="contained"
+              size="large"
+              component={Link}
+              to="/singup"
+              state={{ backgroundLocation: location }}
+            >
+              {t('pages.home.first.button')}
             </Button>
           </FirstLeftBox>
           <FirstRightBox item md={5} sm={12}>
@@ -51,12 +58,9 @@ function HomePage() {
               <AdvanCard variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
-                    Вся рабочая информация всегда под рукой
+                    {t('pages.home.advans.1.title')}
                   </Typography>
-                  <Typography variant="caption">
-                    Моментально оценивайте статус работы, определяйте дальнейшие действия и делайте
-                    всё необходимое, чтобы работа шла по плану.
-                  </Typography>
+                  <Typography variant="caption">{t('pages.home.advans.1.subtitle')}</Typography>
                 </CardContent>
               </AdvanCard>
             </AdvanGridItem>
@@ -64,12 +68,9 @@ function HomePage() {
               <AdvanCard variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
-                    Всё точно в срок
+                    {t('pages.home.advans.1.title')}
                   </Typography>
-                  <Typography variant="caption">
-                    Создайте план, показывающий взаимосвязи между различными частями проекта. Он
-                    поможет вам работать по графику.
-                  </Typography>
+                  <Typography variant="caption">{t('pages.home.advans.1.subtitle')}</Typography>
                 </CardContent>
               </AdvanCard>
             </AdvanGridItem>
@@ -77,12 +78,9 @@ function HomePage() {
               <AdvanCard variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
-                    Хронология
+                    {t('pages.home.advans.1.title')}
                   </Typography>
-                  <Typography variant="caption">
-                    Управляйте зависящими друг от друга, пересекающимися и непредвиденными задачами,
-                    а также создавайте реалистичные планы.
-                  </Typography>
+                  <Typography variant="caption">{t('pages.home.advans.1.subtitle')}</Typography>
                 </CardContent>
               </AdvanCard>
             </AdvanGridItem>
@@ -90,12 +88,9 @@ function HomePage() {
               <AdvanCard variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
-                    Доски
+                    {t('pages.home.advans.1.title')}
                   </Typography>
-                  <Typography variant="caption">
-                    Сделайте так, чтобы ничего не отвлекало сотрудников от текущих задач. Разбивайте
-                    работу на этапы, которые позволяют видеть, что важно, и где случаются задержки.
-                  </Typography>
+                  <Typography variant="caption">{t('pages.home.advans.1.subtitle')}</Typography>
                 </CardContent>
               </AdvanCard>
             </AdvanGridItem>
@@ -103,23 +98,13 @@ function HomePage() {
               <AdvanCard variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
-                    Список
+                    {t('pages.home.advans.1.title')}
                   </Typography>
-                  <Typography variant="caption">
-                    В списках сотрудники сразу видят, что нужно сделать, какие задачи приоритетны и
-                    какой срок отведён на выполнение работы.
-                  </Typography>
+                  <Typography variant="caption">{t('pages.home.advans.1.subtitle')}</Typography>
                 </CardContent>
               </AdvanCard>
             </AdvanGridItem>
           </Grid>
-        </Box>
-
-        <Box>
-          <Typography variant="h5" mb={1}>
-            Что такое Tracker
-          </Typography>
-          <BoxVideo />
         </Box>
       </PageContentWrap>
     </Container>

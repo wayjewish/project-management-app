@@ -4,7 +4,11 @@ import { PageContentWrap } from '../../Global.styled';
 
 import Boards from '../../components/boards/Boards';
 
+import { useTranslation } from 'react-i18next';
+
 function BoardsPage() {
+  const { t } = useTranslation();
+
   return (
     <Container>
       <PageContentWrap>
@@ -14,7 +18,7 @@ function BoardsPage() {
             typography: { sm: 'h2', xs: 'h3' },
           }}
         >
-          Boards
+          {t('pages.boards.title')}
         </Typography>
         <Boards />
       </PageContentWrap>

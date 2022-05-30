@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Grid } from '@mui/material';
 import { BoardsWrap } from './Boards.styled';
 import { Link } from 'react-router-dom';
@@ -17,7 +17,10 @@ import ModalWindowConfirm from '../../components/modalWindowСonfirm/ModalWindow
 import BoardFormAdd from './boardFormAdd/BoardFormAdd';
 import Loading from '../loading/Loading';
 
+import { useTranslation } from 'react-i18next';
+
 function Boards() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { boards, isLoading, isOpenModalBoards, deletedBoard } = useAppSelector(
     (state) => state.boards
@@ -67,7 +70,7 @@ function Boards() {
       <ModalWindowConfirm
         isOpen={isOpenModalBoards.confirmDelete}
         close={closeModalConfirm}
-        title={`Вы уверены, что хотите удалить доску ${deletedBoard?.title} ?`}
+        title={`${t('pages.boards.confirm')} ${deletedBoard?.title} ?`}
         yes={confirmYes}
       />
     </BoardsWrap>

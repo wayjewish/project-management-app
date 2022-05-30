@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {
   Dialog,
@@ -7,9 +7,6 @@ import {
   DialogActions,
   Box,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
   MenuItem,
   Button,
 } from '@mui/material';
@@ -26,6 +23,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
+import { useTranslation } from 'react-i18next';
+
 interface IFormValues {
   title: string;
   description: string;
@@ -33,6 +32,7 @@ interface IFormValues {
 }
 
 function TaskFormAdd() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { board } = useAppSelector((state) => state.board);
   const { activeColumn } = useAppSelector((state) => state.columns);
@@ -49,7 +49,6 @@ function TaskFormAdd() {
 
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormValues>({
@@ -77,7 +76,7 @@ function TaskFormAdd() {
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
-      <DialogTitle variant="h5">Create task</DialogTitle>
+      <DialogTitle variant="h5">{t('pages.board.tasks.forms.add.title')}</DialogTitle>
       <DialogContent>
         {users.loading && <Loading />}
         {!users.loading && users.users && (
@@ -86,8 +85,8 @@ function TaskFormAdd() {
               <TextField
                 id="title"
                 type="text"
-                label="Title"
-                placeholder="Title"
+                label={t('pages.board.tasks.forms.add.fields.title')}
+                placeholder={t('pages.board.tasks.forms.add.fields.title')}
                 {...register('title')}
                 required
                 error={errors.title ? true : false}
@@ -97,8 +96,8 @@ function TaskFormAdd() {
               <TextField
                 id="description"
                 type="text"
-                label="Description"
-                placeholder="Description"
+                label={t('pages.board.tasks.forms.add.fields.description')}
+                placeholder={t('pages.board.tasks.forms.add.fields.description')}
                 {...register('description')}
                 required
                 error={errors.description ? true : false}
@@ -109,8 +108,8 @@ function TaskFormAdd() {
                 select
                 id="userId"
                 type="text"
-                label="User"
-                placeholder="User"
+                label={t('pages.board.tasks.forms.add.fields.user')}
+                placeholder={t('pages.board.tasks.forms.add.fields.user')}
                 inputProps={register('userId')}
                 error={errors.userId ? true : false}
                 helperText={errors.userId?.message}
@@ -128,7 +127,7 @@ function TaskFormAdd() {
       </DialogContent>
       <DialogActions>
         <Button variant="contained" type="submit" form="addTask">
-          Create
+          {t('button.create')}
         </Button>
       </DialogActions>
     </Dialog>,

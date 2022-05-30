@@ -23,7 +23,10 @@ import {
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
+import { useTranslation } from 'react-i18next';
+
 function Board() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { board } = useAppSelector((state) => state.board);
   const { isOpenModalColumns, deletedColumn } = useAppSelector((state) => state.columns);
@@ -81,7 +84,7 @@ function Board() {
         <ModalWindowConfirm
           isOpen={isOpenModalColumns.confirmDelete}
           close={closeModalConfirmColumn}
-          title={`Вы уверены, что хотите удалить колонку ${deletedColumn?.title} ?`}
+          title={`${t('pages.board.columns.confirm')} ${deletedColumn?.title} ?`}
           yes={confirmYesColumn}
         />
       )}
@@ -92,7 +95,7 @@ function Board() {
         <ModalWindowConfirm
           isOpen={isOpenModalTasks.confirmDelete}
           close={closeModalConfirmTask}
-          title={`Вы уверены, что хотите удалить таску ${deletedTask?.title} ?`}
+          title={`${t('pages.board.tasks.confirm')} ${deletedTask?.title} ?`}
           yes={confirmYesTask}
           no={confirmNoTask}
         />

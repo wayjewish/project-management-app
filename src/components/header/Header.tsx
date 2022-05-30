@@ -6,9 +6,12 @@ import { Header, HeaderWrap, BoxBtns } from './Header.styled';
 import SelectBox from './selectLang/SelectBox';
 import MobileMenu from './mobileMenu/MobileMenu';
 
+import { useTranslation } from 'react-i18next';
+
 function HeaderComponent() {
   const location = useLocation();
   const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
+  const { t } = useTranslation();
 
   return (
     <Header position="sticky" scrollTrigger={scrollTrigger} elevation={scrollTrigger ? 8 : 0}>
@@ -26,7 +29,7 @@ function HeaderComponent() {
               to="/singin"
               state={{ backgroundLocation: location }}
             >
-              Sing In
+              {t('header.signin')}
             </Button>
             <Button
               color="inherit"
@@ -34,7 +37,7 @@ function HeaderComponent() {
               to="/singup"
               state={{ backgroundLocation: location }}
             >
-              Sing Up
+              {t('header.signup')}
             </Button>
             <SelectBox media="desctop" />
           </BoxBtns>

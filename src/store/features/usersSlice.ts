@@ -25,7 +25,7 @@ export const getUsers = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }

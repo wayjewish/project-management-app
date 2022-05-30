@@ -3,6 +3,7 @@ import { Snackbar } from '@mui/material';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { IAlertApp, removeAlert } from '../../../store/features/appSlice';
 import { useAppDispatch } from '../../../store/hooks';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 });
 
 function AlertComponent(props: IProps) {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const { isOpen, alert } = props;
@@ -49,7 +51,7 @@ function AlertComponent(props: IProps) {
   return (
     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
       <Alert onClose={handleClose} severity={alert.type} sx={{ width: '100%' }}>
-        {alert.message}
+        {t(alert.message)}
       </Alert>
     </Snackbar>
   );

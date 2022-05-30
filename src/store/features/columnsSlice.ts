@@ -46,7 +46,7 @@ export const addColumn = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }
@@ -69,7 +69,7 @@ export const updateColumn = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }
@@ -92,7 +92,7 @@ export const deleteColumn = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }
@@ -115,7 +115,7 @@ export const updateColumnDND = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       } else {

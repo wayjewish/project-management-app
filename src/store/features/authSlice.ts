@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import authService, { IPropsSignIn, IPropsSignUp } from '../../api/authService';
 import { IErrorApi } from '../../api/types';
 
+export type ILang = 'en' | 'ru';
+
 export interface IAuthState {
   isAuth: boolean;
   token: string | null;
@@ -15,6 +17,7 @@ export interface IAuthState {
     isSuccess: boolean;
     error: IErrorApi | null;
   };
+  lang: ILang;
 }
 
 const initialState: IAuthState = {
@@ -30,6 +33,7 @@ const initialState: IAuthState = {
     isSuccess: false,
     error: null,
   },
+  lang: localStorage.getItem('lang') ? (localStorage.getItem('lang') as ILang) : 'en',
 };
 
 export const signInRequest = createAsyncThunk(
@@ -111,6 +115,10 @@ export const authSlice = createSlice({
         ...action.payload,
       };
     },
+    setLang: (state, action: PayloadAction<ILang>) => {
+      state.lang = action.payload;
+      localStorage.setItem('lang', action.payload);
+    },
   },
   extraReducers: {
     [signInRequest.pending.type]: (state) => {
@@ -128,6 +136,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setIsAuth, setToken, setsignIn, setsignUp } = authSlice.actions;
+export const { setIsAuth, setToken, setsignIn, setsignUp, setLang } = authSlice.actions;
 
 export default authSlice.reducer;

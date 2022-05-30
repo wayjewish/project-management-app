@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   Dialog,
@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import { CloseIconBox, FormInputsBox } from './ColumnFormAdd.styled';
 import CloseIcon from '@mui/icons-material/Close';
-import { IColumnData } from '../../../../api/types';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { addColumn, changeIsOpenModalColumns } from '../../../../store/features/columnsSlice';
@@ -20,11 +19,14 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
+import { useTranslation } from 'react-i18next';
+
 interface IFormValues {
   title: string;
 }
 
 function ColumnFormAdd() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { board } = useAppSelector((state) => state.board);
   const { isOpenModalColumns } = useAppSelector((state) => state.columns);
@@ -59,15 +61,15 @@ function ColumnFormAdd() {
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
-      <DialogTitle variant="h5">Create column</DialogTitle>
+      <DialogTitle variant="h5">{t('pages.board.columns.forms.add.title')}</DialogTitle>
       <DialogContent>
         <Box id="addColumn" component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <FormInputsBox>
             <TextField
               id="title"
               type="text"
-              label="Title"
-              placeholder="Title"
+              label={t('pages.board.columns.forms.add.fields.title')}
+              placeholder={t('pages.board.columns.forms.add.fields.title')}
               {...register('title')}
               required
               error={errors.title ? true : false}
@@ -79,7 +81,7 @@ function ColumnFormAdd() {
       </DialogContent>
       <DialogActions>
         <Button variant="contained" type="submit" form="addColumn">
-          Create
+          {t('button.create')}
         </Button>
       </DialogActions>
     </Dialog>,
