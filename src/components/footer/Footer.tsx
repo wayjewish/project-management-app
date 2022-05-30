@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, Link, Typography } from '@mui/material';
 
-import { Footer, FooterWrap, LogoRss, CenterBox, BotBox, FooterDivider } from './Footer.styled';
+import { Footer, FooterWrap, LogoRss, TopBox, BotBox, FooterDivider } from './Footer.styled';
 import Rss from '../../assets/icons/rs_school.svg';
 
 export default function FooterComponent() {
@@ -9,7 +9,7 @@ export default function FooterComponent() {
     <Footer>
       <Container>
         <FooterWrap>
-          <CenterBox>
+          <TopBox>
             <Typography
               sx={{
                 typography: { sm: 'subtitle1', xs: 'caption' },
@@ -18,7 +18,7 @@ export default function FooterComponent() {
             >
               Project management app | REACT2022Q1
             </Typography>
-          </CenterBox>
+          </TopBox>
           <FooterDivider flexItem={true} />
           <BotBox>
             <ul>

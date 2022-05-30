@@ -7,7 +7,7 @@ import { ContainerCustom, PageContentWrap } from '../../Global.styled';
 import { TopBox, CircularProgressBox } from './BoardPage.styled';
 
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { getBoard, setErrorBoard } from '../../store/features/boardSlice';
+import { getBoard, setErrorsBoard } from '../../store/features/boardSlice';
 
 import Board from '../../components/board/Board';
 
@@ -15,7 +15,7 @@ function BoardPage() {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { board, isLoading, error } = useAppSelector((state) => state.board);
+  const { board, isLoading, errorsBoard } = useAppSelector((state) => state.board);
 
   useEffect(() => {
     const boardId = params.boardId as string;
@@ -23,11 +23,11 @@ function BoardPage() {
   }, []);
 
   useEffect(() => {
-    if (error) {
-      dispatch(setErrorBoard(null));
+    if (errorsBoard.get) {
+      dispatch(setErrorsBoard({ get: null }));
       navigate('/boards', { replace: true });
     }
-  }, [error]);
+  }, [errorsBoard.get]);
 
   return (
     <ContainerCustom maxWidth={false}>

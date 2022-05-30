@@ -40,29 +40,37 @@ class TasksService {
   }
 
   getAll({ boardId, columnId }: IPropsGetAllTask) {
-    return this.instance
-      .get(`/boards/${boardId}/columns/${columnId}/tasks`)
-      .catch((error) => error.response);
+    return this.instance.get(`/boards/${boardId}/columns/${columnId}/tasks`).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   get({ boardId, columnId, id }: IPropsGetTask) {
     return this.instance
       .get(`/boards/${boardId}/columns/${columnId}/tasks/${id}`)
-      .catch((error) => error.response);
+      .catch((error) => {
+        return { ...error.response, catch: true };
+      });
   }
   create({ boardId, columnId, data }: IPropsAddTask) {
     return this.instance
       .post(`/boards/${boardId}/columns/${columnId}/tasks`, data)
-      .catch((error) => error.response);
+      .catch((error) => {
+        return { ...error.response, catch: true };
+      });
   }
   update({ boardId, columnId, id, data }: IPropsUpdateTask) {
     return this.instance
       .put(`/boards/${boardId}/columns/${columnId}/tasks/${id}`, data)
-      .catch((error) => error.response);
+      .catch((error) => {
+        return { ...error.response, catch: true };
+      });
   }
   delete({ boardId, columnId, id }: IPropsDeleteTask) {
     return this.instance
       .delete(`/boards/${boardId}/columns/${columnId}/tasks/${id}`)
-      .catch((error) => error.response);
+      .catch((error) => {
+        return { ...error.response, catch: true };
+      });
   }
 }
 
