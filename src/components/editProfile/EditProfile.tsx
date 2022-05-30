@@ -55,8 +55,6 @@ const EditProfile = () => {
   });
 
   const onSubmit = (data: IFormValues) => {
-    console.log(data);
-
     if (userId) {
       dispatch(editProfileRequest({ id: userId, data }));
     }
