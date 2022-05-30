@@ -4,6 +4,7 @@
     "signup": "Sign Up",
     "signout": "Sign Out",
     "editProfile": "Edit profile",
+    "mainPage": "Go to Main Page",
     "language": "Language"
   },
   "signin": {
@@ -15,6 +16,14 @@
   },
   "signup": {
     "title": "Sign Up",
+    "fields": {
+      "name": "Name",
+      "login": "Login",
+      "password": "Password"
+    }
+  },
+  "editProfile": {
+    "title": "Edit Profile",
     "fields": {
       "name": "Name",
       "login": "Login",
@@ -113,5 +122,7 @@
     "userCreated": "User created",
     "notFindBoard": "There is no such board",
     "notAuth": "You are not logged in"
-  }
+  },
+  "yes": "Yes",
+  "no": "No"
 }

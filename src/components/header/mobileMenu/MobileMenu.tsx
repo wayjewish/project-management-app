@@ -62,7 +62,7 @@ function BurgerMenu() {
               to="/boards"
               onClick={close}
             >
-              Go to Main Page
+              {t('header.mainPage')}
             </Button>
           )}
           {isAuth && pathname !== '/' && (
@@ -74,12 +74,12 @@ function BurgerMenu() {
               state={{ backgroundLocation: location }}
               onClick={close}
             >
-              Edit profile
+              {t('header.editProfile')}
             </Button>
           )}
           {isAuth && (
             <Button variant="outlined" fullWidth={true} component={Link} to="/" onClick={signOut}>
-              Sing Out
+              {t('header.signout')}
             </Button>
           )}
           {!isAuth && (

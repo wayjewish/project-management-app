@@ -54,6 +54,12 @@ const SignIn = () => {
   };
 
   const handleClose = () => {
+    dispatch(
+      setsignIn({
+        error: null,
+      })
+    );
+
     navigate('/', { replace: true });
   };
 
@@ -89,8 +95,8 @@ const SignIn = () => {
             <TextField
               id="login"
               type="text"
-              label={t('signin.fields.title')}
-              placeholder={t('signin.fields.title')}
+              label={t('signin.fields.login')}
+              placeholder={t('signin.fields.login')}
               {...register('login')}
               required
               error={errors.login ? true : false}

@@ -68,9 +68,9 @@ function HomePage() {
               <AdvanCard variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
-                    {t('pages.home.advans.1.title')}
+                    {t('pages.home.advans.2.title')}
                   </Typography>
-                  <Typography variant="caption">{t('pages.home.advans.1.subtitle')}</Typography>
+                  <Typography variant="caption">{t('pages.home.advans.2.subtitle')}</Typography>
                 </CardContent>
               </AdvanCard>
             </AdvanGridItem>
@@ -78,9 +78,9 @@ function HomePage() {
               <AdvanCard variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
-                    {t('pages.home.advans.1.title')}
+                    {t('pages.home.advans.3.title')}
                   </Typography>
-                  <Typography variant="caption">{t('pages.home.advans.1.subtitle')}</Typography>
+                  <Typography variant="caption">{t('pages.home.advans.3.subtitle')}</Typography>
                 </CardContent>
               </AdvanCard>
             </AdvanGridItem>
@@ -88,9 +88,9 @@ function HomePage() {
               <AdvanCard variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
-                    {t('pages.home.advans.1.title')}
+                    {t('pages.home.advans.4.title')}
                   </Typography>
-                  <Typography variant="caption">{t('pages.home.advans.1.subtitle')}</Typography>
+                  <Typography variant="caption">{t('pages.home.advans.4.subtitle')}</Typography>
                 </CardContent>
               </AdvanCard>
             </AdvanGridItem>
@@ -98,9 +98,9 @@ function HomePage() {
               <AdvanCard variant="elevation" elevation={8}>
                 <CardContent>
                   <Typography variant="body1" mb={1}>
-                    {t('pages.home.advans.1.title')}
+                    {t('pages.home.advans.5.title')}
                   </Typography>
-                  <Typography variant="caption">{t('pages.home.advans.1.subtitle')}</Typography>
+                  <Typography variant="caption">{t('pages.home.advans.5.subtitle')}</Typography>
                 </CardContent>
               </AdvanCard>
             </AdvanGridItem>

@@ -57,6 +57,12 @@ const SignUp = () => {
   };
 
   const handleClose = () => {
+    dispatch(
+      setsignUp({
+        error: null,
+      })
+    );
+
     navigate('/', { replace: true });
   };
 

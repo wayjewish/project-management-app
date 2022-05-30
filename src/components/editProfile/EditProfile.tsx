@@ -22,6 +22,8 @@ import { editProfileRequest, setEditProfile } from '../../store/features/authSli
 import { addAlert } from '../../store/features/appSlice';
 import { getUser } from '../../store/features/usersSlice';
 
+import { useTranslation } from 'react-i18next';
+
 interface IFormValues {
   name: string;
   login: string;
@@ -29,6 +31,7 @@ interface IFormValues {
 }
 
 const EditProfile = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userId, editProfile } = useAppSelector((state) => state.auth);
@@ -60,6 +63,12 @@ const EditProfile = () => {
   };
 
   const handleClose = () => {
+    dispatch(
+      setEditProfile({
+        error: null,
+      })
+    );
+
     navigate(-1);
   };
 
@@ -94,7 +103,7 @@ const EditProfile = () => {
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
-      <DialogTitle variant="h5">Edit Profile</DialogTitle>
+      <DialogTitle variant="h5">{t('editProfile.title')}</DialogTitle>
       <DialogContent>
         {users.loading && <Loading />}
         {!users.loading && users.user && (
@@ -103,8 +112,8 @@ const EditProfile = () => {
               <TextField
                 id="name"
                 type="text"
-                label="Name"
-                placeholder="Name"
+                label={t('editProfile.fields.name')}
+                placeholder={t('editProfile.fields.name')}
                 {...register('name')}
                 required
                 error={errors.name ? true : false}
@@ -115,8 +124,8 @@ const EditProfile = () => {
               <TextField
                 id="login"
                 type="text"
-                label="Login"
-                placeholder="Login"
+                label={t('editProfile.fields.login')}
+                placeholder={t('editProfile.fields.login')}
                 {...register('login')}
                 required
                 error={errors.login ? true : false}
@@ -127,8 +136,8 @@ const EditProfile = () => {
               <TextField
                 id="password"
                 type="password"
-                label="Password"
-                placeholder="Password"
+                label={t('editProfile.fields.password')}
+                placeholder={t('editProfile.fields.password')}
                 {...register('password')}
                 required
                 error={errors.password ? true : false}
@@ -149,7 +158,7 @@ const EditProfile = () => {
           <Loading />
         ) : (
           <Button variant="contained" type="submit" form="signUp">
-            Edit
+            {t('editProfile.title')}
           </Button>
         )}
       </DialogActions>

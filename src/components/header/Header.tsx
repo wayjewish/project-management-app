@@ -37,7 +37,7 @@ function HeaderComponent() {
           <BoxBtns>
             {isAuth && pathname === '/' && (
               <Button color="inherit" component={Link} to="/boards">
-                Go to Main Page
+                {t('header.mainPage')}
               </Button>
             )}
             {isAuth && pathname !== '/' && (
@@ -48,10 +48,10 @@ function HeaderComponent() {
                   to="/editprofile"
                   state={{ backgroundLocation: location }}
                 >
-                  Edit profile
+                  {t('header.editProfile')}
                 </Button>
                 <Button color="inherit" component={Link} to="/" onClick={signOut}>
-                  Sing Out
+                  {t('header.signout')}
                 </Button>
               </>
             )}

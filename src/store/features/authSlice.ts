@@ -30,7 +30,7 @@ export interface IAuthState {
 
 const initialState: IAuthState = {
   lang: localStorage.getItem('lang') ? (localStorage.getItem('lang') as ILang) : 'en',
-  isAuth: false,
+  isAuth: localStorage.getItem('token') ? true : false,
   token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
   userId: null,
   signIn: {
