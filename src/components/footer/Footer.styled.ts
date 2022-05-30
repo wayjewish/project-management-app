@@ -16,11 +16,10 @@ export const LogoRss = styled('img')({
   height: '36px',
 });
 
-export const CenterBox = styled(Box)(({ theme }) => ({
+export const TopBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center',
 
   [theme.breakpoints.down('sm')]: {
     justifyContent: 'flex-start',
@@ -32,7 +31,7 @@ export const BotBox = styled(Box)(({ theme }) => ({
   flexWrap: 'wrap',
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
   gap: theme.spacing(6),
 
   [theme.breakpoints.down('sm')]: {

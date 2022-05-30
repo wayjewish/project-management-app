@@ -1,5 +1,4 @@
-import { AxiosInstance } from 'axios';
-import instance from './instance';
+import axios, { AxiosRequestConfig } from 'axios';
 import { IBoardData } from './types';
 
 export interface IPropsGetBoard {
@@ -20,26 +19,61 @@ export interface IPropsDeleteBoard {
 }
 
 class BoardsService {
-  instance: AxiosInstance;
+  token: string;
+  config: AxiosRequestConfig;
 
   constructor() {
-    this.instance = instance;
+    this.token = '';
+    this.config = {
+      baseURL: 'https://desolate-crag-37445.herokuapp.com/',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    };
+  }
+
+  updateToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.token = token;
+      this.config = {
+        ...this.config,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+    }
   }
 
   getAll() {
-    return this.instance.get('/boards').catch((error) => error.response);
+    this.updateToken();
+    return axios.get('/boards', this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   get({ id }: IPropsGetBoard) {
-    return this.instance.get(`/boards/${id}`).catch((error) => error.response);
+    this.updateToken();
+    return axios.get(`/boards/${id}`, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   create({ data }: IPropsAddBoard) {
-    return this.instance.post('/boards', data).catch((error) => error.response);
+    this.updateToken();
+    return axios.post('/boards', data, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   update({ id, data }: IPropsUpdateBoard) {
-    return this.instance.put(`/boards/${id}`, data).catch((error) => error.response);
+    this.updateToken();
+    return axios.put(`/boards/${id}`, data, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   delete({ id }: IPropsDeleteBoard) {
-    return this.instance.delete(`/boards/${id}`).catch((error) => error.response);
+    this.updateToken();
+    return axios.delete(`/boards/${id}`, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
 }
 

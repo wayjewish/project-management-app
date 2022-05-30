@@ -39,6 +39,7 @@ export const HeaderWrap = styled(Box, {
 
 export const BoxBtns = styled(Box)(({ theme }) => ({
   display: 'flex',
+  alignItems: 'center',
   gap: theme.spacing(2),
 
   [theme.breakpoints.down('sm')]: {

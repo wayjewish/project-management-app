@@ -1,30 +1,52 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IBoard } from '../../api/types';
+import { IBoard, IErrorApi } from '../../api/types';
 import boardsService, { IPropsGetBoard } from '../../api/boardsService';
+import { addAlert } from './appSlice';
 
 const initialState: {
   board: IBoard | null;
   isLoading: boolean;
-  error: {
-    error: string;
-    message: string;
-  } | null;
+  errorsBoard: {
+    get: IErrorApi | null;
+  };
 } = {
   board: null,
   isLoading: false,
-  error: null,
+  errorsBoard: {
+    get: null,
+  },
+};
+
+const sortBoardData = (board: IBoard) => {
+  board.columns = board.columns.sort((a, b) => a.order - b.order);
+  board.columns.map((column) => column.tasks.sort((a, b) => a.order - b.order));
+  return board;
 };
 
 export const getBoard = createAsyncThunk(
   'board/getBoard',
   async (props: IPropsGetBoard, { rejectWithValue, dispatch }) => {
     const res = await boardsService.get(props);
-    const data = res.data;
 
-    if (data.error) {
-      dispatch(setErrorBoard({ error: data.error.error, message: data.error.message }));
+    if (res.catch) {
+      dispatch(
+        setErrorsBoard({
+          get: {
+            code: res.data.statusCode,
+            message: res.data.message,
+          },
+        })
+      );
+
+      dispatch(
+        addAlert({
+          type: 'error',
+          message: 'There is no such board',
+        })
+      );
     } else {
-      dispatch(setBoard(data));
+      const board = sortBoardData(res.data);
+      dispatch(setBoard(board));
     }
   }
 );
@@ -36,8 +58,11 @@ export const boardSlice = createSlice({
     setBoard: (state, action) => {
       state.board = action.payload;
     },
-    setErrorBoard: (state, action) => {
-      state.error = action.payload;
+    setErrorsBoard: (state, action) => {
+      state.errorsBoard = {
+        ...state.errorsBoard,
+        ...action.payload,
+      };
     },
   },
   extraReducers: {
@@ -50,6 +75,6 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { setBoard, setErrorBoard } = boardSlice.actions;
+export const { setBoard, setErrorsBoard } = boardSlice.actions;
 
 export default boardSlice.reducer;

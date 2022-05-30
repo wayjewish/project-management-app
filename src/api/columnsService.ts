@@ -1,5 +1,4 @@
-import { AxiosInstance } from 'axios';
-import instance from './instance';
+import axios, { AxiosRequestConfig } from 'axios';
 import { IColumnData, IColumnDataFull } from './types';
 
 export interface IPropsGetAllColumn {
@@ -28,30 +27,61 @@ export interface IPropsDeleteColumn {
 }
 
 class ColumnsService {
-  instance: AxiosInstance;
+  token: string;
+  config: AxiosRequestConfig;
 
   constructor() {
-    this.instance = instance;
+    this.token = '';
+    this.config = {
+      baseURL: 'https://desolate-crag-37445.herokuapp.com/',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    };
+  }
+
+  updateToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.token = token;
+      this.config = {
+        ...this.config,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+    }
   }
 
   getAll({ boardId }: IPropsGetAllColumn) {
-    return this.instance.get(`/boards/${boardId}/columns`).catch((error) => error.response);
+    this.updateToken();
+    return axios.get(`/boards/${boardId}/columns`, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   get({ boardId, id }: IPropsGetColumn) {
-    return this.instance.get(`/boards/${boardId}/columns/${id}`).catch((error) => error.response);
+    this.updateToken();
+    return axios.get(`/boards/${boardId}/columns/${id}`, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   create({ boardId, data }: IPropsAddColumn) {
-    return this.instance.post(`/boards/${boardId}/columns`, data).catch((error) => error.response);
+    this.updateToken();
+    return axios.post(`/boards/${boardId}/columns`, data, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   update({ boardId, id, data }: IPropsUpdateColumn) {
-    return this.instance
-      .put(`/boards/${boardId}/columns/${id}`, data)
-      .catch((error) => error.response);
+    this.updateToken();
+    return axios.put(`/boards/${boardId}/columns/${id}`, data, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   delete({ boardId, id }: IPropsDeleteColumn) {
-    return this.instance
-      .delete(`/boards/${boardId}/columns/${id}`)
-      .catch((error) => error.response);
+    this.updateToken();
+    return axios.delete(`/boards/${boardId}/columns/${id}`, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
 }
 

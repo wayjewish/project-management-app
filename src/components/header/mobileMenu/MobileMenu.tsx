@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { IconButton, Drawer, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,9 +8,10 @@ import { BurgerBox, DrawerBox } from './MobileMenu.styled';
 import SelectBox from '../selectLang/SelectBox';
 
 function BurgerMenu() {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDrawer = (open: boolean) => () => {
+  const setOpen = (open: boolean) => () => {
     setIsOpen(open);
   };
 
@@ -20,23 +22,40 @@ function BurgerMenu() {
         aria-controls="menu-appbar"
         aria-haspopup="true"
         color="inherit"
-        onClick={toggleDrawer(true)}
+        onClick={setOpen(true)}
       >
         <MenuIcon />
       </IconButton>
 
-      <Drawer anchor="right" open={isOpen} onClose={toggleDrawer(false)}>
+      <Drawer anchor="right" open={isOpen} onClose={setOpen(false)}>
         <DrawerBox role="presentation">
           <Button
             variant="text"
             startIcon={<CloseIcon />}
-            onClick={toggleDrawer(false)}
+            onClick={setOpen(false)}
             fullWidth={false}
           >
             Close
           </Button>
-          <Button variant="outlined" fullWidth={true}>
-            Login
+          <Button
+            variant="outlined"
+            fullWidth={true}
+            component={Link}
+            to="/singup"
+            state={{ backgroundLocation: location }}
+            onClick={setOpen(false)}
+          >
+            Sing In
+          </Button>
+          <Button
+            variant="outlined"
+            fullWidth={true}
+            component={Link}
+            to="/singup"
+            state={{ backgroundLocation: location }}
+            onClick={setOpen(false)}
+          >
+            Sing Up
           </Button>
           <SelectBox media="mobile" />
         </DrawerBox>

@@ -1,25 +1,56 @@
-import { AxiosInstance } from 'axios';
-import instance from './instance';
+import axios, { AxiosRequestConfig } from 'axios';
 import { IUserData } from './types';
 
 class UsersService {
-  instance: AxiosInstance;
+  token: string;
+  config: AxiosRequestConfig;
 
   constructor() {
-    this.instance = instance;
+    this.token = '';
+    this.config = {
+      baseURL: 'https://desolate-crag-37445.herokuapp.com/',
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    };
+  }
+
+  updateToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.token = token;
+      this.config = {
+        ...this.config,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+    }
   }
 
   getAll() {
-    return this.instance.get('/users').catch((error) => error.response);
+    this.updateToken();
+    return axios.get('/users', this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   get(id: string) {
-    return this.instance.get(`/users/${id}`).catch((error) => error.response);
+    this.updateToken();
+    return axios.get(`/users/${id}`, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   update(id: string, data: IUserData) {
-    return this.instance.put(`/users/${id}`, data).catch((error) => error.response);
+    this.updateToken();
+    return axios.put(`/users/${id}`, data, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
   delete(id: string) {
-    return this.instance.delete(`/users/${id}`).catch((error) => error.response);
+    this.updateToken();
+    return axios.delete(`/users/${id}`, this.config).catch((error) => {
+      return { ...error.response, catch: true };
+    });
   }
 }
 

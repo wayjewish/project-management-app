@@ -1,27 +1,14 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/material';
 
 import { Header, HeaderWrap, BoxBtns } from './Header.styled';
 import SelectBox from './selectLang/SelectBox';
 import MobileMenu from './mobileMenu/MobileMenu';
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { change } from '../../store/features/authSlice';
-
 function HeaderComponent() {
-  const { isAuth } = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
-
+  const location = useLocation();
   const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
-
-  useEffect(() => {
-    console.log(`isAuth=${isAuth}`);
-  }, [isAuth]);
-
-  function handleClickLogin() {
-    dispatch(change(!isAuth));
-  }
 
   return (
     <Header position="sticky" scrollTrigger={scrollTrigger} elevation={scrollTrigger ? 8 : 0}>
@@ -33,8 +20,21 @@ function HeaderComponent() {
             </Typography>
           </Box>
           <BoxBtns>
-            <Button color="inherit" onClick={handleClickLogin}>
-              Login
+            <Button
+              color="inherit"
+              component={Link}
+              to="/singin"
+              state={{ backgroundLocation: location }}
+            >
+              Sing In
+            </Button>
+            <Button
+              color="inherit"
+              component={Link}
+              to="/singup"
+              state={{ backgroundLocation: location }}
+            >
+              Sing Up
             </Button>
             <SelectBox media="desctop" />
           </BoxBtns>

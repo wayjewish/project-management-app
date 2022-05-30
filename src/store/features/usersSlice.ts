@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IUser } from '../../api/types';
 import usersService from '../../api/usersService';
+import { addAlert } from './appSlice';
+import { setIsAuth, setToken } from './authSlice';
 
 const initialState: {
   users: IUser[] | null;
@@ -14,7 +16,22 @@ export const getUsers = createAsyncThunk(
   'users/getUsers',
   async (_, { rejectWithValue, dispatch }) => {
     const res = await usersService.getAll();
-    dispatch(setUsers(res.data));
+
+    if (res.catch) {
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'You are not logged in',
+          })
+        );
+      }
+    } else {
+      dispatch(setUsers(res.data));
+    }
   }
 );
 

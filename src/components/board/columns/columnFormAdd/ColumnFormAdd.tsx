@@ -16,37 +16,42 @@ import { IColumnData } from '../../../../api/types';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { addColumn, changeIsOpenModalColumns } from '../../../../store/features/columnsSlice';
 
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
+interface IFormValues {
+  title: string;
+}
+
 function ColumnFormAdd() {
   const dispatch = useAppDispatch();
   const { board } = useAppSelector((state) => state.board);
   const { isOpenModalColumns } = useAppSelector((state) => state.columns);
 
-  const initialData: IColumnData = {
-    title: '',
-  };
+  const schema = yup
+    .object({
+      title: yup.string().required('Login is required'),
+    })
+    .required();
 
-  const [data, setData] = useState(initialData);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormValues>({
+    resolver: yupResolver(schema),
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
-
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
-
-  const handleClose = () => {
-    dispatch(changeIsOpenModalColumns({ formAdd: false }));
-    setData(initialData);
-  };
-
-  const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = (data: IFormValues) => {
     if (board) {
       dispatch(addColumn({ boardId: board.id, data }));
     }
     handleClose();
+  };
+
+  const handleClose = () => {
+    dispatch(changeIsOpenModalColumns({ formAdd: false }));
   };
 
   return ReactDOM.createPortal(
@@ -56,14 +61,18 @@ function ColumnFormAdd() {
       </CloseIconBox>
       <DialogTitle variant="h5">Create column</DialogTitle>
       <DialogContent>
-        <Box id="addColumn" component="form" onSubmit={handlerSubmit} autoComplete="off">
+        <Box id="addColumn" component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <FormInputsBox>
             <TextField
-              name="title"
+              id="title"
+              type="text"
               label="Title"
+              placeholder="Title"
+              {...register('title')}
+              required
+              error={errors.title ? true : false}
+              helperText={errors.title?.message}
               variant="outlined"
-              value={data.title}
-              onChange={handleChange}
             />
           </FormInputsBox>
         </Box>
