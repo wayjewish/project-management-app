@@ -33,9 +33,21 @@ function HeaderComponent() {
             </Typography>
           </Box>
           <BoxBtns>
-            <Button color="inherit" onClick={handleClickLogin}>
-              Login
-            </Button>
+            {isAuth ? (
+              <Button color="inherit" onClick={handleClickLogin}>
+                Login
+              </Button>
+            ) : (
+              <>
+                <Button color="inherit" onClick={() => {}}>
+                  EDIT PROFILE
+                </Button>
+                <Button color="inherit" onClick={handleClickLogin}>
+                  Logout
+                </Button>
+              </>
+            )}
+
             <SelectBox media="desctop" />
           </BoxBtns>
           <MobileMenu />
