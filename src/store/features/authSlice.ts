@@ -38,7 +38,6 @@ export const signInRequest = createAsyncThunk(
     const res = await authService.signin(props);
 
     if (res.catch) {
-      console.log(res);
       dispatch(
         setsignIn({
           error: {
@@ -50,6 +49,7 @@ export const signInRequest = createAsyncThunk(
     } else {
       dispatch(setIsAuth(true));
       dispatch(setToken(res.data.token));
+
       dispatch(
         setsignIn({
           isSuccess: true,
@@ -66,7 +66,6 @@ export const signUpRequest = createAsyncThunk(
     const res = await authService.signup(props);
 
     if (res.catch) {
-      console.log(res);
       dispatch(
         setsignUp({
           error: {
@@ -76,8 +75,6 @@ export const signUpRequest = createAsyncThunk(
         })
       );
     } else {
-      dispatch(setIsAuth(true));
-      dispatch(setToken(res.data.token));
       dispatch(
         setsignUp({
           isSuccess: true,
