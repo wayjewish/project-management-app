@@ -33,7 +33,7 @@ const SignUp = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { signUp } = useAppSelector((state) => state.auth);
+  const { isAuth, signUp } = useAppSelector((state) => state.auth);
 
   const schema = yup
     .object({
@@ -57,8 +57,20 @@ const SignUp = () => {
   };
 
   const handleClose = () => {
+    dispatch(
+      setsignUp({
+        error: null,
+      })
+    );
+
     navigate('/', { replace: true });
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/boards', { replace: true });
+    }
+  }, []);
 
   useEffect(() => {
     if (signUp.isSuccess) {

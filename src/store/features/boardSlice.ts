@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IBoard, IErrorApi } from '../../api/types';
 import boardsService, { IPropsGetBoard } from '../../api/boardsService';
 import { addAlert } from './appSlice';
+import { setIsAuth, setToken } from './authSlice';
 
 const initialState: {
   board: IBoard | null;
@@ -29,21 +30,33 @@ export const getBoard = createAsyncThunk(
     const res = await boardsService.get(props);
 
     if (res.catch) {
-      dispatch(
-        setErrorsBoard({
-          get: {
-            code: res.data.statusCode,
-            message: res.data.message,
-          },
-        })
-      );
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
 
-      dispatch(
-        addAlert({
-          type: 'error',
-          message: 'alert.notFindBoard',
-        })
-      );
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'alert.notAuth',
+          })
+        );
+      } else {
+        dispatch(
+          setErrorsBoard({
+            get: {
+              code: res.data.statusCode,
+              message: res.data.message,
+            },
+          })
+        );
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'alert.notFindBoard',
+          })
+        );
+      }
     } else {
       const board = sortBoardData(res.data);
       dispatch(setBoard(board));

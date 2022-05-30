@@ -7,16 +7,33 @@ import CloseIcon from '@mui/icons-material/Close';
 import { BurgerBox, DrawerBox } from './MobileMenu.styled';
 import SelectBox from '../selectLang/SelectBox';
 
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setIsAuth, setToken } from '../../../store/features/authSlice';
+
 import { useTranslation } from 'react-i18next';
 
 function BurgerMenu() {
   const location = useLocation();
   const { t } = useTranslation();
+  const pathname = location.pathname as string;
+
+  const dispatch = useAppDispatch();
+  const { isAuth } = useAppSelector((state) => state.auth);
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const setOpen = (open: boolean) => () => {
-    setIsOpen(open);
+  const open = () => {
+    setIsOpen(true);
+  };
+
+  const close = () => {
+    setIsOpen(false);
+  };
+
+  const signOut = () => {
+    close();
+    dispatch(setIsAuth(false));
+    dispatch(setToken(null));
   };
 
   return (
@@ -26,41 +43,69 @@ function BurgerMenu() {
         aria-controls="menu-appbar"
         aria-haspopup="true"
         color="inherit"
-        onClick={setOpen(true)}
+        onClick={open}
       >
         <MenuIcon />
       </IconButton>
 
-      <Drawer anchor="right" open={isOpen} onClose={setOpen(false)}>
+      <Drawer anchor="right" open={isOpen} onClose={close}>
         <DrawerBox role="presentation">
-          <Button
-            variant="text"
-            startIcon={<CloseIcon />}
-            onClick={setOpen(false)}
-            fullWidth={false}
-          >
+          <Button variant="text" startIcon={<CloseIcon />} onClick={close} fullWidth={false}>
             {t('button.close')}
           </Button>
-          <Button
-            variant="outlined"
-            fullWidth={true}
-            component={Link}
-            to="/singup"
-            state={{ backgroundLocation: location }}
-            onClick={setOpen(false)}
-          >
-            {t('header.signin')}
-          </Button>
-          <Button
-            variant="outlined"
-            fullWidth={true}
-            component={Link}
-            to="/singup"
-            state={{ backgroundLocation: location }}
-            onClick={setOpen(false)}
-          >
-            {t('header.signup')}
-          </Button>
+
+          {isAuth && pathname === '/' && (
+            <Button
+              variant="outlined"
+              fullWidth={true}
+              component={Link}
+              to="/boards"
+              onClick={close}
+            >
+              {t('header.mainPage')}
+            </Button>
+          )}
+          {isAuth && pathname !== '/' && (
+            <Button
+              variant="outlined"
+              fullWidth={true}
+              component={Link}
+              to="/editprofile"
+              state={{ backgroundLocation: location }}
+              onClick={close}
+            >
+              {t('header.editProfile')}
+            </Button>
+          )}
+          {isAuth && (
+            <Button variant="outlined" fullWidth={true} component={Link} to="/" onClick={signOut}>
+              {t('header.signout')}
+            </Button>
+          )}
+          {!isAuth && (
+            <>
+              <Button
+                variant="outlined"
+                fullWidth={true}
+                component={Link}
+                to="/signin"
+                state={{ backgroundLocation: location }}
+                onClick={close}
+              >
+                {t('header.signin')}
+              </Button>
+              <Button
+                variant="outlined"
+                fullWidth={true}
+                component={Link}
+                to="/signup"
+                state={{ backgroundLocation: location }}
+                onClick={close}
+              >
+                {t('header.signup')}
+              </Button>
+            </>
+          )}
           <SelectBox media="mobile" />
         </DrawerBox>
       </Drawer>

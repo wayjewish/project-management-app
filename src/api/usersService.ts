@@ -1,6 +1,19 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { IUserData } from './types';
 
+export interface IPropsGetUser {
+  id: string;
+}
+
+export interface IPropsUpdateUser {
+  id: string;
+  data: IUserData;
+}
+
+export interface IPropsDeleteUser {
+  id: string;
+}
+
 class UsersService {
   token: string;
   config: AxiosRequestConfig;
@@ -34,19 +47,19 @@ class UsersService {
       return { ...error.response, catch: true };
     });
   }
-  get(id: string) {
+  get({ id }: IPropsGetUser) {
     this.updateToken();
     return axios.get(`/users/${id}`, this.config).catch((error) => {
       return { ...error.response, catch: true };
     });
   }
-  update(id: string, data: IUserData) {
+  update({ id, data }: IPropsUpdateUser) {
     this.updateToken();
     return axios.put(`/users/${id}`, data, this.config).catch((error) => {
       return { ...error.response, catch: true };
     });
   }
-  delete(id: string) {
+  delete({ id }: IPropsDeleteUser) {
     this.updateToken();
     return axios.delete(`/users/${id}`, this.config).catch((error) => {
       return { ...error.response, catch: true };

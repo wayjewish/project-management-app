@@ -5,13 +5,25 @@ import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/mater
 import { Header, HeaderWrap, BoxBtns } from './Header.styled';
 import SelectBox from './selectLang/SelectBox';
 import MobileMenu from './mobileMenu/MobileMenu';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setIsAuth, setToken } from '../../store/features/authSlice';
 
 import { useTranslation } from 'react-i18next';
 
 function HeaderComponent() {
-  const location = useLocation();
-  const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
   const { t } = useTranslation();
+  const location = useLocation();
+  const pathname = location.pathname as string;
+
+  const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
+
+  const dispatch = useAppDispatch();
+  const { isAuth } = useAppSelector((state) => state.auth);
+
+  const signOut = () => {
+    dispatch(setIsAuth(false));
+    dispatch(setToken(null));
+  };
 
   return (
     <Header position="sticky" scrollTrigger={scrollTrigger} elevation={scrollTrigger ? 8 : 0}>
@@ -23,22 +35,46 @@ function HeaderComponent() {
             </Typography>
           </Box>
           <BoxBtns>
-            <Button
-              color="inherit"
-              component={Link}
-              to="/singin"
-              state={{ backgroundLocation: location }}
-            >
-              {t('header.signin')}
-            </Button>
-            <Button
-              color="inherit"
-              component={Link}
-              to="/singup"
-              state={{ backgroundLocation: location }}
-            >
-              {t('header.signup')}
-            </Button>
+            {isAuth && pathname === '/' && (
+              <Button color="inherit" component={Link} to="/boards">
+                {t('header.mainPage')}
+              </Button>
+            )}
+            {isAuth && pathname !== '/' && (
+              <>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/editprofile"
+                  state={{ backgroundLocation: location }}
+                >
+                  {t('header.editProfile')}
+                </Button>
+                <Button color="inherit" component={Link} to="/" onClick={signOut}>
+                  {t('header.signout')}
+                </Button>
+              </>
+            )}
+            {!isAuth && (
+              <>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/signin"
+                  state={{ backgroundLocation: location }}
+                >
+                  {t('header.signin')}
+                </Button>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/signup"
+                  state={{ backgroundLocation: location }}
+                >
+                  {t('header.signup')}
+                </Button>
+              </>
+            )}
             <SelectBox media="desctop" />
           </BoxBtns>
           <MobileMenu />

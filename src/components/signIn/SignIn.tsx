@@ -31,7 +31,7 @@ const SignIn = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { signIn } = useAppSelector((state) => state.auth);
+  const { isAuth, signIn } = useAppSelector((state) => state.auth);
 
   const schema = yup
     .object({
@@ -54,8 +54,20 @@ const SignIn = () => {
   };
 
   const handleClose = () => {
+    dispatch(
+      setsignIn({
+        error: null,
+      })
+    );
+
     navigate('/', { replace: true });
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/boards', { replace: true });
+    }
+  }, []);
 
   useEffect(() => {
     if (signIn.isSuccess) {
@@ -83,8 +95,8 @@ const SignIn = () => {
             <TextField
               id="login"
               type="text"
-              label={t('signin.fields.title')}
-              placeholder={t('signin.fields.title')}
+              label={t('signin.fields.login')}
+              placeholder={t('signin.fields.login')}
               {...register('login')}
               required
               error={errors.login ? true : false}

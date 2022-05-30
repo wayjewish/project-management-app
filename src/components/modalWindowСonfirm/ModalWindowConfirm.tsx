@@ -8,6 +8,8 @@ import {
   DialogTitle,
 } from '@mui/material';
 
+import { useTranslation } from 'react-i18next';
+
 interface IProps {
   isOpen: boolean;
   close: () => void;
@@ -18,6 +20,8 @@ interface IProps {
 }
 
 export default function ModalWindowConfirm({ isOpen, close, title, text, yes, no }: IProps) {
+  const { t } = useTranslation();
+
   const handleAnswerYes = () => {
     if (yes) {
       yes();
@@ -46,8 +50,8 @@ export default function ModalWindowConfirm({ isOpen, close, title, text, yes, no
           </DialogContent>
         )}
         <DialogActions>
-          <Button onClick={handleAnswerNo}>Нет</Button>
-          <Button onClick={handleAnswerYes}>Да</Button>
+          <Button onClick={handleAnswerNo}>{t('no')}</Button>
+          <Button onClick={handleAnswerYes}>{t('yes')}</Button>
         </DialogActions>
       </Dialog>
     </div>

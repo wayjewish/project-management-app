@@ -4,6 +4,7 @@
     "signup": "Регистрация",
     "signout": "Выйти",
     "editProfile": "Профиль",
+    "mainPage": "На главную",
     "language": "Язык"
   },
   "signin": {
@@ -15,6 +16,14 @@
   },
   "signup": {
     "title": "Регистрация",
+    "fields": {
+      "name": "Имя",
+      "login": "Логин",
+      "password": "Пароль"
+    }
+  },
+  "editProfile": {
+    "title": "Изменить профиль",
     "fields": {
       "name": "Имя",
       "login": "Логин",
@@ -113,5 +122,7 @@
     "userCreated": "Пользователь создан",
     "notFindBoard": "Нет такой доски",
     "notAuth": "Вы не авторизованы"
-  }
+  },
+  "yes": "Да",
+  "no": "Нет"
 }
