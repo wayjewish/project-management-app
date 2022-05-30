@@ -8,7 +8,10 @@ import MobileMenu from './mobileMenu/MobileMenu';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setIsAuth, setToken } from '../../store/features/authSlice';
 
+import { useTranslation } from 'react-i18next';
+
 function HeaderComponent() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
@@ -44,18 +47,18 @@ function HeaderComponent() {
                 <Button
                   color="inherit"
                   component={Link}
-                  to="/singup"
+                  to="/singin"
                   state={{ backgroundLocation: location }}
                 >
-                  Sing Up
+                  {t('header.signin')}
                 </Button>
                 <Button
                   color="inherit"
                   component={Link}
-                  to="/singin"
+                  to="/singup"
                   state={{ backgroundLocation: location }}
                 >
-                  Sing In
+                  {t('header.signup')}
                 </Button>
               </>
             )}

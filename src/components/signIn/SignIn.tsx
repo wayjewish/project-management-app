@@ -20,12 +20,15 @@ import Loading from '../loading/Loading';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setsignIn, signInRequest, TokenJWTDecoder } from '../../store/features/authSlice';
 
+import { useTranslation } from 'react-i18next';
+
 interface IFormValues {
   login: string;
   password: string;
 }
 
 const SignIn = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { signIn, token } = useAppSelector((state) => state.auth);
@@ -74,15 +77,15 @@ const SignIn = () => {
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
-      <DialogTitle variant="h5">Sign In</DialogTitle>
+      <DialogTitle variant="h5">{t('signin.title')}</DialogTitle>
       <DialogContent>
         <Box id="signIn" component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <FormInputsBox>
             <TextField
               id="login"
               type="text"
-              label="Login"
-              placeholder="Login"
+              label={t('signin.fields.title')}
+              placeholder={t('signin.fields.title')}
               {...register('login')}
               required
               error={errors.login ? true : false}
@@ -92,8 +95,8 @@ const SignIn = () => {
             <TextField
               id="password"
               type="password"
-              label="Password"
-              placeholder="Password"
+              label={t('signin.fields.password')}
+              placeholder={t('signin.fields.password')}
               {...register('password')}
               required
               error={errors.password ? true : false}
@@ -113,7 +116,7 @@ const SignIn = () => {
           <Loading />
         ) : (
           <Button variant="contained" type="submit" form="signIn">
-            Sign In
+            {t('signin.title')}
           </Button>
         )}
       </DialogActions>

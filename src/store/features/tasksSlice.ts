@@ -6,7 +6,7 @@ import tasksService, {
   IPropsGetTask,
   IPropsUpdateTask,
 } from '../../api/tasksService';
-import { getBoard, setBoard } from './boardSlice';
+import { getBoard } from './boardSlice';
 import { addAlert } from './appSlice';
 import { setIsAuth, setToken } from './authSlice';
 
@@ -49,7 +49,7 @@ export const getTask = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }
@@ -72,7 +72,7 @@ export const addTask = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }
@@ -95,7 +95,7 @@ export const updateTask = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }
@@ -118,7 +118,7 @@ export const deleteTask = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }
@@ -141,7 +141,7 @@ export const updateTaskDND = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       } else {

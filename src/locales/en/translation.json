@@ -1,0 +1,117 @@
+{
+  "header": {
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "signout": "Sign Out",
+    "editProfile": "Edit profile",
+    "language": "Language"
+  },
+  "signin": {
+    "title": "Sign In",
+    "fields": {
+      "login": "Login",
+      "password": "Password"
+    }
+  },
+  "signup": {
+    "title": "Sign Up",
+    "fields": {
+      "name": "Name",
+      "login": "Login",
+      "password": "Password"
+    }
+  },
+  "pages": {
+    "home": {
+      "first": {
+        "title": "RSS Tracker",
+        "subtitle": "A service for collaboration and organization of processes. Control tasks with a single tool.",
+        "button": "To try"
+      },
+      "advans": {
+        "1": {
+          "title": "All working information is always at hand",
+          "subtitle": "Instantly assess the status of the work, determine further actions and do everything necessary to ensure that the work goes according to plan."
+        },
+        "2": {
+          "title": "Everything is exactly on time",
+          "subtitle": "Create a plan showing the relationships between the different parts of the project. It will help you work on schedule."
+        },
+        "3": {
+          "title": "Chronology",
+          "subtitle": "Manage tasks that depend on each other, overlap and unforeseen, as well as create realistic plans."
+        },
+        "4": {
+          "title": "Wood boards",
+          "subtitle": "Make sure that nothing distracts employees from their current tasks. Break down the work into stages that allow you to see what is important and where delays occur."
+        },
+        "5": {
+          "title": "List",
+          "subtitle": "In the lists, employees immediately see what needs to be done, which tasks are prioritized and what time is allotted for the work."
+        }
+      }
+    },
+    "boards": {
+      "title": "Boards",
+      "forms": {
+        "add": {
+          "title": "Create board",
+          "fields": {
+            "title": "Title",
+            "description": "Description"
+          }
+        }
+      },
+      "confirm": "Are you sure you want to remove the board"
+    },
+    "board": {
+      "columns": {
+        "forms": {
+          "add": {
+            "title": "Create column",
+            "fields": {
+              "title": "Title"
+            }
+          }
+        },
+        "confirm": "Are you sure you want to delete the column"
+      },
+      "tasks": {
+        "forms": {
+          "add": {
+            "title": "Create task",
+            "fields": {
+              "title": "Title",
+              "description": "Description",
+              "user": "User"
+            }
+          },
+          "update": {
+            "title": "Edit task",
+            "fields": {
+              "title": "Title",
+              "description": "Description",
+              "user": "User"
+            }
+          }
+        },
+        "confirm": "Are you sure you want to delete the task"
+      }
+    }
+  },
+  "button": {
+    "add": "Add",
+    "remove": "Remove",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "close": "Close",
+    "back": "Back"
+  },
+  "alert": {
+    "userCreated": "User created",
+    "notFindBoard": "There is no such board",
+    "notAuth": "You are not logged in"
+  }
+}

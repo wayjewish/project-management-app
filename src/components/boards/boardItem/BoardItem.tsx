@@ -6,11 +6,14 @@ import { IBoard } from '../../../api/types';
 import { useAppDispatch } from '../../../store/hooks';
 import { changeIsOpenModalBoards, setDeletedBoard } from '../../../store/features/boardsSlice';
 
+import { useTranslation } from 'react-i18next';
+
 interface IProps {
   board: IBoard;
 }
 
 function BoardItem({ board }: IProps) {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const handlerClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -28,7 +31,7 @@ function BoardItem({ board }: IProps) {
         </CardItemTop>
         <CardItemBot>
           <Button variant="text" color="error" onClick={handlerClick}>
-            Remove
+            {t('button.remove')}
           </Button>
         </CardItemBot>
       </CardItemContent>

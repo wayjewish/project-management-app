@@ -7,10 +7,13 @@ import * as jose from 'jose';
 import { useAppSelector } from '../hooks';
 
 
+export type ILang = 'en' | 'ru';
+
 export interface IAuthState {
-  userId: string | null;
+  lang: ILang;
   isAuth: boolean;
   token: string | null;
+  userId: string | null;
   signIn: {
     isLoading: boolean;
     isSuccess: boolean;
@@ -29,9 +32,10 @@ export interface IAuthState {
 }
 
 const initialState: IAuthState = {
-  userId: null,
+  lang: localStorage.getItem('lang') ? (localStorage.getItem('lang') as ILang) : 'en',
   isAuth: localStorage.getItem('isAuth') === 'true' ? true : false,
   token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
+  userId: null,
   signIn: {
     isLoading: false,
     isSuccess: false,
@@ -162,6 +166,7 @@ export const authSlice = createSlice({
         ...action.payload,
       };
     },
+<<<<<<< HEAD
     setUserId: (state, action) => {
       state.userId = action.payload
     },
@@ -170,6 +175,11 @@ export const authSlice = createSlice({
         ...state.editProfile,
         ...action.payload,
       };
+=======
+    setLang: (state, action: PayloadAction<ILang>) => {
+      state.lang = action.payload;
+      localStorage.setItem('lang', action.payload);
+>>>>>>> origin/develop
     },
   },
   extraReducers: {
@@ -194,6 +204,10 @@ export const authSlice = createSlice({
   },
 });
 
+<<<<<<< HEAD
 export const { setIsAuth, setToken, setsignIn, setsignUp, setUserId, setEditProfile  } = authSlice.actions;
+=======
+export const { setIsAuth, setToken, setsignIn, setsignUp, setLang } = authSlice.actions;
+>>>>>>> origin/develop
 
 export default authSlice.reducer;

@@ -33,12 +33,15 @@ import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { moveColumn, IDragItemColumn } from './Column.helpers';
 import { moveTask, IDragItemTask } from '../../tasks/task/Task.helpers';
 
+import { useTranslation } from 'react-i18next';
+
 interface IProps {
   index: number;
   column: IColumn;
 }
 
 function Column(props: IProps) {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { board } = useAppSelector((state) => state.board);
   const { dragColumn } = useAppSelector((state) => state.columns);
@@ -275,10 +278,10 @@ function Column(props: IProps) {
             />
             <TopBtnsBox>
               <Button variant="text" onClick={submitTitle}>
-                Submit
+                {t('button.submit')}
               </Button>
               <Button variant="text" color="error" onClick={hideChangeTitle}>
-                Cancel
+                {t('button.cancel')}
               </Button>
             </TopBtnsBox>
           </TopBox>
@@ -300,10 +303,10 @@ function Column(props: IProps) {
         </TasksOverflowBox>
         <BotBox>
           <Button variant="text" onClick={handlerClickAdd}>
-            + Add
+            + {t('button.add')}
           </Button>
           <Button variant="text" color="error" onClick={handlerClickDelete}>
-            Remove
+            {t('button.remove')}
           </Button>
         </BotBox>
       </ColumnContent>

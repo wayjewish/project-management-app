@@ -12,7 +12,10 @@ import { getBoard, setErrorsBoard } from '../../store/features/boardSlice';
 import Board from '../../components/board/Board';
 import Loading from '../../components/loading/Loading';
 
+import { useTranslation } from 'react-i18next';
+
 function BoardPage() {
+  const { t } = useTranslation();
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -51,7 +54,7 @@ function BoardPage() {
               component={Link}
               to="/boards"
             >
-              Back
+              {t('button.back')}
             </Button>
           </TopBox>
           <Board />

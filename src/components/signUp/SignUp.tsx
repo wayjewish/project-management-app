@@ -20,6 +20,9 @@ import Loading from '../loading/Loading';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setsignUp, signUpRequest } from '../../store/features/authSlice';
 import { addAlert } from '../../store/features/appSlice';
+
+import { useTranslation } from 'react-i18next';
+
 interface IFormValues {
   name: string;
   login: string;
@@ -27,6 +30,7 @@ interface IFormValues {
 }
 
 const SignUp = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { signUp } = useAppSelector((state) => state.auth);
@@ -81,15 +85,15 @@ const SignUp = () => {
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
-      <DialogTitle variant="h5">Sign In</DialogTitle>
+      <DialogTitle variant="h5">{t('signup.title')}</DialogTitle>
       <DialogContent>
         <Box id="signUp" component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <FormInputsBox>
             <TextField
               id="name"
               type="text"
-              label="Name"
-              placeholder="Name"
+              label={t('signup.fields.name')}
+              placeholder={t('signup.fields.name')}
               {...register('name')}
               required
               error={errors.name ? true : false}
@@ -99,8 +103,8 @@ const SignUp = () => {
             <TextField
               id="login"
               type="text"
-              label="Login"
-              placeholder="Login"
+              label={t('signup.fields.login')}
+              placeholder={t('signup.fields.login')}
               {...register('login')}
               required
               error={errors.login ? true : false}
@@ -110,8 +114,8 @@ const SignUp = () => {
             <TextField
               id="password"
               type="password"
-              label="Password"
-              placeholder="Password"
+              label={t('signup.fields.password')}
+              placeholder={t('signup.fields.password')}
               {...register('password')}
               required
               error={errors.password ? true : false}
@@ -131,7 +135,7 @@ const SignUp = () => {
           <Loading />
         ) : (
           <Button variant="contained" type="submit" form="signUp">
-            Sign In
+            {t('signup.title')}
           </Button>
         )}
       </DialogActions>

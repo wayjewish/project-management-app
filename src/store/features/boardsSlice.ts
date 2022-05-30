@@ -35,7 +35,7 @@ export const getBoards = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }
@@ -58,7 +58,7 @@ export const addBoard = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }
@@ -81,7 +81,7 @@ export const deleteBoard = createAsyncThunk(
         dispatch(
           addAlert({
             type: 'error',
-            message: 'You are not logged in',
+            message: 'alert.notAuth',
           })
         );
       }

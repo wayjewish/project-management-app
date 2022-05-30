@@ -7,8 +7,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import { BurgerBox, DrawerBox } from './MobileMenu.styled';
 import SelectBox from '../selectLang/SelectBox';
 
+import { useTranslation } from 'react-i18next';
+
 function BurgerMenu() {
   const location = useLocation();
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const setOpen = (open: boolean) => () => {
@@ -35,7 +39,7 @@ function BurgerMenu() {
             onClick={setOpen(false)}
             fullWidth={false}
           >
-            Close
+            {t('button.close')}
           </Button>
           <Button
             variant="outlined"
@@ -45,7 +49,7 @@ function BurgerMenu() {
             state={{ backgroundLocation: location }}
             onClick={setOpen(false)}
           >
-            Sing In
+            {t('header.signin')}
           </Button>
           <Button
             variant="outlined"
@@ -55,7 +59,7 @@ function BurgerMenu() {
             state={{ backgroundLocation: location }}
             onClick={setOpen(false)}
           >
-            Sing Up
+            {t('header.signup')}
           </Button>
           <SelectBox media="mobile" />
         </DrawerBox>
