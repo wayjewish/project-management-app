@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IBoard } from '../../api/types';
 import boardsService, { IPropsAddBoard, IPropsDeleteBoard } from '../../api/boardsService';
+import { setIsAuth, setToken } from './authSlice';
+import { addAlert } from './appSlice';
 
 const initialState: {
   boards: IBoard[] | null;
@@ -24,25 +26,68 @@ export const getBoards = createAsyncThunk(
   'boards/getBoards',
   async (_, { rejectWithValue, dispatch }) => {
     const res = await boardsService.getAll();
-    dispatch(setBoards(res.data));
+
+    if (res.catch) {
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'You are not logged in',
+          })
+        );
+      }
+    } else {
+      dispatch(setBoards(res.data));
+    }
   }
 );
 
 export const addBoard = createAsyncThunk(
   'boards/addBoard',
   async (props: IPropsAddBoard, { rejectWithValue, dispatch }) => {
-    await boardsService.create(props);
+    const res = await boardsService.create(props);
 
-    dispatch(getBoards());
+    if (res.catch) {
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'You are not logged in',
+          })
+        );
+      }
+    } else {
+      dispatch(getBoards());
+    }
   }
 );
 
 export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',
   async (props: IPropsDeleteBoard, { rejectWithValue, dispatch }) => {
-    await boardsService.delete(props);
+    const res = await boardsService.delete(props);
 
-    dispatch(getBoards());
+    if (res.catch) {
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'You are not logged in',
+          })
+        );
+      }
+    } else {
+      dispatch(getBoards());
+    }
   }
 );
 

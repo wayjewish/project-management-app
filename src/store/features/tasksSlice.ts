@@ -7,6 +7,8 @@ import tasksService, {
   IPropsUpdateTask,
 } from '../../api/tasksService';
 import { getBoard, setBoard } from './boardSlice';
+import { addAlert } from './appSlice';
+import { setIsAuth, setToken } from './authSlice';
 
 const initialState: {
   isOpenModalTasks: {
@@ -39,34 +41,90 @@ export const getTask = createAsyncThunk(
   async (props: IPropsGetTask, { rejectWithValue, dispatch }) => {
     const res = await tasksService.get(props);
 
-    dispatch(setActiveTask(res.data));
+    if (res.catch) {
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'You are not logged in',
+          })
+        );
+      }
+    } else {
+      dispatch(setActiveTask(res.data));
+    }
   }
 );
 
 export const addTask = createAsyncThunk(
   'tasks/addTask',
   async (props: IPropsAddTask, { rejectWithValue, dispatch }) => {
-    await tasksService.create(props);
+    const res = await tasksService.create(props);
 
-    dispatch(getBoard({ id: props.boardId }));
+    if (res.catch) {
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'You are not logged in',
+          })
+        );
+      }
+    } else {
+      dispatch(getBoard({ id: props.boardId }));
+    }
   }
 );
 
 export const updateTask = createAsyncThunk(
   'tasks/updateTask',
   async (props: IPropsUpdateTask, { rejectWithValue, dispatch }) => {
-    await tasksService.update(props);
+    const res = await tasksService.update(props);
 
-    dispatch(getBoard({ id: props.boardId }));
+    if (res.catch) {
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'You are not logged in',
+          })
+        );
+      }
+    } else {
+      dispatch(getBoard({ id: props.boardId }));
+    }
   }
 );
 
 export const deleteTask = createAsyncThunk(
   'tasks/deleteTask',
   async (props: IPropsDeleteTask, { rejectWithValue, dispatch }) => {
-    await tasksService.delete(props);
+    const res = await tasksService.delete(props);
 
-    dispatch(getBoard({ id: props.boardId }));
+    if (res.catch) {
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'You are not logged in',
+          })
+        );
+      }
+    } else {
+      dispatch(getBoard({ id: props.boardId }));
+    }
   }
 );
 
@@ -76,15 +134,27 @@ export const updateTaskDND = createAsyncThunk(
     const res = await tasksService.update(props);
 
     if (res.catch) {
-      dispatch(
-        setErrorsTasks({
-          dnd: {
-            code: res.data.statusCode,
-            message: res.data.message,
-          },
-        })
-      );
-      dispatch(getBoard({ id: props.boardId }));
+      if (res.data.statusCode === 401) {
+        dispatch(setIsAuth(false));
+        dispatch(setToken(null));
+
+        dispatch(
+          addAlert({
+            type: 'error',
+            message: 'You are not logged in',
+          })
+        );
+      } else {
+        dispatch(
+          setErrorsTasks({
+            dnd: {
+              code: res.data.statusCode,
+              message: res.data.message,
+            },
+          })
+        );
+        dispatch(getBoard({ id: props.boardId }));
+      }
     }
   }
 );
