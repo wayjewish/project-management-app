@@ -18,8 +18,9 @@ import { CloseIconBox, FormInputsBox } from './EditProfile.styled';
 import Loading from '../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setEditProfile, editProfileRequest } from '../../store/features/authSlice';
+import { editProfileRequest, setEditProfile } from '../../store/features/authSlice';
 import { addAlert } from '../../store/features/appSlice';
+import { getUser } from '../../store/features/usersSlice';
 
 interface IFormValues {
   name: string;
@@ -30,7 +31,8 @@ interface IFormValues {
 const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { editProfile } = useAppSelector((state) => state.auth);
+  const { userId, editProfile } = useAppSelector((state) => state.auth);
+  const users = useAppSelector((state) => state.users);
 
   const schema = yup
     .object({
@@ -50,12 +52,22 @@ const EditProfile = () => {
   });
 
   const onSubmit = (data: IFormValues) => {
-    dispatch(editProfileRequest(data));
+    console.log(data);
+
+    if (userId) {
+      dispatch(editProfileRequest({ id: userId, data }));
+    }
   };
 
   const handleClose = () => {
-    navigate(-1 as unknown as string, { replace: true });
+    navigate(-1);
   };
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUser({ id: userId }));
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (editProfile.isSuccess) {
@@ -71,7 +83,7 @@ const EditProfile = () => {
       dispatch(
         addAlert({
           type: 'success',
-          message: 'User created',
+          message: 'User updated',
         })
       );
     }
@@ -84,48 +96,53 @@ const EditProfile = () => {
       </CloseIconBox>
       <DialogTitle variant="h5">Edit Profile</DialogTitle>
       <DialogContent>
-        <Box id="signUp" component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-          <FormInputsBox>
-            <TextField
-              id="name"
-              type="text"
-              label="Name"
-              placeholder="Name"
-              {...register('name')}
-              required
-              error={errors.name ? true : false}
-              helperText={errors.name?.message}
-              variant="outlined"
-            />
-            <TextField
-              id="login"
-              type="text"
-              label="Login"
-              placeholder="Login"
-              {...register('login')}
-              required
-              error={errors.login ? true : false}
-              helperText={errors.login?.message}
-              variant="outlined"
-            />
-            <TextField
-              id="password"
-              type="password"
-              label="Password"
-              placeholder="Password"
-              {...register('password')}
-              required
-              error={errors.password ? true : false}
-              helperText={errors.password?.message}
-              variant="outlined"
-            />
-            {editProfile.error && (
-              <Typography component="p" color="error">
-                {editProfile.error.message}
-              </Typography>
-            )}
-          </FormInputsBox>
-        </Box>
+        {users.loading && <Loading />}
+        {!users.loading && users.user && (
+          <Box id="signUp" component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+            <FormInputsBox>
+              <TextField
+                id="name"
+                type="text"
+                label="Name"
+                placeholder="Name"
+                {...register('name')}
+                required
+                error={errors.name ? true : false}
+                helperText={errors.name?.message}
+                variant="outlined"
+                defaultValue={users.user.name}
+              />
+              <TextField
+                id="login"
+                type="text"
+                label="Login"
+                placeholder="Login"
+                {...register('login')}
+                required
+                error={errors.login ? true : false}
+                helperText={errors.login?.message}
+                variant="outlined"
+                defaultValue={users.user.login}
+              />
+              <TextField
+                id="password"
+                type="password"
+                label="Password"
+                placeholder="Password"
+                {...register('password')}
+                required
+                error={errors.password ? true : false}
+                helperText={errors.password?.message}
+                variant="outlined"
+              />
+              {editProfile.error && (
+                <Typography component="p" color="error">
+                  {editProfile.error.message}
+                </Typography>
+              )}
+            </FormInputsBox>
+          </Box>
+        )}
       </DialogContent>
       <DialogActions>
         {editProfile.isLoading ? (

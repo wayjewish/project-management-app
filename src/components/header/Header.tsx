@@ -12,15 +12,17 @@ import { useTranslation } from 'react-i18next';
 
 function HeaderComponent() {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const location = useLocation();
-  const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
-  const isAuth = useAppSelector((state) => state.auth.isAuth);
+  const pathname = location.pathname as string;
 
-  const exitUserProfile = () => {
+  const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
+
+  const dispatch = useAppDispatch();
+  const { isAuth } = useAppSelector((state) => state.auth);
+
+  const signOut = () => {
     dispatch(setIsAuth(false));
     dispatch(setToken(null));
-    localStorage.removeItem('token');
   };
 
   return (
@@ -33,21 +35,32 @@ function HeaderComponent() {
             </Typography>
           </Box>
           <BoxBtns>
-            {isAuth ? (
-              <>
-                <Button color="inherit" component={Link} to="/editprofile">
-                  EDIT PROFILE
-                </Button>
-                <Button color="inherit" component={Link} to="/" onClick={exitUserProfile}>
-                  Sing Out
-                </Button>
-              </>
-            ) : (
+            {isAuth && pathname === '/' && (
+              <Button color="inherit" component={Link} to="/boards">
+                Go to Main Page
+              </Button>
+            )}
+            {isAuth && pathname !== '/' && (
               <>
                 <Button
                   color="inherit"
                   component={Link}
-                  to="/singin"
+                  to="/editprofile"
+                  state={{ backgroundLocation: location }}
+                >
+                  Edit profile
+                </Button>
+                <Button color="inherit" component={Link} to="/" onClick={signOut}>
+                  Sing Out
+                </Button>
+              </>
+            )}
+            {!isAuth && (
+              <>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/signin"
                   state={{ backgroundLocation: location }}
                 >
                   {t('header.signin')}
@@ -55,7 +68,7 @@ function HeaderComponent() {
                 <Button
                   color="inherit"
                   component={Link}
-                  to="/singup"
+                  to="/signup"
                   state={{ backgroundLocation: location }}
                 >
                   {t('header.signup')}

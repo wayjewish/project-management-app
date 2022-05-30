@@ -18,7 +18,7 @@ import { CloseIconBox, FormInputsBox } from './SignIn.styled';
 import Loading from '../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setsignIn, signInRequest, TokenJWTDecoder } from '../../store/features/authSlice';
+import { setsignIn, signInRequest } from '../../store/features/authSlice';
 
 import { useTranslation } from 'react-i18next';
 
@@ -31,7 +31,7 @@ const SignIn = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { signIn, token } = useAppSelector((state) => state.auth);
+  const { isAuth, signIn } = useAppSelector((state) => state.auth);
 
   const schema = yup
     .object({
@@ -58,6 +58,12 @@ const SignIn = () => {
   };
 
   useEffect(() => {
+    if (isAuth) {
+      navigate('/boards', { replace: true });
+    }
+  }, []);
+
+  useEffect(() => {
     if (signIn.isSuccess) {
       handleClose();
       reset();
@@ -68,7 +74,6 @@ const SignIn = () => {
         })
       );
       navigate('/boards', { replace: true });
-      dispatch(TokenJWTDecoder(token));
     }
   }, [signIn.isSuccess]);
 

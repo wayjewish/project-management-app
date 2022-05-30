@@ -1,11 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import authService, { IPropsSignIn, IPropsSignUp } from '../../api/authService';
-import usersService from '../../api/usersService'
-
-import { IErrorApi, IUserData } from '../../api/types';
+import usersService, { IPropsUpdateUser } from '../../api/usersService';
+import { IErrorApi } from '../../api/types';
 import * as jose from 'jose';
-import { useAppSelector } from '../hooks';
-
 
 export type ILang = 'en' | 'ru';
 
@@ -33,7 +30,7 @@ export interface IAuthState {
 
 const initialState: IAuthState = {
   lang: localStorage.getItem('lang') ? (localStorage.getItem('lang') as ILang) : 'en',
-  isAuth: localStorage.getItem('isAuth') === 'true' ? true : false,
+  isAuth: false,
   token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
   userId: null,
   signIn: {
@@ -53,14 +50,6 @@ const initialState: IAuthState = {
   },
 };
 
-export const TokenJWTDecoder = createAsyncThunk(
-  'auth/userId',
-  async (token : string | null ,{ rejectWithValue, dispatch})=>{
-    const res = await jose.decodeJwt(token as string);
-    dispatch(setUserId(res.userId))
- }
-);
-
 export const signInRequest = createAsyncThunk(
   'auth/signIn',
   async (props: IPropsSignIn, { rejectWithValue, dispatch }) => {
@@ -77,6 +66,7 @@ export const signInRequest = createAsyncThunk(
       );
     } else {
       dispatch(setIsAuth(true));
+      dispatch(getUserIdFromToken(res.data.token));
       dispatch(setToken(res.data.token));
 
       dispatch(
@@ -114,11 +104,19 @@ export const signUpRequest = createAsyncThunk(
   }
 );
 
+export const getUserIdFromToken = createAsyncThunk(
+  'auth/userId',
+  async (token: string, { rejectWithValue, dispatch }) => {
+    const res = await jose.decodeJwt(token);
+    dispatch(setUserId(res.userId));
+    dispatch(setIsAuth(true));
+  }
+);
+
 export const editProfileRequest = createAsyncThunk(
   'auth/editProfile',
-  async (props:IUserData, { rejectWithValue, dispatch }) => {
-
-    const res = await usersService.update(userId, props);
+  async (props: IPropsUpdateUser, { rejectWithValue, dispatch }) => {
+    const res = await usersService.update(props);
 
     if (res.catch) {
       dispatch(
@@ -146,12 +144,15 @@ export const authSlice = createSlice({
   reducers: {
     setIsAuth: (state, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
-      localStorage.setItem('isAuth', String(action.payload));
     },
     setToken: (state, action: PayloadAction<string | null>) => {
       state.token = action.payload;
+
       if (typeof action.payload === 'string') {
         localStorage.setItem('token', action.payload);
+      }
+      if (!action.payload) {
+        localStorage.removeItem('token');
       }
     },
     setsignIn: (state, action) => {
@@ -166,20 +167,18 @@ export const authSlice = createSlice({
         ...action.payload,
       };
     },
-<<<<<<< HEAD
     setUserId: (state, action) => {
-      state.userId = action.payload
+      state.userId = action.payload;
     },
     setEditProfile: (state, action) => {
       state.editProfile = {
         ...state.editProfile,
         ...action.payload,
       };
-=======
+    },
     setLang: (state, action: PayloadAction<ILang>) => {
       state.lang = action.payload;
       localStorage.setItem('lang', action.payload);
->>>>>>> origin/develop
     },
   },
   extraReducers: {
@@ -204,10 +203,7 @@ export const authSlice = createSlice({
   },
 });
 
-<<<<<<< HEAD
-export const { setIsAuth, setToken, setsignIn, setsignUp, setUserId, setEditProfile  } = authSlice.actions;
-=======
-export const { setIsAuth, setToken, setsignIn, setsignUp, setLang } = authSlice.actions;
->>>>>>> origin/develop
+export const { setIsAuth, setToken, setsignIn, setsignUp, setUserId, setEditProfile, setLang } =
+  authSlice.actions;
 
 export default authSlice.reducer;

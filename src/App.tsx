@@ -19,7 +19,7 @@ import NotFoundPage from './pages/notFound/NotFoundPage';
 
 import Alerts from './components/alerts/Alerts';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { TokenJWTDecoder } from './store/features/authSlice';
+import { getUserIdFromToken } from './store/features/authSlice';
 
 function App() {
   const location = useLocation();
@@ -30,7 +30,9 @@ function App() {
   const { userId, token } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(TokenJWTDecoder(token));
+    if (token && !userId) {
+      dispatch(getUserIdFromToken(token));
+    }
   }, []);
 
   return (
@@ -40,9 +42,16 @@ function App() {
       <Main>
         <Routes location={state?.backgroundLocation || location}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/singin" element={<SignIn />} />
-          <Route path="/singup" element={<SignUp />} />
-          <Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route
+            path="/editprofile"
+            element={
+              <PrivateRoute>
+                <EditProfile />
+              </PrivateRoute>
+            }
+          />
 
           <Route
             path="/boards"
@@ -65,8 +74,9 @@ function App() {
 
         {state?.backgroundLocation && (
           <Routes>
-            <Route path="/singin" element={<SignIn />} />
-            <Route path="/singup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/editprofile" element={<EditProfile />} />
           </Routes>
         )}
       </Main>
