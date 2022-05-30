@@ -10,7 +10,6 @@ import {
   changeIsOpenModalTasks,
   setActiveTask,
   setDragTask,
-  updateTaskDND,
 } from '../../../../store/features/tasksSlice';
 
 import { useDrag, useDrop, XYCoord } from 'react-dnd';

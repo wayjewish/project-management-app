@@ -7,16 +7,11 @@ import {
   DialogActions,
   Box,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
   MenuItem,
   Button,
-  SelectChangeEvent,
 } from '@mui/material';
 import { CloseIconBox, FormInputsBox } from './TaskFormEdit.styled';
 import CloseIcon from '@mui/icons-material/Close';
-import { ITaskData } from '../../../../api/types';
 import Loading from '../../../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
@@ -34,6 +29,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
+import { useTranslation } from 'react-i18next';
+
 interface IFormValues {
   title: string;
   description: string;
@@ -41,6 +38,7 @@ interface IFormValues {
 }
 
 function TaskFormEdit() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { board } = useAppSelector((state) => state.board);
   const { activeColumn } = useAppSelector((state) => state.columns);
@@ -111,7 +109,7 @@ function TaskFormEdit() {
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
-      <DialogTitle variant="h5">Edit task</DialogTitle>
+      <DialogTitle variant="h5">{t('pages.board.tasks.forms.update.title')}</DialogTitle>
       <DialogContent>
         {users.loading && <Loading />}
         {!users.loading && users.users && (
@@ -120,8 +118,8 @@ function TaskFormEdit() {
               <TextField
                 id="title"
                 type="text"
-                label="Title"
-                placeholder="Title"
+                label={t('pages.board.tasks.forms.update.fields.title')}
+                placeholder={t('pages.board.tasks.forms.update.fields.title')}
                 {...register('title')}
                 required
                 error={errors.title ? true : false}
@@ -132,8 +130,8 @@ function TaskFormEdit() {
               <TextField
                 id="description"
                 type="text"
-                label="Description"
-                placeholder="Description"
+                label={t('pages.board.tasks.forms.update.fields.description')}
+                placeholder={t('pages.board.tasks.forms.update.fields.description')}
                 {...register('description')}
                 required
                 error={errors.description ? true : false}
@@ -145,8 +143,8 @@ function TaskFormEdit() {
                 select
                 id="userId"
                 type="text"
-                label="User"
-                placeholder="User"
+                label={t('pages.board.tasks.forms.update.fields.user')}
+                placeholder={t('pages.board.tasks.forms.update.fields.user')}
                 inputProps={register('userId')}
                 error={errors.userId ? true : false}
                 helperText={errors.userId?.message}
@@ -165,10 +163,10 @@ function TaskFormEdit() {
       </DialogContent>
       <DialogActions>
         <Button variant="contained" color="error" onClick={handleClickRemove}>
-          Remove
+          {t('button.remove')}
         </Button>
         <Button variant="contained" type="submit" form="editTask">
-          Update
+          {t('button.update')}
         </Button>
       </DialogActions>
     </Dialog>,
