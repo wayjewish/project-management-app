@@ -20,8 +20,8 @@
     "@mui/material": "^5.6.4",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.27.2",
-    "jose": "^4.8.1",
     "immutability-helper": "^3.1.1",
+    "jose": "^4.8.1",
     "react": "^18.1.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
@@ -29,8 +29,8 @@
     "react-hook-form": "^7.31.2",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
-    "yup": "^0.32.11",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
@@ -42,8 +42,8 @@
     "@svgr/webpack": "^6.2.1",
     "@types/react": "^18.0.8",
     "@types/react-dom": "^18.0.3",
-    "@types/validator": "^13.7.2",
     "@types/uuid": "^8.3.4",
+    "@types/validator": "^13.7.2",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.7.2",
     "@typescript-eslint/eslint-plugin": "^5.22.0",

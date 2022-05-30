@@ -18,7 +18,7 @@ import { CloseIconBox, FormInputsBox } from './SignIn.styled';
 import Loading from '../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setsignIn, signInRequest } from '../../store/features/authSlice';
+import { setsignIn, signInRequest, userIdRequest } from '../../store/features/authSlice';
 
 interface IFormValues {
   login: string;
@@ -28,7 +28,7 @@ interface IFormValues {
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { signIn } = useAppSelector((state) => state.auth);
+  const { signIn, token } = useAppSelector((state) => state.auth);
 
   const schema = yup
     .object({
@@ -65,6 +65,7 @@ const SignIn = () => {
         })
       );
       navigate('/boards', { replace: true });
+      dispatch(userIdRequest(token));
     }
   }, [signIn.isSuccess]);
 

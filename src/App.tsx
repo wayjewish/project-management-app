@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Global } from '@emotion/react';
+import * as jose from 'jose';
 import { GlobalStyles } from './Global.styled';
 import { AppBox, Main } from './App.styled';
 
@@ -16,10 +17,20 @@ import BoardPage from './pages/board/BoardPage';
 import NotFoundPage from './pages/notFound/NotFoundPage';
 
 import Alerts from './components/alerts/Alerts';
+import { useAppDispatch, useAppSelector } from './store/hooks';
+import { userIdRequest } from './store/features/authSlice';
 
 function App() {
   const location = useLocation();
+
   const state = location.state as { backgroundLocation?: Location };
+  const dispatch = useAppDispatch();
+
+  const { token } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(userIdRequest(token));
+  }, []);
 
   return (
     <AppBox>
@@ -58,7 +69,6 @@ function App() {
         )}
       </Main>
       <Footer />
-
       <Alerts />
     </AppBox>
   );

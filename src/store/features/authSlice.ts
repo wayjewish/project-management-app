@@ -1,8 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import authService, { IPropsSignIn, IPropsSignUp } from '../../api/authService';
 import { IErrorApi } from '../../api/types';
+import * as jose from 'jose';
+
 
 export interface IAuthState {
+  userId: string | null;
   isAuth: boolean;
   token: string | null;
   signIn: {
@@ -18,6 +21,7 @@ export interface IAuthState {
 }
 
 const initialState: IAuthState = {
+  userId: null,
   isAuth: localStorage.getItem('isAuth') === 'true' ? true : false,
   token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
   signIn: {
@@ -31,6 +35,14 @@ const initialState: IAuthState = {
     error: null,
   },
 };
+
+export const userIdRequest = createAsyncThunk(
+  'auth/userId',
+  async (token : string | null ,{ rejectWithValue, dispatch})=>{
+    const res = await jose.decodeJwt(token as string);
+    dispatch(setUserId(res.userId))
+ }
+);
 
 export const signInRequest = createAsyncThunk(
   'auth/signIn',
@@ -111,6 +123,9 @@ export const authSlice = createSlice({
         ...action.payload,
       };
     },
+    setUserId: (state, action) => {
+      state.userId = action.payload
+    },
   },
   extraReducers: {
     [signInRequest.pending.type]: (state) => {
@@ -128,6 +143,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setIsAuth, setToken, setsignIn, setsignUp } = authSlice.actions;
+export const { setIsAuth, setToken, setsignIn, setsignUp,setUserId } = authSlice.actions;
 
 export default authSlice.reducer;
