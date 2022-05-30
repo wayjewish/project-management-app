@@ -18,7 +18,7 @@ import { CloseIconBox, FormInputsBox } from './SignIn.styled';
 import Loading from '../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setsignIn, signInRequest, userIdRequest } from '../../store/features/authSlice';
+import { setsignIn, signInRequest, TokenJWTDecoder } from '../../store/features/authSlice';
 
 interface IFormValues {
   login: string;
@@ -65,7 +65,7 @@ const SignIn = () => {
         })
       );
       navigate('/boards', { replace: true });
-      dispatch(userIdRequest(token));
+      dispatch(TokenJWTDecoder(token));
     }
   }, [signIn.isSuccess]);
 

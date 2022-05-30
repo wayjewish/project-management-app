@@ -5,12 +5,20 @@ import { Box, useScrollTrigger, Typography, Button, Container } from '@mui/mater
 import { Header, HeaderWrap, BoxBtns } from './Header.styled';
 import SelectBox from './selectLang/SelectBox';
 import MobileMenu from './mobileMenu/MobileMenu';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setIsAuth, setToken } from '../../store/features/authSlice';
 
 function HeaderComponent() {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const scrollTrigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
   const isAuth = useAppSelector((state) => state.auth.isAuth);
+
+  const exitUserProfile = () => {
+    dispatch(setIsAuth(false));
+    dispatch(setToken(null));
+    localStorage.removeItem('token');
+  };
 
   return (
     <Header position="sticky" scrollTrigger={scrollTrigger} elevation={scrollTrigger ? 8 : 0}>
@@ -24,10 +32,10 @@ function HeaderComponent() {
           <BoxBtns>
             {isAuth ? (
               <>
-                <Button color="inherit" component={Link} to="/">
+                <Button color="inherit" component={Link} to="/editprofile">
                   EDIT PROFILE
                 </Button>
-                <Button color="inherit" component={Link} to="/">
+                <Button color="inherit" component={Link} to="/" onClick={exitUserProfile}>
                   Sing Out
                 </Button>
               </>

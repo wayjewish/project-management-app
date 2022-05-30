@@ -9,6 +9,7 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import SignIn from './components/signIn/SignIn';
 import SignUp from './components/signUp/SignUp';
+import EditProfile from './components/editProfile/EditProfile';
 
 import PrivateRoute from './components/privateRoute/PrivateRouter';
 import HomePage from './pages/home/HomePage';
@@ -18,7 +19,7 @@ import NotFoundPage from './pages/notFound/NotFoundPage';
 
 import Alerts from './components/alerts/Alerts';
 import { useAppDispatch, useAppSelector } from './store/hooks';
-import { userIdRequest } from './store/features/authSlice';
+import { TokenJWTDecoder } from './store/features/authSlice';
 
 function App() {
   const location = useLocation();
@@ -26,10 +27,10 @@ function App() {
   const state = location.state as { backgroundLocation?: Location };
   const dispatch = useAppDispatch();
 
-  const { token } = useAppSelector((state) => state.auth);
+  const { userId, token } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(userIdRequest(token));
+    dispatch(TokenJWTDecoder(token));
   }, []);
 
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/singin" element={<SignIn />} />
           <Route path="/singup" element={<SignUp />} />
+          <Route path="/editprofile" element={<EditProfile />} />
 
           <Route
             path="/boards"

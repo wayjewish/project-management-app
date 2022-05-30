@@ -14,22 +14,23 @@ import {
   Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { CloseIconBox, FormInputsBox } from './SignUp.styled';
+import { CloseIconBox, FormInputsBox } from './EditProfile.styled';
 import Loading from '../loading/Loading';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setsignUp, signUpRequest } from '../../store/features/authSlice';
+import { setEditProfile, editProfileRequest } from '../../store/features/authSlice';
 import { addAlert } from '../../store/features/appSlice';
+
 interface IFormValues {
   name: string;
   login: string;
   password: string;
 }
 
-const SignUp = () => {
+const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { signUp } = useAppSelector((state) => state.auth);
+  const { editProfile } = useAppSelector((state) => state.auth);
 
   const schema = yup
     .object({
@@ -49,20 +50,20 @@ const SignUp = () => {
   });
 
   const onSubmit = (data: IFormValues) => {
-    dispatch(signUpRequest(data));
+    dispatch(editProfileRequest(data));
   };
 
   const handleClose = () => {
-    navigate('/', { replace: true });
+    navigate(-1 as unknown as string, { replace: true });
   };
 
   useEffect(() => {
-    if (signUp.isSuccess) {
+    if (editProfile.isSuccess) {
       handleClose();
       reset();
 
       dispatch(
-        setsignUp({
+        setEditProfile({
           isSuccess: false,
         })
       );
@@ -74,14 +75,14 @@ const SignUp = () => {
         })
       );
     }
-  }, [signUp.isSuccess]);
+  }, [editProfile.isSuccess]);
 
   return (
     <Dialog fullWidth maxWidth="sm" open={true} onClose={handleClose}>
       <CloseIconBox>
         <CloseIcon cursor="pointer" onClick={handleClose} />
       </CloseIconBox>
-      <DialogTitle variant="h5">Sign In</DialogTitle>
+      <DialogTitle variant="h5">Edit Profile</DialogTitle>
       <DialogContent>
         <Box id="signUp" component="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <FormInputsBox>
@@ -118,20 +119,20 @@ const SignUp = () => {
               helperText={errors.password?.message}
               variant="outlined"
             />
-            {signUp.error && (
+            {editProfile.error && (
               <Typography component="p" color="error">
-                {signUp.error.message}
+                {editProfile.error.message}
               </Typography>
             )}
           </FormInputsBox>
         </Box>
       </DialogContent>
       <DialogActions>
-        {signUp.isLoading ? (
+        {editProfile.isLoading ? (
           <Loading />
         ) : (
           <Button variant="contained" type="submit" form="signUp">
-            Sign In
+            Edit
           </Button>
         )}
       </DialogActions>
@@ -139,4 +140,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default EditProfile;

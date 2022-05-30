@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import authService, { IPropsSignIn, IPropsSignUp } from '../../api/authService';
-import { IErrorApi } from '../../api/types';
+import usersService from '../../api/usersService'
+
+import { IErrorApi, IUserData } from '../../api/types';
 import * as jose from 'jose';
+import { useAppSelector } from '../hooks';
 
 
 export interface IAuthState {
@@ -14,6 +17,11 @@ export interface IAuthState {
     error: IErrorApi | null;
   };
   signUp: {
+    isLoading: boolean;
+    isSuccess: boolean;
+    error: IErrorApi | null;
+  };
+  editProfile: {
     isLoading: boolean;
     isSuccess: boolean;
     error: IErrorApi | null;
@@ -34,9 +42,14 @@ const initialState: IAuthState = {
     isSuccess: false,
     error: null,
   },
+  editProfile: {
+    isLoading: false,
+    isSuccess: false,
+    error: null,
+  },
 };
 
-export const userIdRequest = createAsyncThunk(
+export const TokenJWTDecoder = createAsyncThunk(
   'auth/userId',
   async (token : string | null ,{ rejectWithValue, dispatch})=>{
     const res = await jose.decodeJwt(token as string);
@@ -97,6 +110,32 @@ export const signUpRequest = createAsyncThunk(
   }
 );
 
+export const editProfileRequest = createAsyncThunk(
+  'auth/editProfile',
+  async (props:IUserData, { rejectWithValue, dispatch }) => {
+
+    const res = await usersService.update(userId, props);
+
+    if (res.catch) {
+      dispatch(
+        setEditProfile({
+          error: {
+            code: res.data.statusCode,
+            message: res.data.message,
+          },
+        })
+      );
+    } else {
+      dispatch(
+        setEditProfile({
+          isSuccess: true,
+          error: null,
+        })
+      );
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -126,6 +165,12 @@ export const authSlice = createSlice({
     setUserId: (state, action) => {
       state.userId = action.payload
     },
+    setEditProfile: (state, action) => {
+      state.editProfile = {
+        ...state.editProfile,
+        ...action.payload,
+      };
+    },
   },
   extraReducers: {
     [signInRequest.pending.type]: (state) => {
@@ -140,9 +185,15 @@ export const authSlice = createSlice({
     [signUpRequest.fulfilled.type]: (state) => {
       state.signIn.isLoading = false;
     },
+    [editProfileRequest.pending.type]: (state) => {
+      state.editProfile.isLoading = true;
+    },
+    [editProfileRequest.fulfilled.type]: (state) => {
+      state.editProfile.isLoading = false;
+    },
   },
 });
 
-export const { setIsAuth, setToken, setsignIn, setsignUp,setUserId } = authSlice.actions;
+export const { setIsAuth, setToken, setsignIn, setsignUp, setUserId, setEditProfile  } = authSlice.actions;
 
 export default authSlice.reducer;
